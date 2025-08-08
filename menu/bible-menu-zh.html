@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>📖 圣经目录</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+
+    .book {
+      margin-bottom: 10px;
+    }
+
+    .book-name {
+      font-weight: bold;
+      color: #2a4d69;
+      margin-bottom: 5px;
+    }
+
+    .chapters {
+      margin-left: 20px;
+      margin-top: 5px;
+    }
+
+    .chapters a {
+      margin-right: 6px;
+      color: #444;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .chapters a:hover {
+      color: #0b7dda;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📖 中文圣经目录（CUV）</h2>
+
+  <div id="bible-menu"></div>
+
+  <script>
+    const books = [
+      ["创世记", "genesis", 50], ["出埃及记", "exodus", 40], ["利未记", "leviticus", 27],
+      ["民数记", "numbers", 36], ["申命记", "deuteronomy", 34], ["约书亚记", "joshua", 24],
+      ["士师记", "judges", 21], ["路得记", "ruth", 4], ["撒母耳记上", "1samuel", 31],
+      ["撒母耳记下", "2samuel", 24], ["列王纪上", "1kings", 22], ["列王纪下", "2kings", 25],
+      ["历代志上", "1chronicles", 29], ["历代志下", "2chronicles", 36], ["以斯拉记", "ezra", 10],
+      ["尼希米记", "nehemiah", 13], ["以斯帖记", "esther", 10], ["约伯记", "job", 42],
+      ["诗篇", "psalms", 150], ["箴言", "proverbs", 31], ["传道书", "ecclesiastes", 12],
+      ["雅歌", "songofsolomon", 8], ["以赛亚书", "isaiah", 66], ["耶利米书", "jeremiah", 52],
+      ["耶利米哀歌", "lamentations", 5], ["以西结书", "ezekiel", 48], ["但以理书", "daniel", 12],
+      ["何西阿书", "hosea", 14], ["约珥书", "joel", 3], ["阿摩司书", "amos", 9],
+      ["俄巴底亚书", "obadiah", 1], ["约拿书", "jonah", 4], ["弥迦书", "micah", 7],
+      ["那鸿书", "nahum", 3], ["哈巴谷书", "habakkuk", 3], ["西番雅书", "zephaniah", 3],
+      ["哈该书", "haggai", 2], ["撒迦利亚书", "zechariah", 14], ["玛拉基书", "malachi", 4],
+      ["马太福音", "matthew", 28], ["马可福音", "mark", 16], ["路加福音", "luke", 24],
+      ["约翰福音", "john", 21], ["使徒行传", "acts", 28], ["罗马书", "romans", 16],
+      ["哥林多前书", "1corinthians", 16], ["哥林多后书", "2corinthians", 13],
+      ["加拉太书", "galatians", 6], ["以弗所书", "ephesians", 6], ["腓立比书", "philippians", 4],
+      ["歌罗西书", "colossians", 4], ["帖撒罗尼迦前书", "1thessalonians", 5],
+      ["帖撒罗尼迦后书", "2thessalonians", 3], ["提摩太前书", "1timothy", 6],
+      ["提摩太后书", "2timothy", 4], ["提多书", "titus", 3], ["腓利门书", "philemon", 1],
+      ["希伯来书", "hebrews", 13], ["雅各书", "james", 5], ["彼得前书", "1peter", 5],
+      ["彼得后书", "2peter", 3], ["约翰一书", "1john", 5], ["约翰二书", "2john", 1],
+      ["约翰三书", "3john", 1], ["犹大书", "jude", 1], ["启示录", "revelation", 22]
+    ];
+
+    const menuDiv = document.getElementById('bible-menu');
+
+    books.forEach(([cnName, filePrefix, chapters]) => {
+      const bookDiv = document.createElement("div");
+      bookDiv.className = "book";
+
+      const bookTitle = document.createElement("div");
+      bookTitle.className = "book-name";
+      bookTitle.textContent = cnName;
+
+      const chapDiv = document.createElement("div");
+      chapDiv.className = "chapters";
+
+      for (let i = 1; i <= chapters; i++) {
+        const link = document.createElement("a");
+        const num = String(i).padStart(3, '0');
+        link.href = `${filePrefix}${num}.html`;
+        link.textContent = i;
+        chapDiv.appendChild(link);
+      }
+
+      bookDiv.appendChild(bookTitle);
+      bookDiv.appendChild(chapDiv);
+      menuDiv.appendChild(bookDiv);
+    });
+  </script>
+
+</body>
+</html>
