@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>창세기 17장 | 쉬운성경</title>
+<style>
+  :root{--text:#222;--line:#e6e6e6;--panel:#fafafa;--page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;}
+  body{margin:0;background:#fff;color:var(--text);font-family:"Malgun Gothic",sans-serif;-webkit-user-select:none;user-select:none;}
+  .top-space{height:48px;}
+  .bar{max-width:var(--bar-max);margin:0 auto;padding:0 var(--bar-pad);}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .left,.right{display:flex;align-items:center;gap:8px;}
+  .icon{font-size:18px}
+  .book{width:140px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
+  .chap{width:60px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center;}
+  .search{width:180px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
+  .search2{width:200px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
+  .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px;}
+  .page{width:min(92vw,var(--page-max));margin:0 auto;padding:0 var(--page-pad);}
+  .title-band{display:flex;justify-content:center;margin-bottom:14px;}
+  .title-pack{display:inline-block;text-align:center;}
+  .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
+  .nav-under{display:flex;justify-content:space-between;gap:8px;margin-top:8px;}
+  .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer;}
+  .wrap{max-width:1200px;margin:0 auto 90px;display:flex;gap:24px;align-items:flex-start;}
+  .col-left{flex:7;min-width:0}
+  .col-right{flex:3;min-width:280px;display:flex;flex-direction:column;gap:14px}
+  .version{font-weight:800;margin:2px 0 12px;display:inline-flex;align-items:center;gap:6px}
+  .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555;}
+  .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10;}
+  .note{color:#777;font-size:14px;margin:8px 0 14px;}
+  .panel{background:var(--panel);border:1px solid #d8d8d8;border-radius:8px;overflow:hidden}
+  .panel .ph{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #eaeaea;background:#f6f6f6;font-weight:700;font-size:13px}
+  .panel .ph .btns button{border:none;background:transparent;cursor:pointer;font-size:12px;color:#666;padding:2px 4px}
+  .panel .body{padding:10px;min-height:100px}
+  .panel .body[contenteditable="true"]{outline:none}
+  #archive{height:140px}
+  #libre{min-height:280px}
+  .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
+  .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
+  textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit;}
+  textarea:focus{outline:2px solid #a9c7ff}
+</style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false">
+<div class="top-space"></div>
+
+<div class="bar">
+  <div class="topbar">
+    <div class="left">
+      <span class="icon">📖</span>
+      <input class="book" type="text" value="창세기" readonly>
+      <input class="chap" type="text" value="17" readonly>
+    </div>
+    <div class="right">
+      <span class="icon">🔍</span>
+      <input class="search"  type="text" placeholder="본문 검색">
+      <input class="search2" type="text" placeholder="예) 십자가 / 부활">
+    </div>
+  </div>
+  <hr class="divider">
+</div>
+
+<div class="page">
+  <div class="title-band">
+    <div class="title-pack">
+      <h1>창세기 17장</h1>
+      <div class="nav-under">
+        <button class="nav-btn" id="prevBtn" aria-label="이전 장">←</button>
+        <button class="nav-btn" id="nextBtn" aria-label="다음 장">→</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="col-left">
+      <div class="version">쉬운성경 <span class="tip">?</span></div>
+      <div id="verses" class="placeholder">
+        ※ 이 장의 말씀은 아직 비워두었습니다. 나중에 각 절을 추가하고 필사칸을 붙여 넣으세요.
+      </div>
+    </div>
+
+    <aside class="col-right">
+      <section id="archive" class="panel">
+        <div class="ph">아카이브
+          <div class="btns">
+            <button type="button" data-delta="-40" title="위로 줄이기">▲</button>
+            <button type="button" data-delta="40"  title="아래로 늘리기">▼</button>
+          </div>
+        </div>
+        <div class="body" contenteditable="true" spellcheck="false"></div>
+      </section>
+
+      <section id="libre" class="panel">
+        <div class="ph">리브레(자유 메모)</div>
+        <div class="body" contenteditable="true" spellcheck="false"></div>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<button class="mic" title="음성 입력">🎤</button>
+
+<script>
+  document.addEventListener('paste', e=>{{ if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT'||e.target.isContentEditable) e.preventDefault(); }});
+  (function(){{ const arch=document.getElementById('archive'); document.querySelectorAll('#archive .btns button').forEach(b=>{{ b.addEventListener('click', ()=>{{ const d=parseInt(b.dataset.delta,10); const h=Math.max(80, arch.offsetHeight+d); arch.style.height=h+'px'; }}); }}); }})();
+  (function(){{ const mic=document.querySelector('.mic'); mic.addEventListener('click', ()=>{{ try{{ const R=new(window.SpeechRecognition||window.webkitSpeechRecognition)(); R.lang='ko-KR'; R.onresult=e=>{{ const t=document.activeElement; if(t&&t.tagName==='TEXTAREA'){{ t.value+=(t.value?' ':'')+e.results[0][0].transcript; }} else if(document.activeElement&&document.activeElement.isContentEditable){{ document.execCommand('insertText', false, e.results[0][0].transcript+' '); }}; }}; R.start(); }}catch(_ ){{ alert('이 브라우저에서는 음성 입력을 지원하지 않습니다.'); }} }}); }})();
+  document.getElementById('prevBtn').onclick=()=>location.href='changsegi016.html';
+  document.getElementById('nextBtn').onclick=()=>location.href='changsegi018.html';
+</script>
+</body>
+</html>
