@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>성경 필사 인덱스</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>믿음으로 쓰는 성경 | 홈</title>
 <style>
-  body{font-family:"Malgun Gothic",sans-serif;margin:40px;line-height:1.8}
-  a{color:#0645ad;text-decoration:none}
-  a:hover{text-decoration:underline}
-  ul{margin:10px 0 0 18px}
-  .note{color:#666;font-size:14px;margin-top:16px}
+  :root { --max: 1100px; --brand:#1b4; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Malgun Gothic",sans-serif;color:#222;background:#fff}
+  header{border-bottom:1px solid #e8e8e8;background:#fafafa}
+  .wrap{max-width:var(--max);margin:0 auto;padding:24px 18px}
+  h1{margin:0 0 8px;font-size:28px}
+  p.lead{margin:6px 0 0;color:#555}
+  main .card{border:1px solid #e8e8e8;border-radius:12px;padding:18px;margin:16px 0}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:12px}
+  a.btn{display:inline-block;text-align:center;padding:12px 18px;border-radius:10px;border:1px solid #dcdcdc;text-decoration:none}
+  a.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+  a.btn:hover{filter:brightness(.96)}
+  footer{color:#777;border-top:1px solid #eee;margin-top:24px}
+  small{font-size:12px}
 </style>
 </head>
 <body>
-  <h1>성경 필사 (쉬운성경)</h1>
-  <h3>창세기</h3>
-  <ul>
-    <li><a href="changsegi001.html">창세기 1장</a></li>
-    <li><a href="changsegi002.html">창세기 2장 (템플릿)</a></li>
-  </ul>
-  <p class="note">※ 현대역 본문은 저작권 대상일 수 있습니다. 공개 전 권리자 승인을 확인하세요.</p>
+  <header>
+    <div class="wrap">
+      <h1>믿음으로 쓰는 성경</h1>
+      <p class="lead">필사 · 묵상 · 아카이브</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="card">
+      <h2 style="margin:0 0 10px">바로 시작하기</h2>
+      <div class="grid">
+        <!-- 창세기 1장으로 연결 -->
+        <a class="btn primary" href="changsegi001.html">창세기 1장 열기</a>
+        <!-- 필요시 2장 파일 추가되면 링크만 바꾸기 -->
+        <a class="btn" href="changsegi002.html">창세기 2장 (템플릿)</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px">메뉴(언어)</h2>
+      <div class="grid">
+        <a class="btn" href="menu/bible-menu-ko.html">성경목차 (한국어)</a>
+        <a class="btn" href="menu/bible-menu-en.html">Bible Menu (English)</a>
+        <a class="btn" href="menu/bible-menu-es.html">Índice bíblico (Español)</a>
+        <a class="btn" href="menu/bible-menu-zh.html">圣经目录 (中文)</a>
+      </div>
+      <small>※ 메뉴 파일이 루트에도 있다면 <code>menu/</code> 폴더 안 것만 남기고 루트의 중복 파일은 삭제하세요.</small>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap"><small>© 2025 faith-scripture · 본문은 저작권 대상일 수 있습니다. 공개 전 권리자 승인을 확인하세요.</small></div>
+  </footer>
 </body>
 </html>
