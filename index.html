@@ -1,59 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>믿음으로 쓰는 성경 | 홈</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>믿음으로 쓰는 성경</title>
 <style>
-  :root { --max: 1100px; --brand:#1b4; }
+  :root{
+    --maxw:1060px; --pad:16px; --line:#e9e9ef; --ink:#111; --hero:#eaf2ff;
+  }
   *{box-sizing:border-box}
-  body{margin:0;font-family:"Malgun Gothic",sans-serif;color:#222;background:#fff}
-  header{border-bottom:1px solid #e8e8e8;background:#fafafa}
-  .wrap{max-width:var(--max);margin:0 auto;padding:24px 18px}
-  h1{margin:0 0 8px;font-size:28px}
-  p.lead{margin:6px 0 0;color:#555}
-  main .card{border:1px solid #e8e8e8;border-radius:12px;padding:18px;margin:16px 0}
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:12px}
-  a.btn{display:inline-block;text-align:center;padding:12px 18px;border-radius:10px;border:1px solid #dcdcdc;text-decoration:none}
-  a.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
-  a.btn:hover{filter:brightness(.96)}
-  footer{color:#777;border-top:1px solid #eee;margin-top:24px}
-  small{font-size:12px}
+  body{margin:0;font:16px/1.6 system-ui, Apple SD Gothic Neo, Segoe UI, sans-serif;color:var(--ink);background:#fff}
+
+  /* 상단 히어로 */
+  .hero{background:var(--hero)}
+  .hero .wrap{max-width:var(--maxw);margin:0 auto;padding:96px var(--pad) 34px}
+  h1{margin:0;text-align:center;font-size:36px;font-weight:800;letter-spacing:.2px}
+  .subtitle{margin:10px 0 0;text-align:center;color:#6b7280}
+  .heroSpacer{height:42px}
+
+  /* 본문 카드 */
+  .wrap2{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 8px 22px rgba(0,0,0,.05);
+    padding:22px;margin-top:18px;display:grid;gap:24px;grid-template-columns:1fr 1fr;
+  }
+  .leftPanel{
+    border:2px dashed #c8d1ee;border-radius:14px;min-height:380px;padding:18px;
+    display:flex;align-items:center;justify-content:center;text-align:center;color:#475569;background:#fbfdff
+  }
+  .leftPanel .title{font-weight:800;margin-bottom:8px}
+
+  .rightPanel{padding:6px}
+  .label{display:inline-block;margin-bottom:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:#4b5563;background:#fff}
+
+  /* 버튼 공통 */
+  .row{display:flex;flex-wrap:wrap;gap:14px;margin:6px 0 18px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 20px;border:2px solid var(--line);border-radius:999px;
+    font-size:18px;font-weight:800;background:#fff;cursor:pointer;user-select:none;
+    box-shadow:0 2px 0 rgba(0,0,0,.02);
+  }
+  .btn:hover{background:#f8fafc}
+  .btn:active{transform:translateY(1px)}
+  .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+
+  @media (max-width:860px){
+    .card{grid-template-columns:1fr}
+    .leftPanel{min-height:260px}
+    .btn{width:100%;justify-content:center}
+  }
 </style>
 </head>
 <body>
-  <header>
+  <div class="hero">
     <div class="wrap">
       <h1>믿음으로 쓰는 성경</h1>
-      <p class="lead">필사 · 묵상 · 아카이브</p>
+      <p class="subtitle">말씀을 따라 읽고 쓰고 묵상하며</p>
     </div>
-  </header>
+  </div>
+  <div class="heroSpacer" aria-hidden="true"></div>
 
-  <main class="wrap">
-    <div class="card">
-      <h2 style="margin:0 0 10px">바로 시작하기</h2>
-      <div class="grid">
-        <!-- 창세기 1장으로 연결 -->
-        <a class="btn primary" href="changsegi001.html">창세기 1장 열기</a>
-        <!-- 필요시 2장 파일 추가되면 링크만 바꾸기 -->
-        <a class="btn" href="changsegi002.html">창세기 2장 (템플릿)</a>
+  <div class="wrap2">
+    <section class="card">
+      <!-- 좌측: 소개/이미지 영역(공간 확보) -->
+      <div class="leftPanel" aria-label="소개/이미지 영역">
+        <div>
+          <div class="title">소개 / 이미지 영역</div>
+          <div>여기에 프로젝트 소개, 사용법, QR 등을 배치합니다.</div>
+        </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h2 style="margin:0 0 10px">메뉴(언어)</h2>
-      <div class="grid">
-        <a class="btn" href="menu/bible-menu-ko.html">성경목차 (한국어)</a>
-        <a class="btn" href="menu/bible-menu-en.html">Bible Menu (English)</a>
-        <a class="btn" href="menu/bible-menu-es.html">Índice bíblico (Español)</a>
-        <a class="btn" href="menu/bible-menu-zh.html">圣经目录 (中文)</a>
+      <!-- 우측: 언어 → 버전 -->
+      <div class="rightPanel">
+        <span class="label">언어</span>
+        <div id="langRow" class="row" role="listbox" aria-label="언어">
+          <button class="btn" data-lang="ko">한국어</button>
+          <button class="btn" data-lang="zh">中文</button>
+          <button class="btn" data-lang="es">Español</button>
+          <button class="btn" data-lang="en">English</button>
+        </div>
+
+        <span class="label">버전</span>
+        <div id="verRow" class="row" role="listbox" aria-label="버전">
+          <!-- 언어 선택 전엔 비어 있음 -->
+        </div>
       </div>
-      <small>※ 메뉴 파일이 루트에도 있다면 <code>menu/</code> 폴더 안 것만 남기고 루트의 중복 파일은 삭제하세요.</small>
-    </div>
-  </main>
+    </section>
 
-  <footer>
-    <div class="wrap"><small>© 2025 faith-scripture · 본문은 저작권 대상일 수 있습니다. 공개 전 권리자 승인을 확인하세요.</small></div>
-  </footer>
+    <div style="height:44px"></div>
+  </div>
+
+  <script>
+    // 언어별 버전(빈 칸 포함). url이 비어 있으면 비활성(회색) 처리됩니다.
+    const ROUTES = {
+      ko: [
+        { name: "쉬운성경", url: "./menu/bible-menu-ko.html?open=genesis" },
+        { name: "", url: "" },           // 빈 칸(준비중)
+        { name: "", url: "" }            // 빈 칸(준비중)
+      ],
+      zh: [
+        { name: "和合本", url: "" },              // 빈 칸(준비중)
+        { name: "CUV", url: "" }                  // 빈 칸(준비중)
+      ],
+      es: [
+        { name: "NVI", url: "./menu/bible-menu-es.html?open=matthew" },
+        { name: "", url: "" }         // 빈 칸(준비중)
+      ],
+      en: [
+        { name: "NIV", url: "" },                 // 빈 칸(준비중)
+        { name: "", url: "" }                  // 빈 칸(준비중)
+      ]
+    };
+
+    const langRow = document.getElementById('langRow');
+    const verRow  = document.getElementById('verRow');
+
+    // 언어 선택 → 해당 언어의 버전 버튼 렌더
+    langRow.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn'); if(!btn) return;
+      const lang = btn.dataset.lang;
+      const versions = ROUTES[lang] || [];
+      verRow.innerHTML = versions.map(v=>{
+        const disabled = !v.url ? 'aria-disabled="true"' : '';
+        const urlAttr  = v.url ? `data-url="${v.url}"` : '';
+        return `<button class="btn" ${urlAttr} ${disabled}>${v.name}</button>`;
+      }).join('');
+      verRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+
+    // 버전 클릭 → 해당 메뉴 페이지로 이동
+    verRow.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn'); if(!btn) return;
+      const url = btn.getAttribute('data-url'); if(url) location.href = url;
+    });
+  </script>
 </body>
 </html>
