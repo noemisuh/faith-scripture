@@ -6,27 +6,23 @@
 <title>창세기 2장 | 쉬운성경</title>
 <style>
   :root{
-    --text:#222;--line:#e6e6e6;--panel:#fafafa;--page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;
-    /* ★ 2장 기준 아카이브 고정폭 */
-    --archive-width:720px;
+    --text:#222;--line:#e6e6e6;--panel:#fafafa;
+    --page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;
+    --archive-width: clamp(360px, 30vw, 480px);
   }
   body{margin:0;background:#fff;color:var(--text);font-family:"Malgun Gothic",sans-serif;-webkit-user-select:none;user-select:none;}
-  /* ★ 상단 칸(1장 기준) */
   .top-space{height:48px;}
 
   .bar{max-width:var(--bar-max);margin:0 auto;padding:0 var(--bar-pad);}
   .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .left,.right{display:flex;align-items:center;gap:8px;}
   .icon{font-size:18px;}
-  /* ★ 흰색 검색 아이콘(1장과 동일) */
   .icon.search-icon{
     display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:6px;
-    background:#222;color:#fff;
+    width:28px;height:28px;border-radius:6px;background:#222;color:#fff;
   }
   .icon.search-icon svg{width:18px;height:18px;display:block;}
 
-  /* ★ 목차·검색 폭(1장 기준) */
   .book{width:105px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
   .chap{width:30px; padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center}
   .search{width:120px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
@@ -37,19 +33,18 @@
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
   .title-pack{display:inline-block;text-align:center;}
   .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
-  /* ★ 화살표는 중앙 정렬(1장과 동일) */
   .nav-under{display:flex;justify-content:center;gap:24px;margin-top:8px}
   .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer}
   .nav-btn:focus{outline:2px solid #cfe0ff;border-radius:6px}
 
-  /* ★ 레이아웃: 본문 1fr | 아카이브 고정폭 */
   .wrap{
     max-width:1200px;margin:0 auto 90px;
-    display:grid;grid-template-columns: 1fr var(--archive-width);
+    display:grid;grid-template-columns:minmax(0,1fr) var(--archive-width);
     gap:24px;align-items:flex-start;
   }
   .col-left{min-width:0}
-  aside.col-right{width:var(--archive-width)}
+  aside.col-right{width:var(--archive-width);min-width:0;display:flex;flex-direction:column;gap:14px}
+
   @media (max-width:960px){
     .wrap{grid-template-columns:1fr}
     aside.col-right{width:auto}
@@ -58,23 +53,17 @@
   .version{display:block;margin:2px 0 12px;text-align:left}
   .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555;}
   .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10;}
-
   .panel{background:var(--panel);border:1px solid #d8d8d8;border-radius:8px;overflow:hidden}
   .panel .ph{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #eaeaea;background:#f6f6f6;font-weight:700;font-size:13px}
   .panel .ph .btns button{border:none;background:transparent;cursor:pointer;font-size:12px;color:#666;padding:2px 4px}
   .panel .body{padding:10px;min-height:100px}
   .panel .body[contenteditable="true"]{outline:none}
 
-  /* ★ 아카이브 높이 초기값(1장과 동일) */
-  #archive{height:140px}
+  #archive{height:180px}
   #libre{min-height:280px}
 
-  /* 마이크 버튼(1장과 동일) */
-  .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
-
   .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
-  textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit;}
-  textarea:focus{outline:2px solid #a9c7ff}
+  .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
 </style>
 </head>
 <body oncontextmenu="return false" ondragstart="return false">
@@ -88,7 +77,6 @@
       <input class="chap" type="text" value="2" readonly>
     </div>
     <div class="right">
-      <!-- ★ 흰색 SVG 돋보기 -->
       <span class="icon search-icon" aria-hidden="true" title="본문 검색">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
@@ -129,13 +117,11 @@
             <button type="button" data-delta="40"  title="아래로 늘리기">▼</button>
           </div>
         </div>
-        <!-- ★ 자동저장 위해 id 부여 -->
         <div class="body" id="archiveBody" contenteditable="true" spellcheck="false"></div>
       </section>
 
       <section id="libre" class="panel">
         <div class="ph">리브레(자유 메모)</div>
-        <!-- ★ 자동저장 위해 id 부여 -->
         <div class="body" id="libreBody" contenteditable="true" spellcheck="false"></div>
       </section>
     </aside>
@@ -146,7 +132,6 @@
 
 <script>
 (() => {
-  // ===== 붙여넣기 방지(입력/편집 영역만) =====
   document.addEventListener('paste', (e) => {
     const t = e.target;
     if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT' || t.isContentEditable)) {
@@ -154,7 +139,6 @@
     }
   });
 
-  // ===== 아카이브 높이 조절 =====
   const arch = document.getElementById('archive');
   if (arch) {
     arch.querySelectorAll('.btns button').forEach((b) => {
@@ -166,14 +150,12 @@
     });
   }
 
-  // ===== 장 번호/경로 (1장과 동일한 방식)
   const m   = location.pathname.match(/changsegi(\d{3})\.html$/);
   const ch  = m ? parseInt(m[1],10) : 2;
-  const dir = location.pathname.replace(/[^/]+$/, '');   // …/korean_easy/
-  const root= dir.replace(/korean_easy\/$/, '');         // 루트
+  const dir = location.pathname.replace(/[^/]+$/, '');
+  const root= dir.replace(/korean_easy\/$/, '');
   const fileOf = (n) => `changsegi${String(n).padStart(3,'0')}.html`;
 
-  // ← / → : aria-label 또는 기본 규칙
   function linkify(btn, fallback) {
     if (!btn) return fallback;
     let raw = (btn.dataset.href || btn.getAttribute('aria-label') || '').trim();
@@ -190,9 +172,7 @@
   if (nextBtn) nextBtn.onclick = () =>
     location.href = linkify(nextBtn, dir + fileOf(ch+1));
 
-  // ===== 자동 저장/복원(우측 패널 + 추후 textarea)
   const key = (v) => `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`;
-
   ['archiveBody','libreBody'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -200,7 +180,6 @@
     if (saved !== null) el.innerHTML = saved;
     el.addEventListener('input', () => localStorage.setItem(key(id), el.innerHTML));
   });
-
   (function bindTA(root=document){
     root.querySelectorAll('textarea').forEach((ta,i)=>{
       const k = key('v' + (ta.dataset.verse || (i+1)));
@@ -210,7 +189,6 @@
     });
   })();
 
-  // ===== 마이크
   const micBtn = document.getElementById('micBtn');
   if (micBtn){
     micBtn.addEventListener('click', ()=>{
@@ -218,8 +196,6 @@
       if (!SR){ alert('이 브라우저는 음성 인식을 지원하지 않습니다.'); return; }
       const rec = new SR();
       rec.lang='ko-KR'; rec.interimResults=false; rec.continuous=false; rec.maxAlternatives=1;
-
-      rec.onerror = e => console.warn('STT error:', e.error||e);
       rec.onresult= e => {
         const t = document.activeElement;
         const txt = e.results[0][0].transcript;
