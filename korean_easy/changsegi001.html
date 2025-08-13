@@ -11,22 +11,30 @@
   .bar{max-width:var(--bar-max);margin:0 auto;padding:0 var(--bar-pad);}
   .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .left,.right{display:flex;align-items:center;gap:8px;}
-  .icon{font-size:18px}
-  .book{width:140px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
-  .chap{width:60px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center;}
-  .search{width:180px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
-  .search2{width:200px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
+  .icon{font-size:18px;}
+  .icon.search-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:6px;
+  background:#222;color:#fff; /* 흰색 아이콘 */
+  }
+  .icon.search-icon svg{width:18px;height:18px;display:block;}
+  .book{width:105px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}   /* 140px → 3/4 */
+  .chap{width:30px; padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center} /* 60px → 1/2 */
+  .search{width:120px;padding:6px 8px;border:1px solid #ccc;border-radius:4px} /* 180px → 2/3 */
+  .search2{width:134px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}/* 200px → 2/3 */
   .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px;}
   .page{width:min(92vw,var(--page-max));margin:0 auto;padding:0 var(--page-pad);}
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
   .title-pack{display:inline-block;text-align:center;}
   .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
-  .nav-under{display:flex;justify-content:space-between;gap:8px;margin-top:8px;}
-  .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer;}
-  .wrap{max-width:1200px;margin:0 auto 90px;display:flex;gap:24px;align-items:flex-start;}
+  /* 제목 아래 화살표: 중앙 배치 + 적당한 간격 */
+  .nav-under{display:flex;justify-content:center;gap:24px;margin-top:8px}
+  .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer}
+  .nav-btn:focus{outline:2px solid #cfe0ff;border-radius:6px}
+  /* 왼쪽 본문 컬럼과 라인 맞춤 */
+  .wrap{max-width:1200px;margin:0 auto 90px;display:flex;gap:24px;align-items:flex-start}
   .col-left{flex:7;min-width:0}
-  .col-right{flex:3;min-width:280px;display:flex;flex-direction:column;gap:14px}
-  .version{font-weight:800;margin:2px 0 12px;display:inline-flex;align-items:center;gap:6px}
+  .version{display:block;margin:2px 0 12px;text-align:left}
   .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555;}
   .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10;}
   .note{color:#777;font-size:14px;margin:8px 0 14px;}
@@ -41,7 +49,11 @@
   .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
   textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit;}
   textarea:focus{outline:2px solid #a9c7ff}
-</style>
+  .bubble{position:fixed;right:90px;bottom:32px;max-width:320px;background:#111;color:#fff;
+  border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.4;display:none;z-index:2000;pointer-events:none}
+  .bubble.show{display:block}
+  .bubble.live{display:block}
+ </style>
 </head>
 <body oncontextmenu="return false" ondragstart="return false">
 <div class="top-space"></div>
@@ -53,8 +65,13 @@
       <input class="book" type="text" value="창세기" readonly>
       <input class="chap" type="text" value="1" readonly>
     </div>
-    <div class="right">
-      <span class="icon">🔍</span>
+      <div class="right">
+      <span class="icon search-icon" aria-hidden="true" title="본문 검색">
+       <svg viewBox="0 0 24 24" aria-hidden="true">
+       <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+       <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+     </svg>
+   </span>
       <input class="search"  type="text" placeholder="본문 검색">
       <input class="search2" type="text" placeholder="예) 십자가 / 부활">
     </div>
@@ -67,12 +84,11 @@
     <div class="title-pack">
       <h1>창세기 1장</h1>
       <div class="nav-under">
-        <button class="nav-btn" id="prevBtn" aria-label="이전 장">←</button>
-        <button class="nav-btn" id="nextBtn" aria-label="다음 장">→</button>
-      </div>
-    </div>
+        <button class="nav-btn" id="prevBtn" aria-label="index" type="button">←</button>
+        <button class="nav-btn" id="nextBtn" aria-label="changsegi002" type="button">→</button>
+     </div>
   </div>
-
+  </div>  
   <div class="wrap">
     <div class="col-left">
       <div class="version">쉬운성경 <span class="tip">?</span></div>
@@ -81,33 +97,154 @@
       </div>
     </div>
 
-    <aside class="col-right">
-      <section id="archive" class="panel">
-        <div class="ph">아카이브
-          <div class="btns">
-            <button type="button" data-delta="-40" title="위로 줄이기">▲</button>
-            <button type="button" data-delta="40"  title="아래로 늘리기">▼</button>
-          </div>
-        </div>
-        <div class="body" contenteditable="true" spellcheck="false"></div>
-      </section>
-
-      <section id="libre" class="panel">
-        <div class="ph">리브레(자유 메모)</div>
-        <div class="body" contenteditable="true" spellcheck="false"></div>
-      </section>
-    </aside>
+<aside class="col-right">
+  <section id="archive" class="panel">
+    <div class="ph">아카이브
+      <div class="btns">
+        <button type="button" data-delta="-40" title="위로 줄이기">▲</button>
+        <button type="button" data-delta="40"  title="아래로 늘리기">▼</button>
+      </div>
+    </div>
+    <div class="body" id="archiveBody" contenteditable="true" spellcheck="false"></div>
+  </section>
+  <section id="libre" class="panel">
+    <div class="ph">리브레(자유 메모)</div>
+    <div class="body" id="libreBody" contenteditable="true" spellcheck="false"></div>
+  </section>
+</aside>
   </div>
 </div>
 
-<button class="mic" title="음성 입력">🎤</button>
+<button class="mic" id="micBtn" title="음성 입력">🎤</button>
+<div class="bubble" id="bubble" style="display:none">마이크를 눌러 시작하세요.</div>
 
 <script>
-  document.addEventListener('paste', e=>{{ if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT'||e.target.isContentEditable) e.preventDefault(); }});
-  (function(){{ const arch=document.getElementById('archive'); document.querySelectorAll('#archive .btns button').forEach(b=>{{ b.addEventListener('click', ()=>{{ const d=parseInt(b.dataset.delta,10); const h=Math.max(80, arch.offsetHeight+d); arch.style.height=h+'px'; }}); }}); }})();
-  (function(){{ const mic=document.querySelector('.mic'); mic.addEventListener('click', ()=>{{ try{{ const R=new(window.SpeechRecognition||window.webkitSpeechRecognition)(); R.lang='ko-KR'; R.onresult=e=>{{ const t=document.activeElement; if(t&&t.tagName==='TEXTAREA'){{ t.value+=(t.value?' ':'')+e.results[0][0].transcript; }} else if(document.activeElement&&document.activeElement.isContentEditable){{ document.execCommand('insertText', false, e.results[0][0].transcript+' '); }}; }}; R.start(); }}catch(_ ){{ alert('이 브라우저에서는 음성 입력을 지원하지 않습니다.'); }} }}); }})();
-  document.getElementById('prevBtn').onclick=()=>location.href='index.html';
-  document.getElementById('nextBtn').onclick=()=>location.href='changsegi002.html';
+(() => {
+  // ===== 붙여넣기 방지(입력/편집 영역만) =====
+  document.addEventListener('paste', (e) => {
+    const t = e.target;
+    if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT' || t.isContentEditable)) {
+      e.preventDefault();
+    }
+  });
+
+  // ===== 아카이브 높이 조절 =====
+  const arch = document.getElementById('archive');
+  if (arch) {
+    arch.querySelectorAll('.btns button').forEach((b) => {
+      b.addEventListener('click', () => {
+        const d = parseInt(b.dataset.delta || '0', 10);
+        const h = Math.max(80, arch.offsetHeight + d);
+        arch.style.height = h + 'px';
+      });
+    });
+  }
+
+  // ===== 장 번호/경로 =====
+  const m   = location.pathname.match(/changsegi(\d{3})\.html$/);
+  const ch  = m ? parseInt(m[1],10) : 1;
+  const dir = location.pathname.replace(/[^/]+$/, '');   // …/korean_easy/
+  const root= dir.replace(/korean_easy\/$/, '');         // 루트
+  const fileOf = (n) => `changsegi${String(n).padStart(3,'0')}.html`;
+
+  // (있으면) 상단 표시 업데이트
+  const chLabel = document.getElementById('chLabel');
+  const chapInp = document.getElementById('chapInput');
+  if (chLabel) chLabel.textContent = String(ch);
+  if (chapInp) chapInp.value       = String(ch);
+
+  // ===== ← / → : aria-label / data-href 값에 .html 있어도·없어도 OK =====
+  function linkify(btn, fallback) {
+    if (!btn) return fallback;
+    let raw = (btn.dataset.href || btn.getAttribute('aria-label') || '').trim();
+    if (!raw) return fallback;
+    raw = raw.replace(/^\//,'').replace(/\.html$/i,'');     // /, .html 제거
+    if (raw === 'index') return root + 'index.html';
+    if (/^https?:\/\//i.test(raw)) return raw;              // 외부 링크 허용
+    return dir + raw + '.html';                              // 같은 폴더
+  }
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  if (prevBtn) prevBtn.onclick = () =>
+    location.href = linkify(prevBtn, ch <= 1 ? root + 'index.html' : dir + fileOf(ch-1));
+  if (nextBtn) nextBtn.onclick = () =>
+    location.href = linkify(nextBtn, dir + fileOf(ch+1));
+
+  // ===== 자동 저장/복원(우측 패널 + 추후 textarea) =====
+  const key = (v) => `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`;
+
+  // 우측 패널(contenteditable) 저장
+  ['archiveBody','libreBody'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const saved = localStorage.getItem(key(id));
+    if (saved !== null) el.innerHTML = saved;
+    el.addEventListener('input', () => localStorage.setItem(key(id), el.innerHTML));
+  });
+
+// (미래용) textarea 자동 저장
+(function bindTA(root=document){
+  root.querySelectorAll('textarea').forEach((ta,i)=>{
+    const k = key('v' + (ta.dataset.verse || (i+1)));
+    const saved = localStorage.getItem(k);
+    if (saved !== null) ta.value = saved;
+    ta.addEventListener('input', () => localStorage.setItem(k, ta.value));
+  });
+})();
+
+
+// ===== 말풍선(토스트 + 라이브) - 확실한 표시 =====
+const micBtn = document.getElementById('micBtn');
+const bubble = document.getElementById('bubble');
+
+function showToast(msg){
+  if (!bubble) return;
+  bubble.textContent = msg;
+  bubble.classList.remove('live');
+  bubble.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> bubble.classList.remove('show'), 2000);
+}
+function setListening(on){
+  if (!bubble) return;
+  bubble.textContent = '녹음 중…';
+  bubble.classList.toggle('live', on);
+  bubble.classList.toggle('show', on);
+}
+
+if (micBtn){
+  micBtn.addEventListener('click', ()=>{
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR){ showToast('이 브라우저는 음성 인식을 지원하지 않습니다.'); return; }
+    const rec = new SR();
+    rec.lang='ko-KR'; rec.interimResults=false; rec.continuous=false; rec.maxAlternatives=1;
+
+    // 클릭 즉시 “녹음 준비중…” 표시 → 권한 팝업 떠도 바로 보임
+    setListening(true);
+
+    rec.onstart = ()=> setListening(true);
+    rec.onend   = ()=> setListening(false);
+    rec.onerror = e => showToast('오류: ' + (e.error||'unknown'));
+    rec.onresult= e => {
+      const t = document.activeElement;
+      const txt = e.results[0][0].transcript;
+      if (t && t.tagName==='TEXTAREA'){
+        const needsSpace = t.value && !/\s$/.test(t.value);
+        const pos = t.selectionStart ?? t.value.length;
+        t.setRangeText((needsSpace?' ':'')+txt, pos, pos, 'end');
+        t.dispatchEvent(new Event('input'));
+      } else if (t && t.isContentEditable){
+        document.execCommand('insertText', false, txt+' ');
+      } else {
+        showToast('필사칸/메모칸을 클릭한 뒤 마이크를 누르세요.');
+      }
+      showToast('받아쓰기: ' + txt.slice(0,32) + (txt.length>32?'…':''));
+    };
+
+    try{ rec.start(); }catch(_){}
+  });
+}
+})();  // ★ IIFE 닫기
 </script>
 </body>
 </html>
