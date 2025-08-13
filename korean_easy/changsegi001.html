@@ -8,28 +8,23 @@
   :root{
     --text:#222;--line:#e6e6e6;--panel:#fafafa;
     --page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;
-    /* 우측 보조칸(아카이브 영역) 폭: 데스크톱에서 과하게 넓지 않게 제한 */
+    /* 우측 보조칸 폭(과도 확장 방지) */
     --archive-width: clamp(360px, 30vw, 480px);
   }
   body{margin:0;background:#fff;color:var(--text);font-family:"Malgun Gothic",sans-serif;-webkit-user-select:none;user-select:none;}
-  /* 상단 여백(1장 기준) */
-  .top-space{height:48px;}
 
-  /* 상단 바 */
+  .top-space{height:48px;}
   .bar{max-width:var(--bar-max);margin:0 auto;padding:0 var(--bar-pad);}
   .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .left,.right{display:flex;align-items:center;gap:8px;}
   .icon{font-size:18px;}
-  /* 흰색 돋보기 아이콘(배경 어두움) */
-  .icon.search-icon{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:6px;background:#222;color:#fff;
-  }
-  .icon.search-icon svg{width:18px;height:18px;display:block;}
+  /* 흰색 돋보기 */
+  .icon.search-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#222;color:#fff}
+  .icon.search-icon svg{width:18px;height:18px;display:block}
 
-  /* 목차/검색 입력 폭 (줄인 값) */
+  /* 목차/검색 폭(줄인 값) */
   .book{width:105px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
-  .chap{width:30px; padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center}
+  .chap{width:30px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center}
   .search{width:120px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
   .search2{width:134px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
 
@@ -38,34 +33,37 @@
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
   .title-pack{display:inline-block;text-align:center;}
   .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
-  /* 화살표 중앙 배치 */
   .nav-under{display:flex;justify-content:center;gap:24px;margin-top:8px}
   .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer}
   .nav-btn:focus{outline:2px solid #cfe0ff;border-radius:6px}
 
-  /* 본문 1fr + 보조칸 고정폭(과도확장 방지) */
-  .wrap{
-    max-width:1200px;margin:0 auto 90px;
-    display:grid;grid-template-columns:minmax(0,1fr) var(--archive-width);
-    gap:24px;align-items:flex-start;
-  }
+  /* 본문 1fr + 보조칸 고정폭 */
+  .wrap{max-width:1200px;margin:0 auto 90px;display:grid;grid-template-columns:minmax(0,1fr) var(--archive-width);gap:24px;align-items:flex-start}
   .col-left{min-width:0}
   aside.col-right{width:var(--archive-width);min-width:0;display:flex;flex-direction:column;gap:14px}
-
-  /* 모바일: 본문 먼저, 보조칸 아래 */
-  @media (max-width:960px){
-    .wrap{grid-template-columns:1fr}
-    aside.col-right{width:auto}
-  }
+  @media (max-width:960px){.wrap{grid-template-columns:1fr}aside.col-right{width:auto}}
 
   .version{display:block;margin:2px 0 12px;text-align:left}
-  .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555;}
-  .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10;}
+  .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555}
+  .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10}
   .panel{background:var(--panel);border:1px solid #d8d8d8;border-radius:8px;overflow:hidden}
   .panel .ph{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #eaeaea;background:#f6f6f6;font-weight:700;font-size:13px}
   .panel .ph .btns button{border:none;background:transparent;cursor:pointer;font-size:12px;color:#666;padding:2px 4px}
   .panel .body{padding:10px;min-height:100px}
   .panel .body[contenteditable="true"]{outline:none}
+
+  /* ===== MENU START: 공통 드롭다운 메뉴 ===== */
+  .menu{position:relative}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#444;cursor:pointer;font-size:18px}
+  .menu.open .menu-btn{background:#111;color:#fff;border-color:#111}
+  .menu-list{position:absolute;right:0;top:38px;min-width:220px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,.12);padding:6px;display:none;z-index:1000}
+  .menu.open .menu-list{display:block}
+  .menu-group{padding:6px 6px 4px;font-size:12px;color:#6b7280}
+  .menu-item{display:flex;align-items:center;gap:8px;width:100%;margin:2px 0;padding:8px 10px;border-radius:8px;border:0;background:#fff;color:#111;text-align:left;cursor:pointer;font-size:14px}
+  .menu-item:hover{background:#f3f4f6}
+  .menu-item[disabled]{opacity:.5;cursor:not-allowed}
+  .menu-sep{height:1px;background:#eee;margin:6px 4px}
+  /* ===== MENU END ===== */
 
   /* 아카이브/리브레 기본 높이 */
   #archive{height:180px}
@@ -73,13 +71,12 @@
 
   .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
 
-  /* 마이크 버튼 */
+  /* 마이크 버튼 + 말풍선 */
   .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
   .bubble{position:fixed;right:90px;bottom:32px;max-width:320px;background:#111;color:#fff;border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.4;display:none;z-index:2000;pointer-events:none}
-  .bubble.show{display:block}
-  .bubble.live{display:block}
+  .bubble.show,.bubble.live{display:block !important}
 
-  textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit;}
+  textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit}
   textarea:focus{outline:2px solid #a9c7ff}
 </style>
 </head>
@@ -102,6 +99,27 @@
       </span>
       <input class="search"  type="text" placeholder="본문 검색">
       <input class="search2" type="text" placeholder="예) 십자가 / 부활">
+
+      <!-- ===== MENU START ===== -->
+      <div class="menu" id="globalMenu">
+        <button class="menu-btn" aria-label="메뉴" title="메뉴">⋯</button>
+        <div class="menu-list" role="menu" aria-label="Global menu">
+          <div class="menu-group">이동</div>
+          <a class="menu-item" href="../index.html" role="menuitem">인덱스</a>
+          <a class="menu-item" href="../index.html#langs" role="menuitem">언어/버전 선택</a>
+          <div class="menu-sep"></div>
+
+          <div class="menu-group">도구</div>
+          <button class="menu-item" data-action="print" role="menuitem">인쇄</button>
+          <button class="menu-item" data-action="download" role="menuitem" disabled title="다운로드(자리 확보)">다운로드(준비중)</button>
+          <button class="menu-item" data-action="backup" role="menuitem" disabled title="백업/불러오기(자리 확보)">백업/불러오기(준비중)</button>
+          <div class="menu-sep"></div>
+
+          <div class="menu-group">도움말</div>
+          <a class="menu-item" href="../index.html#guide" role="menuitem">사용설명서</a>
+        </div>
+      </div>
+      <!-- ===== MENU END ===== -->
     </div>
   </div>
   <hr class="divider">
@@ -145,11 +163,11 @@
 </div>
 
 <button class="mic" id="micBtn" title="음성 입력">🎤</button>
-<div class="bubble" id="bubble" style="display:none">마이크를 눌러 시작하세요.</div>
+<div class="bubble" id="bubble">마이크를 눌러 시작하세요.</div>
 
 <script>
 (() => {
-  // 붙여넣기 방지(입력/편집 영역만)
+  // 붙여넣기 방지
   document.addEventListener('paste', (e) => {
     const t = e.target;
     if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT' || t.isContentEditable)) {
@@ -169,11 +187,11 @@
     });
   }
 
-  // 장 번호/경로
+  // 장 이동
   const m   = location.pathname.match(/changsegi(\d{3})\.html$/);
   const ch  = m ? parseInt(m[1],10) : 1;
-  const dir = location.pathname.replace(/[^/]+$/, '');   // …/korean_easy/
-  const root= dir.replace(/korean_easy\/$/, '');         // 루트
+  const dir = location.pathname.replace(/[^/]+$/, '');
+  const root= dir.replace(/korean_easy\/$/, '');
   const fileOf = (n) => `changsegi${String(n).padStart(3,'0')}.html`;
 
   function linkify(btn, fallback) {
@@ -192,7 +210,7 @@
   if (nextBtn) nextBtn.onclick = () =>
     location.href = linkify(nextBtn, dir + fileOf(ch+1));
 
-  // 자동 저장/복원(우측 패널 + 추후 textarea)
+  // 자동 저장/복원
   const key = (v) => `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`;
   ['archiveBody','libreBody'].forEach(id => {
     const el = document.getElementById(id);
@@ -210,15 +228,40 @@
     });
   })();
 
-  // 마이크(간단 버전: 클릭 시 1회 인식)
+  // 메뉴 동작
+  (function(){
+    const menu = document.getElementById('globalMenu');
+    if(!menu) return;
+    const btn = menu.querySelector('.menu-btn');
+    const list= menu.querySelector('.menu-list');
+    btn.addEventListener('click', (e)=>{ e.stopPropagation(); menu.classList.toggle('open'); });
+    document.addEventListener('click', ()=> menu.classList.remove('open'));
+    list.addEventListener('click', (e)=>{
+      const t = e.target.closest('[data-action]');
+      if(!t || t.disabled) return;
+      const act = t.dataset.action;
+      if(act === 'print') window.print();
+      else if(act === 'download') alert('다운로드는 준비중입니다.');
+      else if(act === 'backup')   alert('백업/불러오기는 준비중입니다.');
+      menu.classList.remove('open');
+    });
+  })();
+
+  // 마이크 + 말풍선
   const micBtn = document.getElementById('micBtn');
   const bubble = document.getElementById('bubble');
   function showToast(msg){
-    if (!bubble) return alert(msg);
+    if(!bubble) return alert(msg);
     bubble.textContent = msg;
     bubble.classList.add('show');
     clearTimeout(showToast._t);
     showToast._t = setTimeout(()=> bubble.classList.remove('show'), 1600);
+  }
+  function setListening(on){
+    if(!bubble) return;
+    bubble.textContent = '녹음 중…';
+    bubble.classList.toggle('live', on);
+    bubble.classList.toggle('show', on);
   }
   if (micBtn){
     micBtn.addEventListener('click', ()=>{
@@ -226,7 +269,9 @@
       if (!SR){ showToast('이 브라우저는 음성 인식을 지원하지 않습니다.'); return; }
       const rec = new SR();
       rec.lang='ko-KR'; rec.interimResults=false; rec.continuous=false; rec.maxAlternatives=1;
-      rec.onerror = e => console.warn('STT error:', e.error||e);
+      rec.onstart = ()=> setListening(true);
+      rec.onend   = ()=> setListening(false);
+      rec.onerror = e => showToast('오류: ' + (e.error||'unknown'));
       rec.onresult= e => {
         const t = document.activeElement;
         const txt = e.results[0][0].transcript;
@@ -244,7 +289,7 @@
       try{ rec.start(); }catch(_){}
     });
   }
-})();  // IIFE
+})();
 </script>
 </body>
 </html>
