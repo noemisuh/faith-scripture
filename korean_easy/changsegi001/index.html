@@ -33,9 +33,27 @@
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
   .title-pack{display:inline-block;text-align:center;}
   .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
-  .nav-under{display:flex;justify-content:center;gap:24px;margin-top:8px}
-  .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer}
-  .nav-btn:focus{outline:2px solid #cfe0ff;border-radius:6px}
+  .nav-under {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .nav-btn {
+    display: inline-flex;        /* a 태그도 버튼처럼 정렬 */
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;       /* a 태그 밑줄 제거 */
+  }
+  .nav-btn:focus {
+    outline: 2px solid #cfe0ff;
+    border-radius: 6px;
+  }
 
   /* 본문 1fr + 보조칸 고정폭 */
   .wrap{max-width:1200px;margin:0 auto 90px;display:grid;grid-template-columns:minmax(0,1fr) var(--archive-width);gap:24px;align-items:flex-start}
@@ -129,18 +147,12 @@
   <div class="title-band">
     <div class="title-pack">
       <h1>창세기 1장</h1>
-      <div class="nav-under">
-       <!-- 이전: 사이트 홈 -->
-       <button class="nav-btn" id="prevBtn" type="button"
-          aria-label="홈으로"
-          title="홈으로"
-          onclick="location.href='../../'">⟨</button>
+       <div class="nav-under">
+        <!-- 이전: 사이트 홈 -->
+        <a class="nav-btn" id="prevBtn" href="../../" aria-label="홈으로" title="홈으로">&#9664;</a>
        <!-- 다음: 2장 -->
-       <button class="nav-btn" id="nextBtn" type="button"
-          aria-label="창세기 2장"
-          title="창세기 2장"
-          onclick="location.href='../changsegi002/'">⟩</button>
-      </div>
+       <a class="nav-btn" id="nextBtn" href="../changsegi002/" aria-label="창세기 2장" title="창세기 2장">&#9654;</a>
+     </div>
     </div>
   </div>
 
