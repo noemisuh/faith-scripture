@@ -1,1 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>쉬운성경 목차</title>
 
+<!-- ▼ 스타일 전면 교체 ▼ -->
+<style>
+  :root{
+    /* 화면 채움 설정 */
+    --rows:6;          /* 한 섹션에 보이는 책 버튼 줄 수 */
+    --book-h:28px;     /* 책 버튼 높이 */
+    --gap-x:8px;       /* 열 간격 */
+    --gap-y:6px;       /* 행 간격 */
+
+    /* 컬러 토큰 */
+    --line:#e5e7eb;
+    --muted:#64748b;
+    --bg:#f8fafc;
+    --chip:#f1f5f9;
+    --text:#0f172a;
+    --tagbg:#eef2f7;
+  }
+
+  /* 페이지 프레임 */
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
+  .wrap{max-width:860px;margin:20px auto;padding:0 12px}
+  h1{margin:0 0 8px;font-size:20px;font-weight:800;letter-spacing:-.02em}
+
+  /* 섹션 카드 */
+  .section{
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:10px;
+    margin:10px 0;
+    box-shadow:0 1px 0 rgba(15,23,42,.03);
+  }
+  .sec-head{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+  .sec-head h2{margin:0;font-size:14px}
+  .tag{font-size:11px;color:#334155;background:var(--tagbg);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+
+  /* 한 화면 맞춤 그리드: 세로로 6줄 채우고 다음 열로 흐름 */
+  .books{
+    display:grid;
+    grid-auto-flow:column;             /* 행 먼저 채움 */
+    grid-auto-columns:1fr;             /* 열 너비 동일 */
+    grid-template-rows:repeat(var(--rows), var(--book-h));
+    gap:var(--gap-y) var(--gap-x);
+  }
+
+  /* 책 버튼 */
+  .book-cell{position:relative}
+  .book-btn{
+    display:flex;align-items:center;justify-content:center;
+    height:var(--book-h);
+    padding:0 6px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    color:var(--text);
+    font-size:13px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    cursor:pointer;
+  }
+  .book-btn:hover{background:var(--chip)}
+
+  /* 장 팝오버(레이아웃 고정, 버튼 아래에 띄움) */
+  .chap-pop{
+    position:absolute;z-index:10;left:0;right:0;top:calc(var(--book-h) + 6px);
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 6px 20px rgba(15,23,42,.08);
+    padding:8px;display:none;max-height:44vh;overflow:auto;
+  }
+  .book-cell.open .chap-pop{display:block}
+
+  .chap{
+    display:inline-block;margin:3px 4px;padding:4px 8px;font-size:13px;
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--text);background:#fff;
+  }
+  .chap:hover{background:var(--bg)}
+
+  /* 모바일: 줄 수만 늘려 가독 유지 */
+  @media (max-width:560px){
+    :root{ --rows:10; --book-h:30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>쉬운성경 목차</h1>
+
+  <!-- 구약 -->
+  <section class="section">
+    <div class="sec-head"><h2>구약</h2><span class="tag">39권</span></div>
+    <div id="ot" class="books"></div>
+  </section>
+
+  <!-- 신약 -->
+  <section class="section">
+    <div class="sec-head"><h2>신약</h2><span class="tag">27권</span></div>
+    <div id="nt" class="books"></div>
+  </section>
+</div>
+
+<!-- 동작 스크립트(그대로 사용) -->
+<script>
+(function(){
+  const PREFIX="./";
+
+  // (slug, chapters)
+  const OT=[["genesis",50],["exodus",40],["leviticus",27],["numbers",36],["deuteronomy",34],
+            ["joshua",24],["judges",21],["ruth",4],["1-samuel",31],["2-samuel",24],["1-kings",22],["2-kings",25],
+            ["1-chronicles",29],["2-chronicles",36],["ezra",10],["nehemiah",13],["esther",10],["job",42],["psalms",150],
+            ["proverbs",31],["ecclesiastes",12],["song-of-songs",8],["isaiah",66],["jeremiah",52],["lamentations",5],
+            ["ezekiel",48],["daniel",12],["hosea",14],["joel",3],["amos",9],["obadiah",1],["jonah",4],["micah",7],
+            ["nahum",3],["habakkuk",3],["zephaniah",3],["haggai",2],["zechariah",14],["malachi",4]];
+  const NT=[["matthew",28],["mark",16],["luke",24],["john",21],["acts",28],["romans",16],["1-corinthians",16],
+            ["2-corinthians",13],["galatians",6],["ephesians",6],["philippians",4],["colossians",4],
+            ["1-thessalonians",5],["2-thessalonians",3],["1-timothy",6],["2-timothy",4],["titus",3],["philemon",1],
+            ["hebrews",13],["james",5],["1-peter",5],["2-peter",3],["1-john",5],["2-john",1],["3-john",1],["jude",1],["revelation",22]];
+
+  // 화면 표기명
+  const NAME={"genesis":"창세기","exodus":"출애굽기","leviticus":"레위기","numbers":"민수기","deuteronomy":"신명기",
+              "joshua":"여호수아","judges":"사사기","ruth":"룻기","1-samuel":"사무엘상","2-samuel":"사무엘하",
+              "1-kings":"열왕기상","2-kings":"열왕기하","1-chronicles":"역대상","2-chronicles":"역대하",
+              "ezra":"에스라","nehemiah":"느헤미야","esther":"에스더","job":"욥기","psalms":"시편","proverbs":"잠언",
+              "ecclesiastes":"전도서","song-of-songs":"아가","isaiah":"이사야","jeremiah":"예레미야","lamentations":"예레미야애가",
+              "ezekiel":"에스겔","daniel":"다니엘","hosea":"호세아","joel":"요엘","amos":"아모스","obadiah":"오바댜","jonah":"요나",
+              "micah":"미가","nahum":"나훔","habakkuk":"하박국","zephaniah":"스바냐","haggai":"학개","zechariah":"스가랴","malachi":"말라기",
+              "matthew":"마태복음","mark":"마가복음","luke":"누가복음","john":"요한복음","acts":"사도행전","romans":"로마서",
+              "1-corinthians":"고린도전서","2-corinthians":"고린도후서","galatians":"갈라디아서","ephesians":"에베소서",
+              "philippians":"빌립보서","colossians":"골로새서","1-thessalonians":"데살로니가전서","2-thessalonians":"데살로니가후서",
+              "1-timothy":"디모데전서","2-timothy":"디모데후서","titus":"디도서","philemon":"빌레몬서","hebrews":"히브리서","james":"야고보서",
+              "1-peter":"베드로전서","2-peter":"베드로후서","1-john":"요한1서","2-john":"요한2서","3-john":"요한3서","jude":"유다서","revelation":"요한계시록"};
+
+  // 실제 폴더명 별칭(현 구조 존중)
+  const ALIAS={"genesis":"changsegi"};
+
+  function makeBook([slug,chapters]){
+    const cell=document.createElement('div'); cell.className='book-cell';
+    const btn=document.createElement('button'); btn.type='button'; btn.className='book-btn'; btn.textContent=NAME[slug]||slug;
+    const pop=document.createElement('div'); pop.className='chap-pop';
+    for(let i=1;i<=chapters;i++){
+      const n=String(i).padStart(3,'0');
+      const a=document.createElement('a'); a.className='chap'; a.textContent=i;
+      const folder=(ALIAS[slug]||slug);
+      a.href=`${PREFIX}${folder}${n}/`;
+      pop.appendChild(a);
+    }
+    btn.addEventListener('click',()=>{
+      // 단일-오픈: 열려있는 팝오버 전부 닫기 후 토글
+      document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open'));
+      cell.classList.toggle('open');
+    });
+    cell.append(btn,pop);
+    return cell;
+  }
+
+  function render(list, mountId){
+    const mount=document.getElementById(mountId);
+    list.forEach(item=>mount.appendChild(makeBook(item)));
+  }
+
+  render(OT,'ot');
+  render(NT,'nt');
+
+  // 바깥 클릭 시 닫기
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.book-cell')) return;
+    document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open'));
+  });
+})();
+</script>
+</body>
+</html>
