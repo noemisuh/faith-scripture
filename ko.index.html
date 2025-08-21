@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>믿음으로 쓰는 성경 · 한국어</title>
+  <style>
+    :root{
+      --bg:#f5f7fb; --hero:#e9f1ff; --fg:#0f172a; --muted:#667085; --card:#ffffff; --line:#e5e7eb;
+      --pill:#f8fafc; --pillLine:#e2e8f0; --dotted:#cbd5e1; --shadow:0 10px 24px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    .hero{background:var(--hero);padding:48px 16px 28px}
+    .brand{max-width:1100px;margin:0 auto;text-align:center}
+    h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
+    .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
+    .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .left{min-height:260px;border:2px dashed var(--dotted);border-radius:16px;padding:24px}
+    .left h2{margin-top:0;font-size:20px;font-weight:700}
+    .left p{color:var(--muted);line-height:1.7;font-size:14px}
+    .right{display:flex;flex-direction:column;gap:8px}
+    .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:110px 1fr;align-items:center;gap:8px}
+    .lang-head{font-weight:800;white-space:nowrap}
+    .versions{display:flex;flex-wrap:wrap;gap:6px}
+    a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
+    footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="brand">
+      <h1>믿음으로 쓰는 성경</h1>
+      <div class="subtitle">말씀을 따라 읽고 쓰고 묵상하는 공간</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="grid">
+        <section class="left" aria-label="소개">
+          <h2>한국어 홈페이지</h2>
+          <p>이곳은 성경 말씀을 필사하며 묵상할 수 있도록 돕는 웹페이지입니다.
+          원하는 언어와 성경 버전을 선택하여 창세기부터 요한계시록까지 순서대로 읽고 쓸 수 있습니다.
+          아래에서 언어를 선택하고 해당 <b>버전</b>을 클릭하면 <b>목차 페이지</b>가 열립니다.</p>
+        </section>
+
+        <section class="right" aria-label="언어별 버전">
+          <div class="lang-row" data-lang="ko">
+            <div class="lang-head">한국어</div>
+            <div class="versions">
+              <a class="ver" href="../korean_easy/index.html">쉬운성경</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="zh">
+            <div class="lang-head">中文</div>
+            <div class="versions">
+              <a class="ver" href="../chinese_cuv/index.html">CUV</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="es">
+            <div class="lang-head">Español</div>
+            <div class="versions">
+              <a class="ver" href="../spanish_nvi/index.html">NVI</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="en">
+            <div class="lang-head">English</div>
+            <div class="versions">
+              <a class="ver" href="../english_niv/index.html">NIV</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer>© 2025 Faith Scripture</footer>
+    </div>
+  </div>
+</body>
+</html>

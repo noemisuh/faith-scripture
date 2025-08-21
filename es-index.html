@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faith Scripture · Español</title>
+  <style>
+    :root{--bg:#f5f7fb;--hero:#e9f1ff;--fg:#0f172a;--muted:#667085;--card:#fff;--line:#e5e7eb;--pill:#f8fafc;--pillLine:#e2e8f0;--dotted:#cbd5e1;--shadow:0 10px 24px rgba(15,23,42,.08)}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    .hero{background:var(--hero);padding:48px 16px 28px}.brand{max-width:1100px;margin:0 auto;text-align:center}
+    h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
+    .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
+    .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .left{min-height:260px;border:2px dashed var(--dotted);border-radius:16px;padding:24px}
+    .left h2{margin-top:0;font-size:20px;font-weight:700}.left p{color:var(--muted);line-height:1.7;font-size:14px}
+    .right{display:flex;flex-direction:column;gap:8px}
+    .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:110px 1fr;align-items:center;gap:8px}
+    .lang-head{font-weight:800;white-space:nowrap}
+    .versions{display:flex;flex-wrap:wrap;gap:6px}
+    a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
+    footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="brand">
+      <h1>Faith Scripture</h1>
+      <div class="subtitle">Lee, copia y medita en la Palabra</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="grid">
+        <section class="left" aria-label="introducción">
+          <h2>Página en Español</h2>
+          <p>Elige una versión para abrir el índice (de Génesis a Apocalipsis).</p>
+        </section>
+
+        <section class="right" aria-label="versiones por idioma">
+          <div class="lang-row"><div class="lang-head">Español</div><div class="versions">
+            <a class="ver" href="../spanish_nvi/index.html">NVI</a>
+          </div></div>
+
+          <div class="lang-row"><div class="lang-head">Coreano</div><div class="versions">
+            <a class="ver" href="../korean_easy/index.html">쉬운성경</a>
+          </div></div>
+
+          <div class="lang-row"><div class="lang-head">Chino</div><div class="versions">
+            <a class="ver" href="../chinese_cuv/index.html">CUV</a>
+          </div></div>
+
+          <div class="lang-row"><div class="lang-head">Inglés</div><div class="versions">
+            <a class="ver" href="../english_niv/index.html">NIV</a>
+          </div></div>
+        </section>
+      </div>
+      <footer>© 2025 Faith Scripture</footer>
+    </div>
+  </div>
+</body>
+</html>
