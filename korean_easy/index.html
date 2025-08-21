@@ -86,6 +86,17 @@
   @media (max-width:560px){
     :root{ --rows:10; --book-h:30px; }
   }
+
+/* 안내문 무조건 숨김 */
+h1 + p,
+.note,
+p.note {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 </style>
 </head>
 <body>
@@ -173,6 +184,26 @@
     document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open'));
   });
 })();
+</script>
+  <script>
+  window.addEventListener('DOMContentLoaded',()=> {
+    document.querySelectorAll('.note').forEach(el=>el.remove());
+  });
+</script>
+
+  <script>
+window.addEventListener('DOMContentLoaded', () => {
+  // 1) 제목(h1) 바로 다음 p 제거
+  const h1 = document.querySelector('h1');
+  if (h1 && h1.nextElementSibling && h1.nextElementSibling.tagName === 'P') {
+    h1.nextElementSibling.remove();
+  }
+  // 2) 해당 문구가 들어있는 모든 p 제거 (클래스 없어도 제거)
+  const re = /책을\s*누르면\s*장\s*번호가\s*팝오버로\s*열립니다\.\s*다른\s*곳을\s*클릭하면\s*닫힙니다\./;
+  document.querySelectorAll('p, .note').forEach(el => {
+    if (re.test((el.textContent || '').trim())) el.remove();
+  });
+});
 </script>
 </body>
 </html>
