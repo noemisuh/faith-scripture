@@ -19,12 +19,36 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:var(--top-pad) 16px var(--bottom-pad);}
-  h1{margin:0 0 18px; font-size:20px; font-weight:800; letter-spacing:-.02em}
+ /* 컨테이너 폭/여백 변수 (없으면 :root에 추가) */
+/* :root { --maxw:1120px; --top-pad:56px; --bottom-pad:12px; } */
 
-  .section{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 16px;box-shadow:0 1px 0 rgba(15,23,42,.03)}
-  .sec-head{display:flex;align-items:center;gap:10px;margin:0 0 8px}
-  .sec-head h2{margin:0;font-size:14px}
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:var(--top-pad) 0 var(--bottom-pad);  /* 좌우 0 */
+}
+
+h1{
+  margin:0 0 18px;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+
+/* 섹션 – 바닥 마진 제거 & 섹션 사이 간격은 아래 규칙으로만 */
+.section{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  margin:0;                                      /* 중요: 기존 0 0 16px 제거 */
+  box-shadow:0 1px 0 rgba(15,23,42,.03);
+}
+.section + .section{ margin-top:28px; }           /* 구약 ↔ 신약 간격 */
+
+.sec-head{ display:flex; align-items:center; gap:10px; margin:0 0 8px; }
+.sec-head h2{ margin:0; font-size:14px; }
+
   .tag{font-size:11px;color:#334155;background:var(--tagbg);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
 
   .books{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;grid-template-rows:repeat(var(--rows), var(--book-h));gap:var(--gap-y) var(--gap-x)}
