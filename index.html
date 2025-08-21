@@ -70,37 +70,45 @@
             아래의 목록에서 언어를 선택하고 해당 버전을 클릭하면 바로 시작할 수 있습니다.</p>
           </div>
         </section>
-
+        
         <!-- RIGHT: Language and version inline -->
        <section class="right" aria-label="언어별 버전">
         <div class="lang-row" data-lang="ko">
           <div class="lang-head">한국어</div>
           <div class="versions">
-            <a class="ver" href="./korean_easy/index.html">쉬운성경</a>
+            <a class="ver" href=".korean_easy/index.html">쉬운성경</a>
           </div>
         </div>
 
         <div class="lang-row" data-lang="zh">
           <div class="lang-head">中文</div>
           <div class="versions">
-           <a class="ver" href="./chinese_cuv/index.html">CUV</a>
+           <a class="ver" href=".chinese_cuv/index.html">CUV</a>
          </div>
         </div>
 
         <div class="lang-row" data-lang="es">
          <div class="lang-head">Español</div>
          <div class="versions">
-          <a class="ver" href="./spanish_nvi/index.html">NVI</a>
+          <a class="ver" href=".spanish_nvi/index.html">NVI</a>
         </div>
        </div>
 
         <div class="lang-row" data-lang="en">
           <div class="lang-head">English</div>
           <div class="versions">
-           <a class="ver" href="./english_niv/index.html">NIV</a>
+           <a class="ver" href=".english_niv/index.html">NIV</a>
          </div>
         </div>
        </section>
+
+<!-- ▼ 자동 목차/장 링크가 생성될 위치 -->
+<section id="auto-toc" style="margin-top:16px">
+  <h2 id="langTitle" style="margin:0 0 8px;font-weight:800;font-size:18px"></h2>
+  <div id="versions" class="versions" style="margin:0 0 10px"></div>
+  <div id="toc"></div>
+</section>
+<!-- ▲ 여기로 스크립트가 내용을 주입합니다 -->
 
     <!-- Bottom free area left EMPTY as requested -->
     <section class="free" aria-label="하단 자유 영역"></section>
@@ -111,5 +119,6 @@
   </div>
 </body>
 </html>
+
 
 
