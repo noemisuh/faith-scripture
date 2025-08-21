@@ -1,1 +1,81 @@
 
+# Create Spanish NVI TOC index.html (compact 6-row layout, no note), ready to upload to /spanish_nvi/index.html
+from pathlib import Path
+
+html = """<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NVI Índice</title>
+<style>
+  :root{--rows:6;--book-h:28px;--gap-x:8px;--gap-y:6px;
+    --line:#e5e7eb;--muted:#64748b;--bg:#f8fafc;--chip:#f1f5f9;--text:#0f172a;--tagbg:#eef2f7}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
+  .wrap{max-width:860px;margin:20px auto;padding:0 12px}
+  h1{margin:0 0 8px;font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .section{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px;margin:10px 0;box-shadow:0 1px 0 rgba(15,23,42,.03)}
+  .sec-head{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+  .sec-head h2{margin:0;font-size:14px}
+  .tag{font-size:11px;color:#334155;background:var(--tagbg);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+  .books{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;grid-template-rows:repeat(var(--rows), var(--book-h));gap:var(--gap-y) var(--gap-x)}
+  .book-cell{position:relative}
+  .book-btn{display:flex;align-items:center;justify-content:center;height:var(--book-h);padding:0 6px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+  .book-btn:hover{background:var(--chip)}
+  .chap-pop{position:absolute;z-index:10;left:0;right:0;top:calc(var(--book-h) + 6px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,.08);padding:8px;display:none;max-height:44vh;overflow:auto}
+  .book-cell.open .chap-pop{display:block}
+  .chap{display:inline-block;margin:3px 4px;padding:4px 8px;font-size:13px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--text);background:#fff}
+  .chap:hover{background:var(--bg)}
+  @media (max-width:560px){ :root{ --rows:10; --book-h:30px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Índice NVI</h1>
+
+  <section class="section">
+    <div class="sec-head"><h2>Antiguo Testamento</h2><span class="tag">39</span></div>
+    <div id="ot" class="books"></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>Nuevo Testamento</h2><span class="tag">27</span></div>
+    <div id="nt" class="books"></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const PREFIX="./";
+  const OT=[["genesis",50],["exodus",40],["leviticus",27],["numbers",36],["deuteronomy",34],["joshua",24],["judges",21],["ruth",4],["1-samuel",31],["2-samuel",24],["1-kings",22],["2-kings",25],["1-chronicles",29],["2-chronicles",36],["ezra",10],["nehemiah",13],["esther",10],["job",42],["psalms",150],["proverbs",31],["ecclesiastes",12],["song-of-songs",8],["isaiah",66],["jeremiah",52],["lamentations",5],["ezekiel",48],["daniel",12],["hosea",14],["joel",3],["amos",9],["obadiah",1],["jonah",4],["micah",7],["nahum",3],["habakkuk",3],["zephaniah",3],["haggai",2],["zechariah",14],["malachi",4]];
+  const NT=[["matthew",28],["mark",16],["luke",24],["john",21],["acts",28],["romans",16],["1-corinthians",16],["2-corinthians",13],["galatians",6],["ephesians",6],["philippians",4],["colossians",4],["1-thessalonians",5],["2-thessalonians",3],["1-timothy",6],["2-timothy",4],["titus",3],["philemon",1],["hebrews",13],["james",5],["1-peter",5],["2-peter",3],["1-john",5],["2-john",1],["3-john",1],["jude",1],["revelation",22]];
+  const NAME={"genesis":"Génesis","exodus":"Éxodo","leviticus":"Levítico","numbers":"Números","deuteronomy":"Deuteronomio","joshua":"Josué","judges":"Jueces","ruth":"Rut","1-samuel":"1 Samuel","2-samuel":"2 Samuel","1-kings":"1 Reyes","2-kings":"2 Reyes","1-chronicles":"1 Crónicas","2-chronicles":"2 Crónicas","ezra":"Esdras","nehemiah":"Nehemías","esther":"Ester","job":"Job","psalms":"Salmos","proverbs":"Proverbios","ecclesiastes":"Eclesiastés","song-of-songs":"Cantar de los Cantares","isaiah":"Isaías","jeremiah":"Jeremías","lamentations":"Lamentaciones","ezekiel":"Ezequiel","daniel":"Daniel","hosea":"Oseas","joel":"Joel","amos":"Amós","obadiah":"Abdías","jonah":"Jonás","micah":"Miqueas","nahum":"Nahúm","habakkuk":"Habacuc","zephaniah":"Sofonías","haggai":"Hageo","zechariah":"Zacarías","malachi":"Malaquías","matthew":"Mateo","mark":"Marcos","luke":"Lucas","john":"Juan","acts":"Hechos","romans":"Romanos","1-corinthians":"1 Corintios","2-corinthians":"2 Corintios","galatians":"Gálatas","ephesians":"Efesios","philippians":"Filipenses","colossians":"Colosenses","1-thessalonians":"1 Tesalonicenses","2-thessalonians":"2 Tesalonicenses","1-timothy":"1 Timoteo","2-timothy":"2 Timoteo","titus":"Tito","philemon":"Filemón","hebrews":"Hebreos","james":"Santiago","1-peter":"1 Pedro","2-peter":"2 Pedro","1-john":"1 Juan","2-john":"2 Juan","3-john":"3 Juan","jude":"Judas","revelation":"Apocalipsis"};
+
+  function makeBook([slug,chapters]){
+    const cell=document.createElement('div'); cell.className='book-cell';
+    const btn=document.createElement('button'); btn.type='button'; btn.className='book-btn'; btn.textContent=NAME[slug]||slug;
+    const pop=document.createElement('div'); pop.className='chap-pop';
+    for(let i=1;i<=chapters;i++){
+      const n=String(i).padStart(3,'0');
+      const a=document.createElement('a'); a.className='chap'; a.textContent=i;
+      a.href = PREFIX + slug + n + "/"; // Spanish folder slugs are english-like
+      pop.appendChild(a);
+    }
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open'));
+      cell.classList.toggle('open');
+    });
+    cell.append(btn,pop);
+    return cell;
+  }
+  function render(list, id){ const mount=document.getElementById(id); list.forEach(item=>mount.appendChild(makeBook(item))); }
+  render(OT,'ot'); render(NT,'nt');
+  document.addEventListener('click',e=>{ if(e.target.closest('.book-cell')) return; document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open')); });
+})();
+</script>
+</body>
+</html>
+"""
+Path("/mnt/data/spanish_nvi_index.html").write_text(html, encoding="utf-8")
+print("/mnt/data/spanish_nvi_index.html")
