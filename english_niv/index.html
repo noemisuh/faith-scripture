@@ -1,1 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
+<meta http-equiv="Cache-Control" content="no-store, max-age=0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<title>NIV Table of Contents</title>
+<style>
+  :root{
+    --rows:6; --book-h:28px; --gap-x:10px; --gap-y:8px;
+    --line:#e5e7eb; --muted:#64748b; --bg:#f8fafc; --chip:#f1f5f9; --text:#0f172a; --tagbg:#eef2f7;
+    --maxw:1120px;         /* wider container */
+    --top-pad:56px;        /* more space from top */
+    --bottom-pad:12px;     /* a bit tighter bottom */
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:var(--top-pad) 16px var(--bottom-pad);}
+  h1{margin:0 0 18px; font-size:20px; font-weight:800; letter-spacing:-.02em}
+
+  .section{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 16px;box-shadow:0 1px 0 rgba(15,23,42,.03)}
+  .sec-head{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+  .sec-head h2{margin:0;font-size:14px}
+  .tag{font-size:11px;color:#334155;background:var(--tagbg);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+
+  .books{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;grid-template-rows:repeat(var(--rows), var(--book-h));gap:var(--gap-y) var(--gap-x)}
+  .book-cell{position:relative}
+  .book-btn{display:flex;align-items:center;justify-content:center;height:var(--book-h);padding:0 8px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+  .book-btn:hover{background:var(--chip)}
+  .chap-pop{position:absolute;z-index:10;left:0;right:0;top:calc(var(--book-h) + 6px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,.08);padding:8px;display:none;max-height:44vh;overflow:auto}
+  .book-cell.open .chap-pop{display:block}
+  .chap{display:inline-block;margin:3px 4px;padding:4px 8px;font-size:13px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--text);background:#fff}
+  .chap:hover{background:var(--bg)}
+  @media (max-width:560px){ :root{ --rows:10; --book-h:30px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NIV Table of Contents</h1>
+
+  <section class="section">
+    <div class="sec-head"><h2>Old Testament</h2><span class="tag">39</span></div>
+    <div id="ot" class="books"></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>New Testament</h2><span class="tag">27</span></div>
+    <div id="nt" class="books"></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const PREFIX="./";
+  const OT=[["genesis",50],["exodus",40],["leviticus",27],["numbers",36],["deuteronomy",34],["joshua",24],["judges",21],["ruth",4],["1-samuel",31],["2-samuel",24],["1-kings",22],["2-kings",25],["1-chronicles",29],["2-chronicles",36],["ezra",10],["nehemiah",13],["esther",10],["job",42],["psalms",150],["proverbs",31],["ecclesiastes",12],["song-of-songs",8],["isaiah",66],["jeremiah",52],["lamentations",5],["ezekiel",48],["daniel",12],["hosea",14],["joel",3],["amos",9],["obadiah",1],["jonah",4],["micah",7],["nahum",3],["habakkuk",3],["zephaniah",3],["haggai",2],["zechariah",14],["malachi",4]];
+  const NT=[["matthew",28],["mark",16],["luke",24],["john",21],["acts",28],["romans",16],["1-corinthians",16],["2-corinthians",13],["galatians",6],["ephesians",6],["philippians",4],["colossians",4],["1-thessalonians",5],["2-thessalonians",3],["1-timothy",6],["2-timothy",4],["titus",3],["philemon",1],["hebrews",13],["james",5],["1-peter",5],["2-peter",3],["1-john",5],["2-john",1],["3-john",1],["jude",1],["revelation",22]];
+  const NAME={"genesis":"Genesis","exodus":"Exodus","leviticus":"Leviticus","numbers":"Numbers","deuteronomy":"Deuteronomy","joshua":"Joshua","judges":"Judges","ruth":"Ruth","1-samuel":"1 Samuel","2-samuel":"2 Samuel","1-kings":"1 Kings","2-kings":"2 Kings","1-chronicles":"1 Chronicles","2-chronicles":"2 Chronicles","ezra":"Ezra","nehemiah":"Nehemiah","esther":"Esther","job":"Job","psalms":"Psalms","proverbs":"Proverbs","ecclesiastes":"Ecclesiastes","song-of-songs":"Song of Songs","isaiah":"Isaiah","jeremiah":"Jeremiah","lamentations":"Lamentations","ezekiel":"Ezekiel","daniel":"Daniel","hosea":"Hosea","joel":"Joel","amos":"Amos","obadiah":"Obadiah","jonah":"Jonah","micah":"Micah","nahum":"Nahum","habakkuk":"Habakkuk","zephaniah":"Zephaniah","haggai":"Haggai","zechariah":"Zechariah","malachi":"Malachi","matthew":"Matthew","mark":"Mark","luke":"Luke","john":"John","acts":"Acts","romans":"Romans","1-corinthians":"1 Corinthians","2-corinthians":"2 Corinthians","galatians":"Galatians","ephesians":"Ephesians","philippians":"Philippians","colossians":"Colossians","1-thessalonians":"1 Thessalonians","2-thessalonians":"2 Thessalonians","1-timothy":"1 Timothy","2-timothy":"2 Timothy","titus":"Titus","philemon":"Philemon","hebrews":"Hebrews","james":"James","1-peter":"1 Peter","2-peter":"2 Peter","1-john":"1 John","2-john":"2 John","3-john":"3 John","jude":"Jude","revelation":"Revelation"};
+  const ALIAS={};
+
+  function makeBook(item){
+    const slug=item[0], chapters=item[1];
+    const cell=document.createElement('div'); cell.className='book-cell';
+    const btn=document.createElement('button'); btn.type='button'; btn.className='book-btn'; btn.textContent=(NAME[slug]||slug);
+    const pop=document.createElement('div'); pop.className='chap-pop';
+    for(let i=1;i<=chapters;i++){ const n=String(i).padStart(3,'0'); const a=document.createElement('a'); a.className='chap'; a.textContent=i; const folder=(ALIAS[slug]||slug); a.href=PREFIX+folder+n+"/"; pop.appendChild(a);}
+    btn.addEventListener('click',()=>{ document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open')); cell.classList.toggle('open'); });
+    cell.append(btn,pop); return cell;
+  }
+  const render=(list,id)=>list.forEach(it=>document.getElementById(id).appendChild(makeBook(it)));
+  render(OT,'ot'); render(NT,'nt');
+  document.addEventListener('click',e=>{ if(e.target.closest('.book-cell')) return; document.querySelectorAll('.book-cell.open').forEach(el=>el.classList.remove('open')); });
+})();
+</script>
+</body>
+</html>
