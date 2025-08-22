@@ -62,36 +62,41 @@
   .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
 
   /* MENU */
-  .menu{position:relative}
-  .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#444;cursor:pointer;font-size:18px}
-  .menu.open .menu-btn{background:#111;color:#fff;border-color:#111}
-  .menu-list{position:absolute;right:0;top:38px;min-width:240px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,.12);padding:8px;display:none;z-index:1000}
-  .menu.open .menu-list{display:block}
-  .menu-group{padding:6px 6px 4px;font-size:12px;color:#6b7280}
-  .menu-item{display:flex;align-items:center;gap:8px;width:100%;margin:2px 0;padding:9px 10px;border-radius:8px;border:0;background:#fff;color:#111;text-align:left;cursor:pointer;font-size:14px;text-decoration:none}
-  .menu-item:hover{background:#f3f4f6}
-  .menu-sep{height:1px;background:#eee;margin:6px 4px}
+  .menu{ position:relative; display:inline-block; }
+  .menu-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:32px; height:32px; border:1px solid #ddd; border-radius:8px;
+    background:#fff; color:#444; cursor:pointer; font-size:18px;
+  }
+  .menu.open .menu-btn{ background:#111; color:#fff; border-color:#111; }
+  .menu-list{
+    position:absolute; right:0; top:38px; min-width:240px; background:#fff;
+    border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 12px 28px rgba(0,0,0,.12);
+    padding:8px; display:none; z-index:1000;
+  }
+  .menu.open .menu-list{ display:block; }
+  .menu-group{ padding:6px 6px 4px; font-size:12px; color:#6b7280; }
+  .menu-item{
+    display:flex; align-items:center; gap:8px; width:100%; margin:2px 0; padding:9px 10px;
+    border-radius:8px; border:0; background:#fff; color:#111; text-align:left;
+    cursor:pointer; font-size:14px; text-decoration:none;
+  }
+  .menu-item:hover{ background:#f3f4f6; }
+  .menu-sep{ height:1px; background:#eee; margin:6px 4px; }
 
-  // ko
-menu:{ jump:'바로가기', home:'홈으로', tools:'도구', help:'도움말',
-       print:'인쇄', download:'다운로드(.txt)', guide:'사용설명서' },
-
-// zh
-menu:{ jump:'快捷', home:'返回主页', tools:'工具', help:'帮助',
-       print:'打印', download:'下载(.txt)', guide:'使用说明' },
-
-// es
-menu:{ jump:'Accesos', home:'Inicio', tools:'Herramientas', help:'Ayuda',
-       print:'Imprimir', download:'Descargar (.txt)', guide:'Guía de uso' },
-
-// en
-menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
-       print:'Print', download:'Download (.txt)', guide:'User Guide' },
-
-  /* 마이크 FAB + 말풍선 */
-  .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
-  .bubble{position:fixed;right:90px;bottom:32px;max-width:320px;background:#111;color:#fff;border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.4;display:none;z-index:2000;pointer-events:none}
-  .bubble.show,.bubble.live{display:block !important}
+  /* 마이크 FAB + 말풍선 (1개만 유지) */
+  .mic{
+    position:fixed; right:24px; bottom:24px;
+    width:54px; height:54px; border:none; border-radius:50%;
+    background:#2f2f2f; color:#fff; font-size:24px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25); cursor:pointer; z-index:999;
+  }
+  .bubble{
+    position:fixed; right:90px; bottom:32px; max-width:320px;
+    background:#111; color:#fff; border-radius:12px; padding:8px 10px;
+    font-size:13px; line-height:1.4; display:none; z-index:2000; pointer-events:none;
+  }
+  .bubble.show,.bubble.live{ display:block !important; }
 </style>
 </head>
 <body oncontextmenu="return false" ondragstart="return false">
@@ -156,6 +161,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
   </div>
 </div>
 
+<!-- 단일 마이크 & 말풍선 (스크립트 밖!) -->
 <button class="mic" id="micBtn" title="음성 입력">🎤</button>
 <div class="bubble" id="bubble">마이크를 눌러 시작하세요.</div>
 
@@ -206,7 +212,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
       tip:'말씀: 나중에 채움\n필사칸: 붙여넣기 방지\n보조칸: 자유편집, ▲▼로 높이 조절',
       archive:'아카이브', libre:'리브레(자유 메모)',
       search1:'본문 검색', search2:'예) 십자가 / 부활',
-      menu:{jump:'바로가기', tools:'도구', help:'도움말',
+      menu:{jump:'바로가기', home:'홈으로', tools:'도구', help:'도움말',
             toVersion:'버전 목차로', toLang:'언어 홈으로', toRoot:'전체 홈으로',
             print:'인쇄', download:'다운로드(.txt)', guide:'사용설명서'},
       mic:{no:'이 브라우저는 음성 인식을 지원하지 않습니다.', click:'필사칸/메모칸을 클릭한 뒤 마이크를 누르세요.', rec:'녹음 중…'},
@@ -219,7 +225,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
       tip:'经文：稍后填写\n誊写区：禁止粘贴\n侧栏：自由编辑，可用 ▲▼ 调整高度',
       archive:'存档', libre:'随记',
       search1:'正文搜索', search2:'例：十字架 / 复活',
-      menu:{jump:'快捷', tools:'工具', help:'帮助',
+      menu:{jump:'快捷', home:'返回主页', tools:'工具', help:'帮助',
             toVersion:'返回版本目录', toLang:'返回语言主页', toRoot:'返回总主页',
             print:'打印', download:'下载(.txt)', guide:'使用说明'},
       mic:{no:'此浏览器不支持语音识别。', click:'请先点击誊写/备注区域再按麦克风。', rec:'录音中…'},
@@ -232,7 +238,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
       tip:'Texto: se completará después\nÁrea de copia: pegar deshabilitado\nPaneles: edición libre, ▲▼ para altura',
       archive:'Archivo', libre:'Libre (Notas)',
       search1:'Buscar en texto', search2:'Ej.) cruz / resurrección',
-      menu:{jump:'Accesos', tools:'Herramientas', help:'Ayuda',
+      menu:{jump:'Accesos', home:'Inicio', tools:'Herramientas', help:'Ayuda',
             toVersion:'Ir al índice de versión', toLang:'Ir al inicio del idioma', toRoot:'Ir a inicio general',
             print:'Imprimir', download:'Descargar (.txt)', guide:'Guía de uso'},
       mic:{no:'Este navegador no soporta reconocimiento de voz.', click:'Haz click en un área de escritura y luego el micrófono.', rec:'Grabando…'},
@@ -245,7 +251,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
       tip:'Verses: to be filled later\nWriting area: paste disabled\nSide panels: free edit, ▲▼ to resize',
       archive:'Archive', libre:'Libre (Notes)',
       search1:'Find in text', search2:'e.g., cross / resurrection',
-      menu:{jump:'Shortcuts', tools:'Tools', help:'Help',
+      menu:{jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
             toVersion:'Open version index', toLang:'Open language home', toRoot:'Open global home',
             print:'Print', download:'Download (.txt)', guide:'User Guide'},
       mic:{no:'Speech recognition not supported.', click:'Click a writing/memo area, then press the mic.', rec:'Listening…'},
@@ -258,9 +264,7 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
   const chapLabel = L.chapter(num);
 
   /* 제목/라벨/플레이스홀더 로컬라이즈 */
-  $('#chapTitle').textContent = LANG==='ko' ? `${bookName} ${chapLabel}` :
-                               LANG==='zh' ? `${bookName} ${chapLabel}` :
-                                             `${bookName} ${chapLabel}`;
+  $('#chapTitle').textContent = `${bookName} ${chapLabel}`;
   const bookInput = document.querySelector('.book');
   const chapInput = document.querySelector('.chap');
   if (bookInput) bookInput.value = bookName;
@@ -282,72 +286,84 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
   }
   if (nextEl){ nextEl.href = `../${prefix}${pad3(num+1)}/`; }
 
-/* ===== 메뉴 생성: 홈/인쇄/다운로드/설명서 ===== */
-(function buildMenu(){
-  // 경로 기준 계산 (GitHub Pages에서도 안전)
-  const segs = location.pathname.split('/').filter(Boolean);
-  const versionDir = segs[segs.length - 2] || '';        // korean_easy | chinese_cuv | english_niv | spanish_nvi
-  const base = '/' + segs.slice(0, Math.max(segs.length - 2, 0)).join('/') + '/';  
-  // 예) /faith-scripture/
-
-  const langMap  = {korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en'};
-  const langHome = base + (langMap[versionDir] || 'ko') + '/';  // 예) /faith-scripture/ko/
-  const guideUrl = base + '#guide';
-
-  const menu = document.getElementById('globalMenu');
-  if (!menu) return;
-
-  menu.innerHTML = `
-    <button class="menu-btn" aria-label="메뉴" title="메뉴">⋯</button>
-    <div class="menu-list" role="menu" aria-label="Global menu">
-      <div class="menu-group">${L.menu.jump}</div>
-      <a class="menu-item" href="${langHome}" role="menuitem">${L.menu.home}</a>
-
-      <div class="menu-sep"></div>
-      <div class="menu-group">${L.menu.tools}</div>
-      <button class="menu-item" data-action="print" role="menuitem">${L.menu.print}</button>
-      <button class="menu-item" data-action="download" role="menuitem">${L.menu.download}</button>
-
-      <div class="menu-sep"></div>
-      <div class="menu-group">${L.menu.help}</div>
-      <a class="menu-item" href="${guideUrl}" role="menuitem">${L.menu.guide}</a>
-    </div>
-  `;
-
-  const btn  = menu.querySelector('.menu-btn');
-  const list = menu.querySelector('.menu-list');
-  btn.addEventListener('click', (e)=>{ e.stopPropagation(); menu.classList.toggle('open'); });
-  document.addEventListener('click', ()=> menu.classList.remove('open'));
-
-  // 도구 동작
-  list.addEventListener('click', (e)=>{
-    const t = e.target.closest('[data-action]');
-    if (!t) return;
-    if (t.dataset.action === 'print') {
-      window.print();
-    } else if (t.dataset.action === 'download') {
-      const folder = segs[segs.length-1] || '';
-      const title = document.getElementById('chapTitle')?.textContent?.trim() || folder;
-      const arch  = document.getElementById('archiveBody')?.innerText || '';
-      const libre = document.getElementById('libreBody')?.innerText || '';
-      const tas   = Array.from(document.querySelectorAll('textarea'))
-                    .map((ta,i)=>`[Textarea ${i+1}] \n${ta.value||''}`).join('\n\n');
-      const blob = new Blob([
-        [`# ${title}`, '',
-         arch ? `## ${L.export.arch}\n${arch}` : '',
-         libre ? `## ${L.export.libre}\n${libre}` : '',
-         tas ? `## ${L.export.text}\n${tas}` : ''
-        ].filter(Boolean).join('\n\n')
-      ], {type:'text/plain;charset=utf-8'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `${folder}.txt`;
-      a.click();
-      URL.revokeObjectURL(a.href);
+  /* ===== 메뉴 생성: 홈/인쇄/다운로드/설명서 ===== */
+  (function menuFix(){
+    // 1) 메뉴 컨테이너가 없으면 만들어 붙임
+    if(!document.getElementById('globalMenu')){
+      const right = document.querySelector('.topbar .right');
+      if (right){
+        const d = document.createElement('div');
+        d.id = 'globalMenu';
+        d.className = 'menu';
+        right.appendChild(d);
+      }
     }
-    menu.classList.remove('open');
-  });
-})();
+
+    // 2) 경로 계산 (언어 홈)
+    const segs = location.pathname.split('/').filter(Boolean);
+    const versionDir2 = segs[segs.length - 2] || ''; // korean_easy | chinese_cuv | spanish_nvi | english_niv
+    const base = '/' + segs.slice(0, Math.max(segs.length - 2, 0)).join('/') + '/'; // 예) /faith-scripture/
+    const langMap  = {korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en'};
+    const langHome = base + (langMap[versionDir2] || 'ko') + '/';
+    const guideUrl = base + '#guide';
+
+    // 3) 메뉴 마크업 주입
+    const menu = document.getElementById('globalMenu');
+    if (!menu) return;
+    menu.innerHTML = `
+      <button class="menu-btn" aria-label="메뉴" title="메뉴">⋯</button>
+      <div class="menu-list" role="menu" aria-label="Global menu">
+        <div class="menu-group">${L.menu.jump}</div>
+        <a class="menu-item" href="${langHome}" role="menuitem">${L.menu.home}</a>
+
+        <div class="menu-sep"></div>
+        <div class="menu-group">${L.menu.tools}</div>
+        <button class="menu-item" data-action="print" role="menuitem">${L.menu.print}</button>
+        <button class="menu-item" data-action="download" role="menuitem">${L.menu.download}</button>
+
+        <div class="menu-sep"></div>
+        <div class="menu-group">${L.menu.help}</div>
+        <a class="menu-item" href="${guideUrl}" role="menuitem">${L.menu.guide}</a>
+      </div>
+    `;
+
+    // 4) 열고 닫기 + 도구 동작
+    const btn  = menu.querySelector('.menu-btn');
+    const list = menu.querySelector('.menu-list');
+    btn.addEventListener('click', (e)=>{ e.stopPropagation(); menu.classList.toggle('open'); });
+    document.addEventListener('click', ()=> menu.classList.remove('open'));
+
+    list.addEventListener('click', (e)=>{
+      const t = e.target.closest('[data-action]');
+      if (!t) return;
+
+      if (t.dataset.action === 'print') {
+        window.print();
+      } else if (t.dataset.action === 'download') {
+        const folder = segs[segs.length-1] || '';
+        const title = document.getElementById('chapTitle')?.textContent?.trim() || folder;
+        const archTxt  = document.getElementById('archiveBody')?.innerText || '';
+        const libreTxt = document.getElementById('libreBody')?.innerText || '';
+        const tas   = Array.from(document.querySelectorAll('textarea'))
+                       .map((ta,i)=>`[Textarea ${i+1}] \n${ta.value||''}`).join('\n\n');
+        const text = [
+          `# ${title}`, '',
+          archTxt ? `## ${L.export.arch}\n${archTxt}` : '',
+          libreTxt ? `## ${L.export.libre}\n${libreTxt}` : '',
+          tas ? `## ${L.export.text}\n${tas}` : ''
+        ].filter(Boolean).join('\n\n');
+
+        const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${folder}.txt`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      menu.classList.remove('open');
+    });
+  })();
 
   /* 자동 저장/복원 */
   const key = (k) => `fs:v1:${versionDir}:${folder}:${k}`;
@@ -369,8 +385,17 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
 
   /* 마이크 */
   const micBtn = $('#micBtn'), bubble = $('#bubble');
-  function toast(msg){ if(!bubble) return alert(msg); bubble.textContent=msg; bubble.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>bubble.classList.remove('show'),1600); }
-  function listening(on){ if(!bubble) return; bubble.textContent = L.mic.rec; bubble.classList.toggle('live',on); bubble.classList.toggle('show',on); }
+  function toast(msg){
+    if(!bubble){ alert(msg); return; }
+    bubble.textContent=msg; bubble.classList.add('show');
+    clearTimeout(toast._t); toast._t=setTimeout(()=>bubble.classList.remove('show'),1600);
+  }
+  function listening(on){
+    if(!bubble) return;
+    bubble.textContent = L.mic.rec;
+    bubble.classList.toggle('live',on);
+    bubble.classList.toggle('show',on);
+  }
   if (micBtn){
     micBtn.addEventListener('click', ()=>{
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -399,15 +424,6 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
       try{ rec.start(); }catch(_){}
     });
   }
-
-  /* 주소창 정리: /index.html → / */
-  (function(){
-    var p = location.pathname;
-    if (p.endsWith('/index.html')) {
-      var clean = p.slice(0, -'index.html'.length);
-      history.replaceState(null, '', clean + location.search + location.hash);
-    }
-  })();
 })();
 </script>
 </body>
