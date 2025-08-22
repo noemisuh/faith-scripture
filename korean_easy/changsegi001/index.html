@@ -7,7 +7,7 @@
 <style>
   :root{
     --text:#222;--line:#e6e6e6;--panel:#fafafa;
-    --page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;
+    --page-max:1200px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;
     /* 우측 보조칸 폭(과도 확장 방지) */
     --archive-width: clamp(360px, 30vw, 480px);
   }
@@ -30,31 +30,31 @@
 
 /* 제목 아래 여백 */
 .title-pack h1{
-  margin:0 0 12px;           /* 아래로 12px 띄우기 */
-  font-size:28px;
+  margin:4px 0 16px;           /* 아래로 12px 띄우기 */
+  font-size:30px;
   font-weight:800;
-  line-height:1.1;
+  line-height:1.15;
 }
 
 /* 제목 아래 좌/우 화살표 */
 .ch-arrows{
   display:flex;
   justify-content:center;
-  gap:14px;
-  margin-top:6px;
+  gap:16px;
+  margin-top:4px;
 }
 .ch-arrows .arrow{
-  width:36px; height:36px;
+  width:38px; height:38px;
   display:inline-flex; align-items:center; justify-content:center;
   border:1px solid #d0d0d0; border-radius:10px;
   background:#fff; color:#444; text-decoration:none;
-  font-size:20px; line-height:1;
-  box-shadow:0 2px 6px rgba(0,0,0,.04);
+  font-size:22px; line-height:1;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
 }
 .ch-arrows .arrow:hover{ background:#f6f7fb }
 .ch-arrows .arrow:focus{ outline:2px solid #a9c7ff }
 .ch-arrows .arrow.disabled{ opacity:.45; pointer-events:none }
-
+  
   .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px;}
   .page{width:min(92vw,var(--page-max));margin:0 auto;padding:0 var(--page-pad);}
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
@@ -240,22 +240,18 @@ const prefix = m2[1] || 'changsegi';
 const num    = m2[2] ? parseInt(m2[2],10) : 1;
 const pad3   = n => String(n).padStart(3,'0');
 
-const prevLink = document.getElementById('prev');
-const nextLink = document.getElementById('next');
+const prevEl = document.getElementById('prev');
+const nextEl = document.getElementById('next');
 
-if (prevLink){
-  if (num > 1){
-    prevLink.href = `../${prefix}${pad3(num-1)}/`;
-  } else {
-    prevLink.classList.add('disabled');
-    prevLink.removeAttribute('href');
-  }
+if (prevEl){
+  if (num > 1){ prevEl.href = `../${prefix}${pad3(num-1)}/`; }
+  else { prevEl.classList.add('disabled'); prevEl.removeAttribute('href'); }
 }
-if (nextLink){
-  nextLink.href = `../${prefix}${pad3(num+1)}/`;
+if (nextEl){
+  nextEl.href = `../${prefix}${pad3(num+1)}/`;
 }
 
-/* 주소창 정리: .../index.html → .../  (선택) */
+// (선택) 주소창 정리: .../index.html → .../
 (function(){
   var p = location.pathname;
   if (p.endsWith('/index.html')) {
@@ -263,7 +259,7 @@ if (nextLink){
     history.replaceState(null, '', clean + location.search + location.hash);
   }
 })();
-  
+
   // 자동 저장/복원
   const key = (v) => `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`;
   ['archiveBody','libreBody'].forEach(id => {
