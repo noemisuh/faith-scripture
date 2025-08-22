@@ -82,5 +82,16 @@
       <footer>© 2025 Faith Scripture</footer>
     </div>
   </div>
+
+  <script>
+(function(){
+  var p = location.pathname;
+  if (p.endsWith('/index.html')) {
+    var clean = p.slice(0, -'index.html'.length);
+    history.replaceState(null, '', clean + location.search + location.hash);
+  }
+})();
+</script>
 </body>
 </html>
+
