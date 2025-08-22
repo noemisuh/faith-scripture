@@ -1,48 +1,102 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>창세기 __CH__장 | 쉬운성경</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>창세기 1장 | Stable Chapter v1.1</title>
 <style>
-  :root{--text:#222;--line:#e6e6e6;--panel:#fafafa;--page-max:1440px;--page-pad:20px;--bar-max:1200px;--bar-pad:16px;}
-  body{margin:0;background:#fff;color:var(--text);font-family:"Malgun Gothic",sans-serif;-webkit-user-select:none;user-select:none;}
-  .top-space{height:48px;}
-  .bar{max-width:var(--bar-max);margin:0 auto;padding:0 var(--bar-pad);}
-  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-  .left,.right{display:flex;align-items:center;gap:8px;}
+  :root{
+    --text:#222; --line:#e6e6e6; --panel:#fafafa;
+    --container:1200px;         /* .bar .page .wrap 공통 폭 */
+    --pad:20px;
+    --archive-width:clamp(360px,30vw,480px);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--text);font-family:"Malgun Gothic",system-ui,sans-serif;-webkit-user-select:none;user-select:none}
+  .top-space{height:48px}
+
+  /* 좌우 가장자리 정렬 통일 */
+  .bar,.page{max-width:var(--container);padding:0 var(--pad);margin:0 auto}
+  .wrap{max-width:var(--container);margin:0 auto 90px;display:grid;grid-template-columns:minmax(0,1fr) var(--archive-width);gap:24px;align-items:flex-start}
+  @media (max-width:960px){.wrap{grid-template-columns:1fr}}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .left,.right{display:flex;align-items:center;gap:8px}
   .icon{font-size:18px}
-  .book{width:140px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
-  .chap{width:60px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center;}
-  .search{width:180px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
-  .search2{width:200px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;}
-  .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px;}
-  .page{width:min(92vw,var(--page-max));margin:0 auto;padding:0 var(--page-pad);}
-  .title-band{display:flex;justify-content:center;margin-bottom:14px;}
-  .title-pack{display:inline-block;text-align:center;}
-  .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
-  .nav-under{display:flex;justify-content:space-between;gap:8px;margin-top:8px;}
-  .nav-btn{border:none;background:transparent;color:#888;font-size:20px;cursor:pointer;}
-  .wrap{max-width:1200px;margin:0 auto 90px;display:flex;gap:24px;align-items:flex-start;}
-  .col-left{flex:7;min-width:0}
-  .col-right{flex:3;min-width:280px;display:flex;flex-direction:column;gap:14px}
-  .version{font-weight:800;margin:2px 0 12px;display:inline-flex;align-items:center;gap:6px}
-  .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555;}
-  .tip:hover::after{content:"말씀: 나중에 채움\a필사칸: 붙여넣기 방지\a보조칸: 자유편집, ▲▼로 높이 조절";white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10;}
+
+  .book{width:105px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
+  .chap{width:30px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;text-align:center}
+  .search{width:120px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
+  .search2{width:134px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
+  .icon.search-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#222;color:#fff}
+  .icon.search-icon svg{width:18px;height:18px;display:block}
+  .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px}
+
+  .title-band{display:flex;justify-content:center;margin-bottom:14px}
+  .title-pack{display:inline-block;text-align:center}
+  .title-pack h1{margin:4px 0 16px;font-size:30px;font-weight:800;line-height:1.15}
+
+  /* 제목 아래 화살표(박스 제거) */
+  .ch-arrows{display:flex;justify-content:center;gap:16px;margin-top:4px}
+  .ch-arrows .arrow{
+    width:auto;height:auto;border:none;background:transparent;box-shadow:none;
+    color:#444;text-decoration:none;font-size:28px;line-height:1;padding:0 6px;cursor:pointer
+  }
+  .ch-arrows .arrow:hover{transform:translateY(-1px)}
+  .ch-arrows .arrow:focus{outline:2px solid #a9c7ff;border-radius:6px}
+  .ch-arrows .arrow.disabled{opacity:.35;pointer-events:none}
+
+  .version{display:block;margin:2px 0 12px;text-align:left}
+  .tip{position:relative;display:inline-block;cursor:help;font-weight:700;border:1px solid #bbb;border-radius:50%;width:18px;height:18px;line-height:16px;text-align:center;font-size:12px;color:#555}
+  .tip:hover::after{content:attr(data-help);white-space:pre;position:absolute;left:22px;top:-4px;background:#333;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;z-index:10}
+
   .panel{background:var(--panel);border:1px solid #d8d8d8;border-radius:8px;overflow:hidden}
   .panel .ph{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #eaeaea;background:#f6f6f6;font-weight:700;font-size:13px}
   .panel .ph .btns button{border:none;background:transparent;cursor:pointer;font-size:12px;color:#666;padding:2px 4px}
   .panel .body{padding:10px;min-height:100px}
   .panel .body[contenteditable="true"]{outline:none}
-  #archive{height:140px}
+
+  #archive{height:180px}
   #libre{min-height:280px}
+
   .placeholder{padding:12px;border:1px dashed #cfcfcf;border-radius:8px;color:#888;background:#fcfcfc}
-  textarea{width:100%;height:40px;margin-top:8px;padding:8px;font-size:15px;line-height:1.5;border:1px solid #cfcfcf;border-radius:6px;resize:vertical;font-family:inherit;}
-  textarea:focus{outline:2px solid #a9c7ff}
-  /* 마이크 + 말풍선 */
-  .mic{position:fixed;right:24px;bottom:24px;width:54px;height:54px;border:none;border-radius:50%;background:#2f2f2f;color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.25);cursor:pointer;z-index:999}
-  .bubble{position:fixed;right:90px;bottom:32px;max-width:320px;background:#111;color:#fff;border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.4;display:none;z-index:1000}
-  .bubble.show{display:block}
+
+  /* MENU */
+  .menu{ position:relative; display:inline-block; }
+  .menu-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:32px; height:32px; border:1px solid #ddd; border-radius:8px;
+    background:#fff; color:#444; cursor:pointer; font-size:18px;
+  }
+  .menu.open .menu-btn{ background:#111; color:#fff; border-color:#111; }
+  .menu-list{
+    position:absolute; right:0; top:38px; min-width:240px; background:#fff;
+    border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 12px 28px rgba(0,0,0,.12);
+    padding:8px; display:none; z-index:1000;
+  }
+  .menu.open .menu-list{ display:block; }
+  .menu-group{ padding:6px 6px 4px; font-size:12px; color:#6b7280; }
+  .menu-item{
+    display:flex; align-items:center; gap:8px; width:100%; margin:2px 0; padding:9px 10px;
+    border-radius:8px; border:0; background:#fff; color:#111; text-align:left;
+    cursor:pointer; font-size:14px; text-decoration:none;
+  }
+  .menu-item:hover{ background:#f3f4f6; }
+  .menu-sep{ height:1px; background:#eee; margin:6px 4px; }
+
+  /* 마이크 FAB + 말풍선 (1개만 유지) */
+  .mic{
+    position:fixed; right:24px; bottom:24px;
+    width:54px; height:54px; border:none; border-radius:50%;
+    background:#2f2f2f; color:#fff; font-size:24px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25); cursor:pointer; z-index:999;
+  }
+  .bubble{
+    position:fixed; right:90px; bottom:32px; max-width:320px;
+    background:#111; color:#fff; border-radius:12px; padding:8px 10px;
+    font-size:13px; line-height:1.4; display:none; z-index:2000; pointer-events:none;
+  }
+  .bubble.show,.bubble.live{ display:block !important; }
 </style>
 </head>
 <body oncontextmenu="return false" ondragstart="return false">
@@ -52,41 +106,46 @@
   <div class="topbar">
     <div class="left">
       <span class="icon">📖</span>
-      <input class="book" type="text" value="창세기" readonly>
-      <input class="chap" id="chapInput" type="text" value="__CH__" readonly>
+      <input class="book" type="text" value="창세기" readonly />
+      <input class="chap" type="text" value="1" readonly />
     </div>
     <div class="right">
-      <span class="icon">🔍</span>
-      <input class="search"  type="text" placeholder="본문 검색">
-      <input class="search2" type="text" placeholder="예) 십자가 / 부활">
+      <span class="icon search-icon" aria-hidden="true" title="본문 검색">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        </svg>
+      </span>
+      <input class="search"  type="text" placeholder="본문 검색" />
+      <input class="search2" type="text" placeholder="예) 십자가 / 부활" />
+      <div class="menu" id="globalMenu"></div>
     </div>
   </div>
-  <hr class="divider">
+  <hr class="divider" />
 </div>
 
 <div class="page">
   <div class="title-band">
     <div class="title-pack">
-      <h1>창세기 <span id="chLabel">__CH__</span>장</h1>
-      <div class="nav-under">
-        <button class="nav-btn" id="prevBtn" aria-label="이전 장">←</button>
-        <button class="nav-btn" id="nextBtn" aria-label="다음 장">→</button>
+      <h1 id="chapTitle">창세기 1장</h1>
+      <div class="ch-arrows" role="navigation" aria-label="장 이동">
+        <a id="prev" class="arrow" href="#" aria-label="이전 장" title="이전 장">‹</a>
+        <a id="next" class="arrow" href="#" aria-label="다음 장" title="다음 장">›</a>
       </div>
     </div>
   </div>
 
   <div class="wrap">
     <div class="col-left">
-      <div class="version">쉬운성경 <span class="tip">?</span></div>
+      <div class="version">쉬운성경 <span class="tip" id="tip" data-help="말씀: 나중에 채움&#10;필사칸: 붙여넣기 방지&#10;보조칸: 자유편집, ▲▼로 높이 조절">?</span></div>
       <div id="verses" class="placeholder">
         ※ 이 장의 말씀은 아직 비워두었습니다. 나중에 각 절을 추가하고 필사칸을 붙여 넣으세요.
       </div>
-      <!-- 필요 시 여기에 각 절 + textarea 구조를 이후에 채웁니다 -->
     </div>
 
     <aside class="col-right">
       <section id="archive" class="panel">
-        <div class="ph">아카이브
+        <div class="ph" id="archTitle">아카이브
           <div class="btns">
             <button type="button" data-delta="-40" title="위로 줄이기">▲</button>
             <button type="button" data-delta="40"  title="아래로 늘리기">▼</button>
@@ -94,123 +153,278 @@
         </div>
         <div class="body" id="archiveBody" contenteditable="true" spellcheck="false"></div>
       </section>
-
       <section id="libre" class="panel">
-        <div class="ph">리브레(자유 메모)</div>
+        <div class="ph" id="libreTitle">리브레(자유 메모)</div>
         <div class="body" id="libreBody" contenteditable="true" spellcheck="false"></div>
       </section>
     </aside>
   </div>
 </div>
 
+<!-- 단일 마이크 & 말풍선 (스크립트 밖!) -->
 <button class="mic" id="micBtn" title="음성 입력">🎤</button>
 <div class="bubble" id="bubble">마이크를 눌러 시작하세요.</div>
 
 <script>
-  // 붙여넣기 방지(입력/편집 영역)
-  document.addEventListener('paste', (e)=>{
+(() => {
+  const $ = s => document.querySelector(s);
+
+  /* 붙여넣기 방지 */
+  document.addEventListener('paste', (e) => {
     const t = e.target;
-    if (!t) return;
-    if (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT' || t.isContentEditable) e.preventDefault();
+    if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT' || t.isContentEditable)) {
+      e.preventDefault();
+    }
   });
 
-  // 파일명에서 장 번호 추출 (…/changsegiNNN.html)
-  const m = location.pathname.match(/changsegi(\d{3})\.html$/);
-  const ch = m ? parseInt(m[1],10) : parseInt(document.getElementById('chapInput').value,10) || 1;
-  document.getElementById('chLabel').textContent = ch;
-  const chapInput = document.getElementById('chapInput'); if (chapInput) chapInput.value = ch;
-
-  // 제목 아래 중앙 화살표
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const fileOf = (n)=> `changsegi${String(n).padStart(3,'0')}.html`;
-  const dir  = location.pathname.replace(/[^/]+$/, '');       // …/korean_easy/
-  const root = dir.replace(/korean_easy\/$/, '');             // 루트
-
-  prevBtn.onclick = ()=> { if (ch <= 1) location.href = root + 'index.html'; else location.href = dir + fileOf(ch-1); };
-  nextBtn.onclick = ()=> { location.href = dir + fileOf(ch+1); };
-
-  // 아카이브 높이 조절
-  (function(){
-    const arch = document.getElementById('archive');
-    document.querySelectorAll('#archive .btns button').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const d = parseInt(b.dataset.delta,10);
+  /* 아카이브 높이 조절 */
+  const arch = document.getElementById('archive');
+  if (arch) {
+    arch.querySelectorAll('.btns button').forEach((b) => {
+      b.addEventListener('click', () => {
+        const d = parseInt(b.dataset.delta || '0', 10);
         const h = Math.max(80, arch.offsetHeight + d);
         arch.style.height = h + 'px';
       });
     });
+  }
+
+  /* 경로 파싱 & 언어/버전 감지 */
+  const pad3 = n => String(n).padStart(3,'0');
+  const path = location.pathname.replace(/\/+$/,'');
+  const parts = path.split('/').filter(Boolean);
+  const folder = parts[parts.length-1] || '';     // e.g. changsegi001 / chuangshiji001 / genesis001
+  const versionDir = parts[parts.length-2] || ''; // e.g. korean_easy / chinese_cuv / ...
+  const m = folder.match(/^([a-z\-]+)(\d{3})$/i) || [];
+  const prefix = m[1] || 'changsegi';
+  const num    = m[2] ? parseInt(m[2],10) : 1;
+
+  const VERSION_TO_LANG = { korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en' };
+  const ALIAS_TO_CANON  = { changsegi:'genesis', chuangshiji:'genesis', genesis:'genesis' };
+  const LANG  = VERSION_TO_LANG[versionDir] || 'ko';
+  const CANON = ALIAS_TO_CANON[prefix] || prefix;
+
+  const I18N = {
+    ko:{
+      titles:{genesis:'창세기'}, chapter:(n)=>`${n}장`,
+      versionLabel:'쉬운성경',
+      placeholder:'※ 이 장의 말씀은 아직 비워두었습니다. 나중에 각 절을 추가하고 필사칸을 붙여 넣으세요.',
+      tip:'말씀: 나중에 채움\n필사칸: 붙여넣기 방지\n보조칸: 자유편집, ▲▼로 높이 조절',
+      archive:'아카이브', libre:'리브레(자유 메모)',
+      search1:'본문 검색', search2:'예) 십자가 / 부활',
+      menu:{jump:'바로가기', home:'홈으로', tools:'도구', help:'도움말',
+            toVersion:'버전 목차로', toLang:'언어 홈으로', toRoot:'전체 홈으로',
+            print:'인쇄', download:'다운로드(.txt)', guide:'사용설명서'},
+      mic:{no:'이 브라우저는 음성 인식을 지원하지 않습니다.', click:'필사칸/메모칸을 클릭한 뒤 마이크를 누르세요.', rec:'녹음 중…'},
+      export:{arch:'아카이브', libre:'리브레(자유 메모)', text:'텍스트'}
+    },
+    zh:{
+      titles:{genesis:'创世记'}, chapter:(n)=>`第${n}章`,
+      versionLabel:'和合本（CUV）',
+      placeholder:'※ 本章经文暂为空白。稍后请添加各节并粘贴誊写区。',
+      tip:'经文：稍后填写\n誊写区：禁止粘贴\n侧栏：自由编辑，可用 ▲▼ 调整高度',
+      archive:'存档', libre:'随记',
+      search1:'正文搜索', search2:'例：十字架 / 复活',
+      menu:{jump:'快捷', home:'返回主页', tools:'工具', help:'帮助',
+            toVersion:'返回版本目录', toLang:'返回语言主页', toRoot:'返回总主页',
+            print:'打印', download:'下载(.txt)', guide:'使用说明'},
+      mic:{no:'此浏览器不支持语音识别。', click:'请先点击誊写/备注区域再按麦克风。', rec:'录音中…'},
+      export:{arch:'存档', libre:'随记', text:'文本'}
+    },
+    es:{
+      titles:{genesis:'Génesis'}, chapter:(n)=>`${n}`,
+      versionLabel:'NVI',
+      placeholder:'※ Este capítulo está vacío. Luego agrega los versículos y pega el área de copia.',
+      tip:'Texto: se completará después\nÁrea de copia: pegar deshabilitado\nPaneles: edición libre, ▲▼ para altura',
+      archive:'Archivo', libre:'Libre (Notas)',
+      search1:'Buscar en texto', search2:'Ej.) cruz / resurrección',
+      menu:{jump:'Accesos', home:'Inicio', tools:'Herramientas', help:'Ayuda',
+            toVersion:'Ir al índice de versión', toLang:'Ir al inicio del idioma', toRoot:'Ir a inicio general',
+            print:'Imprimir', download:'Descargar (.txt)', guide:'Guía de uso'},
+      mic:{no:'Este navegador no soporta reconocimiento de voz.', click:'Haz click en un área de escritura y luego el micrófono.', rec:'Grabando…'},
+      export:{arch:'Archivo', libre:'Libre', text:'Texto'}
+    },
+    en:{
+      titles:{genesis:'Genesis'}, chapter:(n)=>`${n}`,
+      versionLabel:'NIV',
+      placeholder:'※ This chapter is empty for now. Later add verses and paste the writing fields.',
+      tip:'Verses: to be filled later\nWriting area: paste disabled\nSide panels: free edit, ▲▼ to resize',
+      archive:'Archive', libre:'Libre (Notes)',
+      search1:'Find in text', search2:'e.g., cross / resurrection',
+      menu:{jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
+            toVersion:'Open version index', toLang:'Open language home', toRoot:'Open global home',
+            print:'Print', download:'Download (.txt)', guide:'User Guide'},
+      mic:{no:'Speech recognition not supported.', click:'Click a writing/memo area, then press the mic.', rec:'Listening…'},
+      export:{arch:'Archive', libre:'Libre (Notes)', text:'Text'}
+    }
+  };
+
+  const L = I18N[LANG] || I18N.ko;
+  const bookName = (L.titles[CANON] || CANON);
+  const chapLabel = L.chapter(num);
+
+  /* 제목/라벨/플레이스홀더 로컬라이즈 */
+  $('#chapTitle').textContent = `${bookName} ${chapLabel}`;
+  const bookInput = document.querySelector('.book');
+  const chapInput = document.querySelector('.chap');
+  if (bookInput) bookInput.value = bookName;
+  if (chapInput) chapInput.value = String(num);
+
+  document.querySelector('.version').firstChild.nodeValue = (L.versionLabel + ' ');
+  const tip = document.getElementById('tip'); if (tip) tip.setAttribute('data-help', L.tip);
+  document.getElementById('verses').textContent = L.placeholder;
+  document.getElementById('archTitle').firstChild.nodeValue = L.archive + ' ';
+  document.getElementById('libreTitle').textContent = L.libre;
+  document.querySelector('.search').placeholder = L.search1;
+  document.querySelector('.search2').placeholder = L.search2;
+
+  /* 이전/다음(폴더형 링크) */
+  const prevEl = $('#prev'), nextEl = $('#next');
+  if (prevEl){
+    if (num > 1){ prevEl.href = `../${prefix}${pad3(num-1)}/`; }
+    else { prevEl.classList.add('disabled'); prevEl.removeAttribute('href'); }
+  }
+  if (nextEl){ nextEl.href = `../${prefix}${pad3(num+1)}/`; }
+
+  /* ===== 메뉴 생성: 홈/인쇄/다운로드/설명서 ===== */
+  (function menuFix(){
+    // 1) 메뉴 컨테이너가 없으면 만들어 붙임
+    if(!document.getElementById('globalMenu')){
+      const right = document.querySelector('.topbar .right');
+      if (right){
+        const d = document.createElement('div');
+        d.id = 'globalMenu';
+        d.className = 'menu';
+        right.appendChild(d);
+      }
+    }
+
+    // 2) 경로 계산 (언어 홈)
+    const segs = location.pathname.split('/').filter(Boolean);
+    const versionDir2 = segs[segs.length - 2] || ''; // korean_easy | chinese_cuv | spanish_nvi | english_niv
+    const base = '/' + segs.slice(0, Math.max(segs.length - 2, 0)).join('/') + '/'; // 예) /faith-scripture/
+    const langMap  = {korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en'};
+    const langHome = base + (langMap[versionDir2] || 'ko') + '/';
+    const guideUrl = base + '#guide';
+
+    // 3) 메뉴 마크업 주입
+    const menu = document.getElementById('globalMenu');
+    if (!menu) return;
+    menu.innerHTML = `
+      <button class="menu-btn" aria-label="메뉴" title="메뉴">⋯</button>
+      <div class="menu-list" role="menu" aria-label="Global menu">
+        <div class="menu-group">${L.menu.jump}</div>
+        <a class="menu-item" href="${langHome}" role="menuitem">${L.menu.home}</a>
+
+        <div class="menu-sep"></div>
+        <div class="menu-group">${L.menu.tools}</div>
+        <button class="menu-item" data-action="print" role="menuitem">${L.menu.print}</button>
+        <button class="menu-item" data-action="download" role="menuitem">${L.menu.download}</button>
+
+        <div class="menu-sep"></div>
+        <div class="menu-group">${L.menu.help}</div>
+        <a class="menu-item" href="${guideUrl}" role="menuitem">${L.menu.guide}</a>
+      </div>
+    `;
+
+    // 4) 열고 닫기 + 도구 동작
+    const btn  = menu.querySelector('.menu-btn');
+    const list = menu.querySelector('.menu-list');
+    btn.addEventListener('click', (e)=>{ e.stopPropagation(); menu.classList.toggle('open'); });
+    document.addEventListener('click', ()=> menu.classList.remove('open'));
+
+    list.addEventListener('click', (e)=>{
+      const t = e.target.closest('[data-action]');
+      if (!t) return;
+
+      if (t.dataset.action === 'print') {
+        window.print();
+      } else if (t.dataset.action === 'download') {
+        const folder = segs[segs.length-1] || '';
+        const title = document.getElementById('chapTitle')?.textContent?.trim() || folder;
+        const archTxt  = document.getElementById('archiveBody')?.innerText || '';
+        const libreTxt = document.getElementById('libreBody')?.innerText || '';
+        const tas   = Array.from(document.querySelectorAll('textarea'))
+                       .map((ta,i)=>`[Textarea ${i+1}] \n${ta.value||''}`).join('\n\n');
+        const text = [
+          `# ${title}`, '',
+          archTxt ? `## ${L.export.arch}\n${archTxt}` : '',
+          libreTxt ? `## ${L.export.libre}\n${libreTxt}` : '',
+          tas ? `## ${L.export.text}\n${tas}` : ''
+        ].filter(Boolean).join('\n\n');
+
+        const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${folder}.txt`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      menu.classList.remove('open');
+    });
   })();
 
-  // 자동 저장/복원 (우측 패널 + 좌측 추후 textarea)
-  function key(v){ return `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`; }
-  ['archiveBody','libreBody'].forEach(id=>{
+  /* 자동 저장/복원 */
+  const key = (k) => `fs:v1:${versionDir}:${folder}:${k}`;
+  ['archiveBody','libreBody'].forEach(id => {
     const el = document.getElementById(id);
-    const k = key(id);
-    const saved = localStorage.getItem(k);
+    if (!el) return;
+    const saved = localStorage.getItem(key(id));
     if (saved !== null) el.innerHTML = saved;
-    el.addEventListener('input', ()=> localStorage.setItem(k, el.innerHTML));
+    el.addEventListener('input', () => localStorage.setItem(key(id), el.innerHTML));
   });
-  function bindTextareaAutosave(rootEl=document){
-    rootEl.querySelectorAll('textarea').forEach((ta, i)=>{
-      const k = key('v'+(ta.dataset.verse || (i+1)));
+  (function bindTA(root=document){
+    root.querySelectorAll('textarea').forEach((ta,i)=>{
+      const k = key('v' + (ta.dataset.verse || (i+1)));
       const saved = localStorage.getItem(k);
       if (saved !== null) ta.value = saved;
-      ta.addEventListener('input', ()=> localStorage.setItem(k, ta.value));
+      ta.addEventListener('input', () => localStorage.setItem(k, ta.value));
+    });
+  })();
+
+  /* 마이크 */
+  const micBtn = $('#micBtn'), bubble = $('#bubble');
+  function toast(msg){
+    if(!bubble){ alert(msg); return; }
+    bubble.textContent=msg; bubble.classList.add('show');
+    clearTimeout(toast._t); toast._t=setTimeout(()=>bubble.classList.remove('show'),1600);
+  }
+  function listening(on){
+    if(!bubble) return;
+    bubble.textContent = L.mic.rec;
+    bubble.classList.toggle('live',on);
+    bubble.classList.toggle('show',on);
+  }
+  if (micBtn){
+    micBtn.addEventListener('click', ()=>{
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR){ toast(L.mic.no); return; }
+      const rec = new SR();
+      const langOf = {korean_easy:'ko-KR', chinese_cuv:'zh-CN', spanish_nvi:'es-ES', english_niv:'en-US'};
+      rec.lang = langOf[versionDir] || 'ko-KR';
+      rec.interimResults=false; rec.continuous=false; rec.maxAlternatives=1;
+      rec.onstart = ()=> listening(true);
+      rec.onend   = ()=> listening(false);
+      rec.onerror = e => toast('오류: ' + (e.error||'unknown'));
+      rec.onresult= e => {
+        const t = document.activeElement;
+        const txt = e.results[0][0].transcript;
+        if (t && t.tagName==='TEXTAREA'){
+          const needsSpace = t.value && !/\s$/.test(t.value);
+          const pos = t.selectionStart ?? t.value.length;
+          t.setRangeText((needsSpace?' ':'')+txt, pos, pos, 'end');
+          t.dispatchEvent(new Event('input'));
+        } else if (t && t.isContentEditable){
+          document.execCommand('insertText', false, txt+' ');
+        } else {
+          toast(L.mic.click);
+        }
+      };
+      try{ rec.start(); }catch(_){}
     });
   }
-  bindTextareaAutosave();
-
-  // 마이크 + 말풍선
-  const micBtn  = document.getElementById('micBtn');
-  const bubble  = document.getElementById('bubble');
-  let recog = null;
-
-  function show(msg){
-    bubble.textContent = msg;
-    bubble.classList.add('show');
-    clearTimeout(show._t);
-    show._t = setTimeout(()=> bubble.classList.remove('show'), 2000);
-  }
-  function activeEditable(){
-    const t = document.activeElement;
-    if (!t) return null;
-    if (t.tagName === 'TEXTAREA') return t;
-    if (t.isContentEditable)     return t;
-    show('필사칸 또는 우측 메모칸을 클릭한 뒤 마이크를 누르세요.');
-    return null;
-  }
-  function ensureRecog(){
-    const R = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!R){ show('이 브라우저는 음성 인식을 지원하지 않습니다.'); return null; }
-    const r = new R();
-    r.lang='ko-KR'; r.interimResults=false; r.continuous=false; r.maxAlternatives=1;
-    r.onstart = ()=> show('녹음 중…');
-    r.onerror = (e)=> show('오류: ' + (e.error||'unknown'));
-    r.onend   = ()=> {};
-    r.onresult = (ev)=>{
-      const tgt = activeEditable(); if(!tgt) return;
-      const txt = ev.results[0][0].transcript;
-      if (tgt.tagName === 'TEXTAREA'){
-        const needsSpace = tgt.value && !/\s$/.test(tgt.value);
-        const pos = tgt.selectionStart ?? tgt.value.length;
-        const ins = (needsSpace?' ':'') + txt;
-        tgt.setRangeText(ins, pos, pos, 'end');
-        tgt.dispatchEvent(new Event('input'));
-      }else{ // contentEditable
-        document.execCommand('insertText', false, txt + ' ');
-        const id = tgt.id || 'contentEditable';
-        localStorage.setItem(key(id), tgt.innerHTML);
-      }
-      show('받아쓰기: ' + txt.slice(0,32) + (txt.length>32?'…':''));
-    };
-    return r;
-  }
-  micBtn.addEventListener('click', ()=>{
-    const tgt = activeEditable(); if(!tgt) return;
-    if (!recog) recog = ensureRecog();
-    if (recog) try{ recog.start(); }catch(_){}
-  });
+})();
 </script>
 </body>
 </html>
