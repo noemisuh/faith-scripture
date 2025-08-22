@@ -28,11 +28,38 @@
   .search{width:120px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
   .search2{width:134px;padding:6px 8px;border:1px solid #ccc;border-radius:4px}
 
+/* 제목 아래 여백 */
+.title-pack h1{
+  margin:0 0 12px;           /* 아래로 12px 띄우기 */
+  font-size:28px;
+  font-weight:800;
+  line-height:1.1;
+}
+
+/* 제목 아래 좌/우 화살표 */
+.ch-arrows{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-top:6px;
+}
+.ch-arrows .arrow{
+  width:36px; height:36px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid #d0d0d0; border-radius:10px;
+  background:#fff; color:#444; text-decoration:none;
+  font-size:20px; line-height:1;
+  box-shadow:0 2px 6px rgba(0,0,0,.04);
+}
+.ch-arrows .arrow:hover{ background:#f6f7fb }
+.ch-arrows .arrow:focus{ outline:2px solid #a9c7ff }
+.ch-arrows .arrow.disabled{ opacity:.45; pointer-events:none }
+
   .divider{border:0;border-top:1px solid var(--line);margin:12px 0 18px;}
   .page{width:min(92vw,var(--page-max));margin:0 auto;padding:0 var(--page-pad);}
   .title-band{display:flex;justify-content:center;margin-bottom:14px;}
   .title-pack{display:inline-block;text-align:center;}
-  .title-pack h1{margin:0;font-size:28px;font-weight:800;line-height:1;}
+  
   .nav-under {
     display: flex;
     justify-content: center;
@@ -147,11 +174,10 @@
   <div class="title-band">
     <div class="title-pack">
       <h1>창세기 1장</h1>
-       <nav class="fs-ch-nav">
-        <span class="fs-prev disabled" aria-disabled="true">← 이전</span>
-        <a class="fs-next" href="/kr/easy/genesis/2/" data-route>다음 →</a>
-       </nav>
-    </div>
+      <div class="ch-arrows" role="navigation" aria-label="장 이동">
+       <a id="prev" class="arrow" href="#" aria-label="이전 장">‹</a>
+       <a id="next" class="arrow" href="#" aria-label="다음 장">›</a>
+     </div>
   </div>
 
   <div class="wrap">
@@ -205,29 +231,39 @@
     });
   }
 
-  // 장 이동
-  const m   = location.pathname.match(/changsegi(\d{3})\.html$/);
-  const ch  = m ? parseInt(m[1],10) : 1;
-  const dir = location.pathname.replace(/[^/]+$/, '');
-  const root= dir.replace(/korean_easy\/$/, '');
-  const fileOf = (n) => `changsegi${String(n).padStart(3,'0')}.html`;
+// ── 장 이동(폴더형 경로: ../changsegi001/ 구조) ──
+const path = location.pathname.replace(/\/+$/,'');
+const parts = path.split('/').filter(Boolean);
+const folder = parts[parts.length-1] || '';                 // 예: changsegi001
+const m2 = folder.match(/^([a-z\-]+)(\d{3})$/i) || [];
+const prefix = m2[1] || 'changsegi';
+const num    = m2[2] ? parseInt(m2[2],10) : 1;
+const pad3   = n => String(n).padStart(3,'0');
 
-  function linkify(btn, fallback) {
-    if (!btn) return fallback;
-    let raw = (btn.dataset.href || btn.getAttribute('aria-label') || '').trim();
-    if (!raw) return fallback;
-    raw = raw.replace(/^\//,'').replace(/\.html$/i,'');
-    if (raw === 'index') return root + 'index.html';
-    if (/^https?:\/\//i.test(raw)) return raw;
-    return dir + raw + '.html';
+const prevLink = document.getElementById('prev');
+const nextLink = document.getElementById('next');
+
+if (prevLink){
+  if (num > 1){
+    prevLink.href = `../${prefix}${pad3(num-1)}/`;
+  } else {
+    prevLink.classList.add('disabled');
+    prevLink.removeAttribute('href');
   }
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  if (prevBtn) prevBtn.onclick = () =>
-    location.href = linkify(prevBtn, ch <= 1 ? root + 'index.html' : dir + fileOf(ch-1));
-  if (nextBtn) nextBtn.onclick = () =>
-    location.href = linkify(nextBtn, dir + fileOf(ch+1));
+}
+if (nextLink){
+  nextLink.href = `../${prefix}${pad3(num+1)}/`;
+}
 
+/* 주소창 정리: .../index.html → .../  (선택) */
+(function(){
+  var p = location.pathname;
+  if (p.endsWith('/index.html')) {
+    var clean = p.slice(0, -'index.html'.length);
+    history.replaceState(null, '', clean + location.search + location.hash);
+  }
+})();
+  
   // 자동 저장/복원
   const key = (v) => `korean_easy:genesis:${String(ch).padStart(3,'0')}:${v}`;
   ['archiveBody','libreBody'].forEach(id => {
