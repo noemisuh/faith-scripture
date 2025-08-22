@@ -284,13 +284,15 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
 
 /* ===== 메뉴 생성: 홈/인쇄/다운로드/설명서 ===== */
 (function buildMenu(){
-  const path = location.pathname.replace(/\/+$/,'');
-  const parts = path.split('/').filter(Boolean);
-  const versionDir = parts[parts.length-2] || '';
-  const root = '/'+parts.slice(0, parts.length-2).join('/')+'/'; // /faith-scripture/
-  const langMap = {korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en'};
-  const langHome = root + (langMap[versionDir] || 'ko') + '/';
-  const guideUrl = root + '#guide';
+  // 경로 기준 계산 (GitHub Pages에서도 안전)
+  const segs = location.pathname.split('/').filter(Boolean);
+  const versionDir = segs[segs.length - 2] || '';        // korean_easy | chinese_cuv | english_niv | spanish_nvi
+  const base = '/' + segs.slice(0, Math.max(segs.length - 2, 0)).join('/') + '/';  
+  // 예) /faith-scripture/
+
+  const langMap  = {korean_easy:'ko', chinese_cuv:'zh', spanish_nvi:'es', english_niv:'en'};
+  const langHome = base + (langMap[versionDir] || 'ko') + '/';  // 예) /faith-scripture/ko/
+  const guideUrl = base + '#guide';
 
   const menu = document.getElementById('globalMenu');
   if (!menu) return;
@@ -324,14 +326,14 @@ menu:{ jump:'Shortcuts', home:'Home', tools:'Tools', help:'Help',
     if (t.dataset.action === 'print') {
       window.print();
     } else if (t.dataset.action === 'download') {
-      const folder = parts[parts.length-1] || '';
+      const folder = segs[segs.length-1] || '';
       const title = document.getElementById('chapTitle')?.textContent?.trim() || folder;
       const arch  = document.getElementById('archiveBody')?.innerText || '';
       const libre = document.getElementById('libreBody')?.innerText || '';
       const tas   = Array.from(document.querySelectorAll('textarea'))
                     .map((ta,i)=>`[Textarea ${i+1}] \n${ta.value||''}`).join('\n\n');
       const blob = new Blob([
-        [`# ${title}`, '', 
+        [`# ${title}`, '',
          arch ? `## ${L.export.arch}\n${arch}` : '',
          libre ? `## ${L.export.libre}\n${libre}` : '',
          tas ? `## ${L.export.text}\n${tas}` : ''
