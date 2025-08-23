@@ -1,92 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Faith Scripture · English</title>
-  <style>
-    :root{--bg:#f5f7fb;--hero:#e9f1ff;--fg:#0f172a;--muted:#667085;--card:#fff;--line:#e5e7eb;--pill:#f8fafc;--pillLine:#e2e8f0;--dotted:#cbd5e1;--shadow:0 10px 24px rgba(15,23,42,.08)}
-    *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
-    .hero{background:var(--hero);padding:48px 16px 28px}.brand{max-width:1100px;margin:0 auto;text-align:center}
-    h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
-    .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
-    .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:1fr}}
-    .left{min-height:260px;border:2px dashed var(--dotted);border-radius:16px;padding:24px}
-    .left h2{margin-top:0;font-size:20px;font-weight:700}.left p{color:var(--muted);line-height:1.7;font-size:14px}
-    .right{display:flex;flex-direction:column;gap:8px}
-    .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:110px 1fr;align-items:center;gap:8px}
-    .lang-head{font-weight:800;white-space:nowrap}
-    .versions{display:flex;flex-wrap:wrap;gap:6px}
-    a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
-    footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>English Home | Faith Scripture</title>
+<style>
+  :root{--bg:#f5f7fb;--hero:#e9f1ff;--fg:#0f172a;--muted:#667085;--card:#fff;--line:#e5e7eb;--pill:#f8fafc;--pillLine:#e2e8f0;--dotted:#cbd5e1;--shadow:0 10px 24px rgba(15,23,42,.08)}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+  .hero{background:var(--hero);padding:48px 16px 28px}.brand{max-width:1100px;margin:0 auto;text-align:center}
+  h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
+  .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
+  .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:1fr}}
+  .left{position:relative;min-height:260px;border:2px dashed var(--dotted);border-radius:16px;padding:24px}
+  .left h2{margin-top:0;font-size:20px;font-weight:700}.left p{color:var(--muted);line-height:1.7;font-size:14px}
+  .right{display:flex;flex-direction:column;gap:8px}
+  .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:110px 1fr;align-items:center;gap:8px}
+  .lang-head{font-weight:800;white-space:nowrap}
+  .versions{display:flex;flex-wrap:wrap;gap:6px}
+  a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
+  footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
+
+  /* QR: 왼쪽 상단, 가운데 경계선에 절반 겹치기 */
+  .qr-float{position:absolute; top:12px; right:0; transform:translateX(50%); z-index:20; display:flex; align-items:center; gap:10px;}
+  .qr-float img{width:160px;height:160px;border:1px solid #eee;border-radius:12px;padding:8px;background:#fff;display:block}
+  .qr-meta{font-size:12px;color:#666;line-height:1.45}
+  @media (max-width:900px){ .qr-float{position:static; transform:none; margin:8px 0 12px;} }
+</style>
 </head>
 <body>
-  <div class="hero">
+  <section class="hero">
     <div class="brand">
       <h1>Faith Scripture</h1>
       <div class="subtitle">Read, write, and meditate on the Word</div>
     </div>
-  </div>
+  </section>
 
   <div class="wrap">
     <div class="card">
       <div class="grid">
-        <section class="left" aria-label="about">
+        <section class="left" aria-label="main panel">
+          <div class="qr-float" aria-label="Mobile access QR">
+            <img id="qrHome" alt="Home QR" width="160" height="160">
+            <div class="qr-meta">
+              <div style="font-weight:800;margin-bottom:6px">Mobile access QR</div>
+              <div id="qrUrl"></div>
+            </div>
+          </div>
           <h2>English Home</h2>
-          <p>Select a version below to open the index (Genesis → Revelation).</p>
+          <p class="lead"><b>Write the Word by Faith</b></p>
         </section>
 
         <section class="right" aria-label="versions by language">
           <div class="lang-row"><div class="lang-head">English</div><div class="versions">
             <a class="ver" href="/english_niv/genesis001/">NIV</a>
           </div></div>
-
           <div class="lang-row"><div class="lang-head">Korean</div><div class="versions">
-            <a class="ver" href="/korean_easy/changsegi001/">쉬운성경</a>                                            
+            <a class="ver" href="/korean_easy/changsegi001/">쉬운성경</a>
           </div></div>
-
           <div class="lang-row"><div class="lang-head">Chinese</div><div class="versions">
             <a class="ver" href="/chinese_cuv/chuangshiji001/">CUV</a>
           </div></div>
-
           <div class="lang-row"><div class="lang-head">Spanish</div><div class="versions">
             <a class="ver" href="/spanish_nvi/genesis001/">NVI</a>
           </div></div>
         </section>
       </div>
+
       <footer>© 2025 Faith Scripture</footer>
     </div>
   </div>
 
-<div class="qr-box" style="display:flex;align-items:center;gap:14px">
-  <img id="qrHome" alt="홈 QR" width="180" height="180"
-       style="border:1px solid #eee;border-radius:12px;padding:8px;background:#fff">
-  <div>
-    <div style="font-weight:800;margin-bottom:6px">모바일 접속 QR</div>
-    <div id="qrUrl" style="font-size:12px;color:#666"></div>
-  </div>
-</div>
-  
 <script>
-  (function(){
-    const url = location.origin + '/';               // 필요시 원하는 URL로 교체
-    document.getElementById('qrUrl').textContent = url;
-    document.getElementById('qrHome').src =
-      'https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=' + encodeURIComponent(url);
-  })();
+/* QR 안전판: 로컬/프로젝트 페이지/커스텀 도메인 모두 대응 */
 (function(){
-  const p = location.pathname;                      // /korean_easy/changsegi001/index.html
-  if (p.endsWith('/index.html')) {
-    const clean = p.slice(0, -('/index.html'.length));
-    history.replaceState(null, '', (clean || '/') + '/' + location.search + location.hash);
+  const SITE_ROOT = ""; // 필요 시 "https://yourname.github.io/yourrepo/" 처럼 고정 지정
+  let url = "";
+  if (SITE_ROOT){ url = SITE_ROOT.replace(/\/+$/,"") + "/"; }
+  else if (/^https?:$/.test(location.protocol)){ url = location.origin.replace(/\/+$/,"") + "/"; }
+  else { url = "http://127.0.0.1:5500/"; } // VS Code file:// 미리보기용
+
+  // GitHub Pages(프로젝트 페이지) 자동 보정: /user.github.io/repo/
+  if (/github\.io$/.test(location.hostname) && !SITE_ROOT){
+    const seg1 = location.pathname.split("/")[1] || "";
+    if (seg1) url = location.origin + "/" + seg1.replace(/\/+$/,"") + "/";
+  }
+
+  const label = document.getElementById("qrUrl");
+  const img = document.getElementById("qrHome");
+  if (label) label.textContent = url;
+  if (img) img.src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data=" + encodeURIComponent(url);
+})();
+
+/* /index.html → 디렉터리 URL 정리 */
+(function(){
+  const p = location.pathname;
+  if (p.endsWith("/index.html")) {
+    const clean = p.slice(0, -("/index.html".length));
+    history.replaceState(null, "", (clean || "/") + "/" + location.search + location.hash);
+  }
+})();
+
+/* 절대경로 링크( /korean_easy/... )를 GitHub 프로젝트 페이지에서 자동 접두어 보정 */
+(function(){
+  if (/github\.io$/.test(location.hostname)) {
+    const seg1 = location.pathname.split("/")[1] || "";
+    if (seg1) {
+      const base = "/" + seg1.replace(/\/+$/,"") + "/";
+      document.querySelectorAll('a.ver[href^="/"]').forEach(a=>{
+        a.href = base + a.getAttribute("href").replace(/^\/+/,"");
+      });
+    }
   }
 })();
 </script>
 </body>
 </html>
-
-
-
