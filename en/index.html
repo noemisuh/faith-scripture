@@ -23,24 +23,34 @@
   a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
   footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
 
-/* 카드 밖 왼쪽에 QR 띄우기 */
-.card{ position: relative; }
-.qr-out{
-  position:absolute;
-  top:18px;
-  left:-200px;               /* 160(이미지)+24(패딩/여유) ≈ 200px 만큼 바깥으로 */
-  display:flex; align-items:center; gap:10px;
-  z-index:30;
+/* === QR inside card, with wide left padding === */
+:root{ --qr:160px; --qrPad:24px; }
+
+.left{
+  position:relative;
+  padding:24px;
+  padding-left: calc(var(--qr) + var(--qrPad) * 2); /* ← QR 폭만큼 왼쪽 여백 확보 */
+  border:2px dashed var(--dotted);
+  border-radius:16px;
 }
-.qr-out img{
-  width:160px; height:160px;
-  border:1px solid #eee; border-radius:12px; padding:8px; background:#fff; display:block;
+
+.qr-in{
+  position:absolute;
+  left: var(--qrPad);
+  top:  var(--qrPad);
+  display:flex; gap:10px; align-items:center;
+}
+  
+.qr-in img{
+  width:var(--qr); height:var(--qr);
+  border:1px solid #eee; border-radius:12px; padding:8px; background:#fff;
 }
 .qr-meta{ font-size:12px; color:#666; line-height:1.45; }
 
-/* 좁은 화면에서는 자연스럽게 카드 안으로 */
-@media (max-width:1200px){
-  .qr-out{ left:0; position:static; margin:8px 0 12px; }
+/* 모바일: QR을 본문 위로 내려서 자연스럽게 */
+@media (max-width:900px){
+  .left{ padding:24px; }               /* 기본 패딩으로 복귀 */
+  .qr-in{ position:static; margin-bottom:10px; }
 }
 </style>
 </head>
@@ -56,30 +66,31 @@
     <div class="card">
       <div class="grid">
         <section class="left" aria-label="main panel">
-          <div class="qr-float" aria-label="Mobile access QR">
-            <img id="qrHome" alt="Home QR" width="160" height="160">
-            <div class="qr-meta">
-              <div style="font-weight:800;margin-bottom:6px">Mobile access QR</div>
-              <div id="qrUrl"></div>
-            </div>
-          </div>
+         <div class="qr-in" aria-label="Mobile access QR">
+         <img id="qrHome" alt="Home QR" width="160" height="160">
+        <div class="qr-meta">
+      <div style="font-weight:800;margin-bottom:6px">Mobile access QR</div>
+      <div id="qrUrl">http://127.0.0.1:5500/</div> <!-- 필요시 삭제/수정 -->
+    </div>
+  </div>
+          
           <h2>English Home</h2>
           <p class="lead"><b>Write the Word by Faith</b></p>
         </section>
-
-        <!-- 예: EN 홈 -->
+ 
+         <!-- 예: EN 홈 -->
         <section class="right" aria-label="versions by language">
           <div class="lang-row"><div class="lang-head">English</div><div class="versions">
-            <a class="ver" href="/english_niv/genesis001/" data-ver="english_niv">NIV</a>
+           <a class="ver" href="../english_niv/">NIV</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Korean</div><div class="versions">
-            <a class="ver" href="/korean_easy/changsegi001/" data-ver="korean_easy">쉬운성경</a>
+           <a class="ver" href="../korean_easy/">쉬운성경</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Chinese</div><div class="versions">
-            <a class="ver" href="/chinese_cuv/chuangshiji001/" data-ver="chinese_cuv">CUV</a>
+           <a class="ver" href="../chinese_cuv/">CUV</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Spanish</div><div class="versions">
-            <a class="ver" href="/spanish_nvi/genesis001/" data-ver="spanish_nvi">NVI</a>
+           <a class="ver" href="../spanish_nvi/">NVI</a>
           </div></div>
         </section>
       </div>
@@ -88,7 +99,6 @@
     </div>
   </div>
 
-<script>
 <script>
 (function(){
   // QR에 넣을 기본 URL 계산
@@ -126,5 +136,6 @@
 </script>
 </body>
 </html>
+
 
 
