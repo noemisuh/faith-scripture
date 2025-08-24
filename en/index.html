@@ -23,12 +23,6 @@
   a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
   footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
 
-  /* QR: 왼쪽 상단, 가운데 경계선에 절반 겹치기 */
-  .qr-float{position:absolute; top:12px; right:0; transform:translateX(50%); z-index:20; display:flex; align-items:center; gap:10px;}
-  .qr-float img{width:160px;height:160px;border:1px solid #eee;border-radius:12px;padding:8px;background:#fff;display:block}
-  .qr-meta{font-size:12px;color:#666;line-height:1.45}
-  @media (max-width:900px){ .qr-float{position:static; transform:none; margin:8px 0 12px;} }
-
 /* 카드 밖 왼쪽에 QR 띄우기 */
 .card{ position: relative; }
 .qr-out{
@@ -60,13 +54,6 @@
 
   <div class="wrap">
     <div class="card">
-       <div id="qrFloat" class="qr-out" aria-label="Mobile QR">
-    <img id="qrHome" alt="홈 QR" width="160" height="160">
-    <div class="qr-meta">
-      <div class="qr-title" style="font-weight:800;margin-bottom:6px">모바일 접속 QR</div>
-      <div id="qrUrl" style="font-size:12px;color:#666"></div>
-    </div>
-  </div>
       <div class="grid">
         <section class="left" aria-label="main panel">
           <div class="qr-float" aria-label="Mobile access QR">
@@ -83,16 +70,16 @@
         <!-- 예: EN 홈 -->
         <section class="right" aria-label="versions by language">
           <div class="lang-row"><div class="lang-head">English</div><div class="versions">
-            <a class="ver" data-ver="english_niv" data-fallback="/english_niv/genesis001/">NIV</a>
+            <a class="ver" href="/english_niv/genesis001/" data-ver="english_niv">NIV</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Korean</div><div class="versions">
-            <a class="ver" data-ver="korean_easy" data-fallback="/korean_easy/changsegi001/">쉬운성경</a>
+            <a class="ver" href="/korean_easy/changsegi001/" data-ver="korean_easy">쉬운성경</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Chinese</div><div class="versions">
-            <a class="ver" data-ver="chinese_cuv" data-fallback="/chinese_cuv/chuangshiji001/">CUV</a>
+            <a class="ver" href="/chinese_cuv/chuangshiji001/" data-ver="chinese_cuv">CUV</a>
           </div></div>
           <div class="lang-row"><div class="lang-head">Spanish</div><div class="versions">
-            <a class="ver" data-ver="spanish_nvi" data-fallback="/spanish_nvi/genesis001/">NVI</a>
+            <a class="ver" href="/spanish_nvi/genesis001/" data-ver="spanish_nvi">NVI</a>
           </div></div>
         </section>
       </div>
@@ -102,17 +89,10 @@
   </div>
 
 <script>
+<script>
 (function(){
-  /* ========= 공통 설정 ========= */
-  const SITE_ROOT = ""; // 필요하면 사이트 루트 고정: "https://yourname.github.io/yourrepo/"
-  const FALLBACKS = { // 버전별 1장 폴백
-    english_niv: "/english_niv/genesis001/",
-    spanish_nvi: "/spanish_nvi/genesis001/",
-    korean_easy: "/korean_easy/changsegi001/",
-    chinese_cuv: "/chinese_cuv/chuangshiji001/"
-  };
-
-  /* ========= 0) 베이스 URL 계산 (QR/링크용) ========= */
+  // QR에 넣을 기본 URL 계산
+  const SITE_ROOT = ""; // 배포 루트가 확정이면 "https://사용자.github.io/레포/" 로 지정
   let root = "";
   if (SITE_ROOT) {
     root = SITE_ROOT.replace(/\/+$/,"") + "/";
@@ -122,66 +102,29 @@
     // VS Code file:// 미리보기
     root = "http://127.0.0.1:5500/";
   }
-  // GitHub Pages "프로젝트 페이지"인 경우 /user.github.io/repo/ 자동 보정
-  let linkBase = "";
-  if (SITE_ROOT) {
-    linkBase = root; // SITE_ROOT에 절대URL을 넣었으면 그걸 그대로 사용
-  } else if (/github\.io$/.test(location.hostname)) {
-    const repo = (location.pathname.split("/")[1] || "").replace(/\/+$/,"");
-    linkBase = repo ? (location.origin + "/" + repo + "/") : location.origin + "/";
-  } else {
-    linkBase = "/"; // 도메인 루트
+  // GitHub Pages(프로젝트 페이지) 자동 보정
+  if (!SITE_ROOT && /github\.io$/.test(location.hostname)) {
+    const seg1 = location.pathname.split("/")[1] || "";
+    if (seg1) root = location.origin + "/" + seg1.replace(/\/+$/,"") + "/";
   }
-  const withBase = (path) =>
-    (linkBase.replace(/\/+$/,"") + "/" + String(path||"").replace(/^\/+/,""))
-      .replace(/([^:]\/)\/+/g,"$1"); // 이중 슬래시 정리
 
-  /* ========= 1) QR 생성 ========= */
-  (function(){
-    const lbl = document.getElementById("qrUrl");
-    const img = document.getElementById("qrHome");
-    if (lbl) lbl.textContent = root;
-    if (img) {
-      img.onerror = () => { img.alt = "QR 생성 실패: " + root; };
-      img.src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data=" + encodeURIComponent(root);
-    }
-  })();
+  // QR 생성
+  const lbl = document.getElementById("qrUrl");
+  const img = document.getElementById("qrHome");
+  if (lbl) lbl.textContent = root;
+  if (img) img.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data=" +
+    encodeURIComponent(root);
 
-  /* ========= 2) /index.html → 디렉터리 URL 정리 ========= */
-  (function(){
-    const p = location.pathname;
-    if (p.endsWith("/index.html")) {
-      const clean = p.slice(0, -("/index.html".length));
-      history.replaceState(null, "", (clean || "/") + "/" + location.search + location.hash);
-    }
-  })();
-
-  /* ========= 3) 버전 버튼: 목차 우선, 없으면 1장 폴백 =========
-     - 버튼 마크업: <a class="ver" data-ver="english_niv">NIV</a>
-       (data-fallback을 넣으면 FALLBACKS 대신 우선 사용) */
-  (async function(){
-    async function exists(url){
-      try { const r = await fetch(url, {method:"HEAD", cache:"no-store"}); return r.ok; }
-      catch { return false; }
-    }
-    const tasks = Array.from(document.querySelectorAll('a.ver')).map(async (a)=>{
-      const ver = a.dataset.ver || "";
-      const fb  = a.dataset.fallback || FALLBACKS[ver] || "/";
-      const toc = "/" + ver + "/";
-
-      // 기본은 폴백으로 걸어두고…
-      a.href = withBase(fb);
-      // 목차가 실제 있으면 목차로 교체
-      if (ver) {
-        const tocUrl = withBase(toc);
-        const tocIdx = withBase(toc + "index.html");
-        if (await exists(tocUrl) || await exists(tocIdx)) a.href = tocUrl;
-      }
-    });
-    await Promise.allSettled(tasks);
-  })();
+  // /index.html → 디렉토리 URL
+  const p = location.pathname;
+  if (p.endsWith("/index.html")) {
+    const clean = p.slice(0, -("/index.html".length));
+    history.replaceState(null, "", (clean || "/") + "/" + location.search + location.hash);
+  }
 })();
 </script>
 </body>
 </html>
+
 
