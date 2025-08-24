@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Inicio en Español | Faith Scripture</title>
-<!-- CSS 동일 (위와 같음) -->
+<title>English Home | Faith Scripture</title>
 <style>
   :root{--bg:#f5f7fb;--hero:#e9f1ff;--fg:#0f172a;--muted:#667085;--card:#fff;--line:#e5e7eb;--pill:#f8fafc;--pillLine:#e2e8f0;--dotted:#cbd5e1;--shadow:0 10px 24px rgba(15,23,42,.08)}
   *{box-sizing:border-box} html,body{height:100%}
@@ -12,6 +11,7 @@
   .hero{background:var(--hero);padding:48px 16px 28px}.brand{max-width:1100px;margin:0 auto;text-align:center}
   h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
   .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
+
   .wrap{max-width:1100px;margin:0 auto;padding:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
   .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:1fr}}
   .left{position:relative;min-height:260px;border:2px dashed var(--dotted);border-radius:16px;padding:24px}
@@ -22,10 +22,20 @@
   .versions{display:flex;flex-wrap:wrap;gap:6px}
   a.ver{min-width:60px;height:36px;line-height:36px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-decoration:none;color:inherit;font-weight:700}
   footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
-  .qr-float{position:absolute; top:12px; right:0; transform:translateX(50%); z-index:20; display:flex; align-items:center; gap:10px;}
-  .qr-float img{width:160px;height:160px;border:1px solid #eee;border-radius:12px;padding:8px;background:#fff;display:block}
-  .qr-meta{font-size:12px;color:#666;line-height:1.45}
-  @media (max-width:900px){ .qr-float{position:static; transform:none; margin:8px 0 12px;} }
+
+  /* === QR inside card, with wide left padding === */
+  :root{ --qr:160px; --qrPad:24px; }
+  .left{ padding-left: calc(var(--qr) + var(--qrPad) * 2); }
+  .qr-in{ position:absolute; left:var(--qrPad); top:var(--qrPad); display:flex; gap:10px; align-items:center; }
+  .qr-in img{ width:var(--qr); height:var(--qr); border:1px solid #eee; border-radius:12px; padding:8px; background:#fff; }
+  .qr-meta{ display:none; font-size:12px; color:#666; line-height:1.45; } /* 데스크톱은 숨김 */
+
+  /* 모바일: QR을 본문 위로 내려서 자연스럽게 */
+  @media (max-width:900px){
+    .left{ padding:24px; }               /* 기본 패딩으로 복귀 */
+    .qr-in{ position:static; margin-bottom:10px; }
+    .qr-meta{ display:block; }           /* 모바일에서만 보이게 */
+  }
 </style>
 </head>
 <body>
@@ -39,42 +49,62 @@
   <div class="wrap">
     <div class="card">
       <div class="grid">
-        <section class="left" aria-label="panel principal">
-          <div class="qr-float" aria-label="QR de acceso móvil">
-            <img id="qrHome" alt="QR de inicio" width="160" height="160">
+        <section class="left" aria-label="main panel">
+          <div class="qr-in" aria-label="Mobile access QR">
+            <img id="qrHome" alt="Home QR" width="160" height="160">
             <div class="qr-meta">
-              <div style="font-weight:800;margin-bottom:6px">QR de acceso móvil</div>
-              <div id="qrUrl"></div>
+              <div style="font-weight:800;margin-bottom:6px">Mobile access QR</div>
+              <div id="qrUrl"></div> <!-- ← 초기값 비움 -->
             </div>
           </div>
-          <h2>Inicio en Español</h2>
-          <p class="lead"><b>Escribe la Palabra con fe</b></p>
+
+          <h2>English Home</h2>
+          <p class="lead"><b>Write the Word by Faith</b></p>
         </section>
 
-        <section class="right" aria-label="versiones por idioma">
-          <div class="lang-row"><div class="lang-head">Inglés</div><div class="versions">
-            <a class="ver" href="/english_niv/genesis001/">NIV</a>
+        <section class="right" aria-label="versions by language">
+          <div class="lang-row"><div class="lang-head">English</div><div class="versions">
+            <a class="ver" href="/faith-scripture/english_niv/genesis001/">NIV</a>
           </div></div>
-          <div class="lang-row"><div class="lang-head">Coreano</div><div class="versions">
-            <a class="ver" href="/korean_easy/changsegi001/">쉬운성경</a>
+          <div class="lang-row"><div class="lang-head">Korean</div><div class="versions">
+            <a class="ver" href="/faith-scripture/korean_easy/changsegi001/">쉬운성경</a>
           </div></div>
-          <div class="lang-row"><div class="lang-head">Chino</div><div class="versions">
-            <a class="ver" href="/chinese_cuv/chuangshiji001/">CUV</a>
+          <div class="lang-row"><div class="lang-head">Chinese</div><div class="versions">
+            <a class="ver" href="/faith-scripture/chinese_cuv/chuangshiji001/">CUV</a>
           </div></div>
-          <div class="lang-row"><div class="lang-head">Español</div><div class="versions">
-            <a class="ver" href="/spanish_nvi/genesis001/">NVI</a>
+          <div class="lang-row"><div class="lang-head">Spanish</div><div class="versions">
+            <a class="ver" href="/faith-scripture/spanish_nvi/genesis001/">NVI</a>
           </div></div>
         </section>
       </div>
+
       <footer>© 2025 Faith Scripture</footer>
     </div>
   </div>
 
-<!-- 동일 스크립트 -->
 <script>
-(function(){const SITE_ROOT="";let url="";if(SITE_ROOT){url=SITE_ROOT.replace(/\/+$/,"")+"/"}else if(/^https?:$/.test(location.protocol)){url=location.origin.replace(/\/+$/,"")+"/"}else{url="http://127.0.0.1:5500/"}if(/github\.io$/.test(location.hostname)&&!SITE_ROOT){const s=location.pathname.split("/")[1]||"";if(s)url=location.origin+"/"+s.replace(/\/+$/,"")+"/"};const l=document.getElementById("qrUrl"),i=document.getElementById("qrHome");if(l)l.textContent=url;if(i)i.src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data="+encodeURIComponent(url)})();
-(function(){const p=location.pathname;if(p.endsWith("/index.html")){const c=p.slice(0,-("/index.html".length));history.replaceState(null,"",(c||"/")+"/"+location.search+location.hash)}})();
-(function(){if(/github\.io$/.test(location.hostname)){const s=location.pathname.split("/")[1]||"";if(s){const b="/"+s.replace(/\/+$/,"")+"/";document.querySelectorAll('a.ver[href^="/"]').forEach(a=>{a.href=b+a.getAttribute("href").replace(/^\/+/,"")})}}})();
+(function(){
+  // QR에 넣을 기본 URL 계산 → 프로젝트 루트
+  const SITE_ROOT = ""; // 필요하면 "https://noemisuh.github.io/faith-scripture/" 로 고정
+  let root = "";
+  if (SITE_ROOT) {
+    root = SITE_ROOT.replace(/\/+$/,"") + "/";
+  } else if (/^https?:$/.test(location.protocol)) {
+    root = location.origin.replace(/\/+$/,"") + "/";
+  } else {
+    root = "http://127.0.0.1:5500/";
+  }
+  if (!SITE_ROOT && /github\.io$/.test(location.hostname)) {
+    const seg1 = location.pathname.split("/")[1] || "";
+    if (seg1) root = location.origin + "/" + seg1.replace(/\/+$/,"") + "/";
+  }
+
+  // QR 생성 + 라벨 텍스트
+  const lbl = document.getElementById("qrUrl");
+  const img = document.getElementById("qrHome");
+  if (lbl) lbl.textContent = root;
+  if (img) img.src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data=" + encodeURIComponent(root);
+})();
 </script>
 </body>
 </html>
