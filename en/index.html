@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<head>
+  <script>
+(function(){
+  // 현재 저장소 루트 계산 (faith-scripture 또는 faith-bible-copy 모두 OK)
+  var repo = (location.pathname.split('/')[1] || '').replace(/\/+$/,'');
+  var ROOT = location.origin + (repo ? '/' + repo + '/' : '/');
+
+  // 버전별 '목차(폴더 루트)' 경로
+  var ROUTES = {
+    en: { home: ROOT, toc: ROOT + 'english_niv/'  },
+    ko: { home: ROOT, toc: ROOT + 'korean_easy/'  },
+    zh: { home: ROOT, toc: ROOT + 'chinese_cuv/'  },
+    es: { home: ROOT, toc: ROOT + 'spanish_nvi/'  }
+  };
+
+  var LANG = (document.documentElement.lang || document.body.getAttribute('data-lang') || 'en').toLowerCase();
+  var r = ROUTES[LANG] || ROUTES.en;
+
+  // 1) 우측 언어 리스트의 버튼 href 고정 (각 row의 data-lang 기준)
+  document.querySelectorAll('.lang-row').forEach(function(row){
+    var key = (row.getAttribute('data-lang') || '').toLowerCase();
+    var dst = ROUTES[key] && ROUTES[key].toc;
+    if (dst) row.querySelectorAll('.versions a.ver').forEach(function(a){ a.href = dst; });
+  });
+
+  // 2) 이 페이지의 '목차로 가기' 단일 버튼이 있다면 고정
+  var tocLink = document.querySelector('[data-link="toc"]');
+  if (tocLink) tocLink.href = r.toc;
+
+  // 3) QR 생성 (왼쪽 패널에 #qrHome가 있을 때)
+  var qrImg = document.getElementById('qrHome');
+  if (qrImg){
+    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data='+encodeURIComponent(ROOT);
+    qrImg.alt = (LANG.toUpperCase()) + ' Home QR';
+  }
+  var qrLbl = document.getElementById('qrUrl');
+  if (qrLbl) qrLbl.textContent = ROOT;
+
+  // 4) 타이틀(헤딩) 통일
+  var TITLES = { en:'English Home', ko:'한국어 홈', zh:'中文首页', es:'Inicio en Español' };
+  var h2 = document.querySelector('h2');
+  if (h2) h2.textContent = TITLES[LANG] || TITLES.en;
+})();
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>English Home | Faith Scripture</title>
+  ...
+</head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>English Home | Faith Scripture</title>
@@ -108,3 +159,4 @@
 </script>
 </body>
 </html>
+
