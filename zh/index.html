@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+(function(){
+  // 현재 저장소 루트 (faith-scripture / faith-bible-copy 모두 대응)
+  var repo=(location.pathname.split('/')[1]||'').replace(/\/+$/,'');
+  var ROOT=location.origin+(repo?'/'+repo+'/':'/');
+
+  // 각 언어의 '목차(폴더 루트)' 경로
+  var ROUTES={
+    en:{home:ROOT, toc:ROOT+'english_niv/'},
+    ko:{home:ROOT, toc:ROOT+'korean_easy/'},
+    zh:{home:ROOT, toc:ROOT+'chinese_cuv/'},
+    es:{home:ROOT, toc:ROOT+'spanish_nvi/'}
+  };
+
+  var LANG=(document.documentElement.lang||document.body.getAttribute('data-lang')||'en').toLowerCase();
+  var r=ROUTES[LANG]||ROUTES.en;
+
+  // 우측 언어 리스트 버튼들을 해당 '목차'로 고정
+  document.querySelectorAll('.lang-row').forEach(function(row){
+    var key=(row.getAttribute('data-lang')||'').toLowerCase();
+    var dst=ROUTES[key]&&ROUTES[key].toc;
+    if(dst) row.querySelectorAll('.versions a.ver').forEach(function(a){ a.href=dst; });
+  });
+
+  // 단일 '목차' 버튼(data-link="toc")가 있으면 고정
+  var toc=document.querySelector('[data-link="toc"]');
+  if(toc) toc.href=r.toc;
+
+  // QR (있으면 생성)
+  var img=document.getElementById('qrHome');
+  if(img){
+    img.src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data='+encodeURIComponent(ROOT);
+    img.alt=(LANG.toUpperCase())+' Home QR';
+  }
+  var lbl=document.getElementById('qrUrl'); if(lbl) lbl.textContent=ROOT;
+
+  // 제목 교정(있으면)
+  var T={en:'English Home', ko:'한국어 홈', zh:'中文首页', es:'Inicio en Español'};
+  var h2=document.querySelector('h2'); if(h2) h2.textContent=T[LANG]||T.en;
+})();
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>English Home | Faith Scripture</title>
@@ -108,3 +149,4 @@
 </script>
 </body>
 </html>
+
