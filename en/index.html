@@ -118,6 +118,20 @@
 
   var LANG=(document.documentElement.lang||document.body.getAttribute('data-lang')||'en').toLowerCase();
   var r=ROUTES[LANG]||ROUTES.en;
+  
+ /* [추가] 언어 라벨 현지화 */
+  var LABELS = {
+    en: { ko:'Korean',  zh:'Chinese',  es:'Spanish',  en:'English' },
+    ko: { ko:'한국어',    zh:'중국어',    es:'스페인어', en:'영어'   },
+    es: { ko:'Coreano', zh:'Chino',    es:'Español',  en:'Inglés'  },
+    zh: { ko:'韩语',     zh:'中文',      es:'西班牙语', en:'英语'    }
+  };
+  var labels = LABELS[LANG] || LABELS.en;
+  document.querySelectorAll('.lang-row').forEach(function(row){
+    var key=(row.getAttribute('data-lang')||'').toLowerCase();
+    var head=row.querySelector('.lang-head');
+    if(head && labels[key]) head.textContent = labels[key];
+  });
 
   // 2) 우측 언어 리스트 링크 세팅
   document.querySelectorAll('.lang-row').forEach(function(row){
@@ -146,3 +160,4 @@
 </script>
 </body>
 </html>
+
