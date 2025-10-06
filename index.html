@@ -130,6 +130,54 @@
   .resume-banner .ghost{
     background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
   }
+
+  <!-- 강제 오버라이드: </head> 바로 위에 추가 -->
+<style id="fixes">
+  /* 상단 여백(히어로) */
+  body .hero{ padding:96px 20px 44px !important; text-align:center !important; }
+
+  /* 3칸 레이아웃: QR / 소개 / 언어  (가운데·오른쪽 촘촘) */
+  .outer3{
+    max-width:1200px !important;
+    margin:48px auto 0 !important;
+    display:grid !important;
+    grid-template-columns:220px minmax(0,1fr) minmax(0,1fr) !important;
+    column-gap:16px !important;
+    align-items:flex-start !important;
+    padding:0 12px !important;
+  }
+
+  /* QR 크게 + 라벨 한 줄 */
+  .qr-grid{ grid-template-columns:repeat(2,1fr) !important; gap:14px !important; justify-items:center !important; }
+  .qr-item img{ width:148px !important; height:148px !important; border-radius:12px !important; }
+  .qr-item p{ white-space:nowrap !important; margin-top:6px !important; line-height:1.2 !important; }
+
+  /* 가운데·오른쪽 카드 간격/스타일 */
+  .center-col .card, .right-col .card{
+    background:#fff !important; border:1px solid #e2e8f0 !important; border-radius:16px !important;
+    box-shadow:0 8px 18px rgba(15,23,42,.06) !important;
+  }
+  .center-col .card{ padding:28px !important; text-align:center !important; }
+  .right-col .card{ padding:18px !important; }
+
+  /* 가운데와 언어 박스 사이 ‘세로 구분선’ */
+  .right-col{ position:relative !important; }
+  .right-col::before{
+    content:"" !important; position:absolute !important; left:-8px !important; top:0 !important; bottom:0 !important;
+    width:1px !important; background:#e5e7eb !important;
+  }
+
+  /* 사용설명서(가이드) 박스는 페이지 하단 배치용 마진 */
+  .guide{ margin:48px auto 40px !important; max-width:900px !important; }
+
+  /* 모바일 정리 */
+  @media (max-width:900px){
+    .outer3{ grid-template-columns:1fr !important; row-gap:14px !important; }
+    .right-col::before{ display:none !important; }
+    .qr-grid{ grid-template-columns:repeat(4,1fr) !important; gap:10px !important; }
+    .qr-item img{ width:100px !important; height:100px !important; }
+    .qr-item p{ font-size:11px !important; }
+  }
 </style>
 </head>
 
@@ -261,3 +309,4 @@
   </script>
 </body>
 </html>
+
