@@ -26,34 +26,54 @@
   .brand h1{margin:0;font-size:clamp(28px,3.8vw,44px);font-weight:900;letter-spacing:-.02em}
   .subtitle{margin-top:10px;color:var(--muted);font-size:16px}
 
-  /* 3칸 메인 구조: QR / 소개 / 언어 (중앙·오른쪽을 가깝게) */
-  .outer3{
-    max-width:var(--maxw);
-    margin:48px auto 0;
-    display:grid;
-    grid-template-columns:220px minmax(0,1fr) minmax(0,1fr);
-    column-gap:16px;
-    align-items:flex-start;
-    padding:0 12px;
-  }
-  @media (max-width:900px){
-    .outer3{grid-template-columns:1fr;row-gap:14px;margin:40px auto}
-  }
+/* 3칸 레이아웃: 왼쪽 칼럼을 넉넉히 (겹침 방지) */
+.outer3{
+  max-width:var(--maxw);
+  margin:48px auto 0;
+  display:grid;
+  grid-template-columns:340px minmax(0,1fr) minmax(0,1fr); /* ← 340px */
+  column-gap:20px;
+  align-items:flex-start;
+  padding:0 12px;
+}
 
-  /* 왼쪽 QR */
-  .qr-col{text-align:center}
-  .qr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;justify-items:center}
-  .qr-item img{
-    width:148px;height:148px;border-radius:12px;
-    border:1px solid #e2e8f0;background:#fff;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
-  }
-  .qr-item p{margin:6px 0 0;font-size:13px;color:#334155;line-height:1.2;white-space:nowrap}
-  @media (max-width:900px){
-    .qr-grid{grid-template-columns:repeat(4,1fr);gap:10px}
-    .qr-item img{width:100px;height:100px}
-    .qr-item p{font-size:11px}
-  }
+/* 왼쪽 QR */
+.qr-col{ text-align:center; }
+
+/* QR 그리드(2x2), 간격 살짝 타이트 */
+.qr-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  justify-items:center;
+}
+
+/* QR 이미지(148px) — 중괄호 정리됨 */
+.qr-item img{
+  width:148px;
+  height:148px;
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* 라벨 한 줄 고정 */
+.qr-item p{
+  margin:6px 0 0;
+  font-size:13px;
+  color:#334155;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+/* 모바일 */
+@media (max-width:900px){
+  .outer3{ grid-template-columns:1fr; row-gap:14px; }
+  .qr-grid{ grid-template-columns:repeat(4,1fr); gap:10px; }
+  .qr-item img{ width:100px; height:100px; }
+  .qr-item p{ font-size:11px; }
+}
 
   /* 가운데 소개 */
   .center-col .card{
@@ -309,4 +329,5 @@
   </script>
 </body>
 </html>
+
 
