@@ -4,26 +4,32 @@
   <meta charset="utf-8">
   <title>Faith Scripture</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body{margin:0;font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif}
+    /* 위쪽 밝은 여백 */
+    .top-pad{background:#f5f7fb;height:72px}
+    @media (max-width:600px){.top-pad{height:48px}}
+
+    /* 상단 링크바(공통 5줄) */
+    header.site-nav{background:#0f172a;color:#fff}
+    header.site-nav nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+    header.site-nav a{color:#fff;text-decoration:none;opacity:.9}
+    header.site-nav a:hover,header.site-nav a:focus{opacity:1;text-decoration:underline}
+    header.site-nav .sep{opacity:.35}
+
+    /* 인덱스 그리드 */
+    body{margin:0;font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;background:#f5f7fb;color:#0f172a}
     .wrap{max-width:960px;margin:0 auto;padding:16px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-    .item{display:block;padding:10px;border:1px solid #e5e7eb;border-radius:10px;text-decoration:none;color:inherit}
-  /* 위쪽 밝은 여백(스페이서) */
-.top-pad{
-  background:#f5f7fb;   /* 밝은 색 */
-  height:72px;           /* 여백 높이: 필요하면 56~120px로 조절 */
-}
-@media (max-width:600px){
-  .top-pad{ height:48px; }
-}
+    .item{display:block;padding:10px;border:1px solid #e5e7eb;border-radius:10px;text-decoration:none;color:inherit;background:#fff}
   </style>
 </head>
 <body>
-<body>
-  <div class="top-pad"></div>  <!-- ↑ 밝은 여백 -->
 
-  <!-- 상단 링크 바 -->
+  <!-- 밝은 여백(헤더 위) -->
+  <div class="top-pad"></div>
+
+  <!-- 상단 링크바 -->
   <header class="site-nav" style="padding:12px;text-align:center;position:relative;z-index:10;">
     <nav>
       <a href="https://noemisuh.github.io/faith-scripture/">믿음으로 쓰는 성경</a>
@@ -36,7 +42,7 @@
     </nav>
   </header>
 
-  <!-- 나머지 인덱스 콘텐츠 … -->  
+  <!-- 언어 인덱스 -->
   <div class="wrap">
     <nav class="grid">
       <a class="item" href="/faith-scripture/korean_easy/">한국어(쉬운)</a>
@@ -45,5 +51,6 @@
       <a class="item" href="/faith-scripture/english_niv/">English NIV</a>
     </nav>
   </div>
+
 </body>
 </html>
