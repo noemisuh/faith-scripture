@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>믿음으로 쓰는 성경 · Faith Scripture</title>
+<style>
+  :root{
+    --bg:#f5f7fb; --hero:#e9f1ff; --fg:#0f172a; --muted:#667085; --card:#ffffff; --line:#e5e7eb;
+    --pill:#f8fafc; --pillLine:#e2e8f0; --shadow:0 10px 24px rgba(15,23,42,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif}
+
+  /* ── 공통 네비(이미 쓰던 5줄 규칙) ── */
+  header.site-nav{background:#0f172a;color:#fff;}
+  header.site-nav nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;}
+  header.site-nav a{color:#fff;text-decoration:none;opacity:.9;}
+  header.site-nav a:hover,header.site-nav a:focus{opacity:1;text-decoration:underline;}
+  header.site-nav .sep{opacity:.35;}
+
+  /* 본 페이지 레이아웃 */
+  .hero{background:var(--hero);padding:42px 16px 28px;border-bottom:1px solid var(--line)}
+  .hero .inner{max-width:1100px;margin:0 auto;text-align:center}
+  .hero h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(26px,3.2vw,40px)}
+  .hero .sub{margin-top:10px;color:var(--muted);font-size:14px}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
+  .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card h2{margin:0 0 10px;font-size:16px}
+  .versions{display:flex;flex-wrap:wrap;gap:8px}
+  .ver{min-width:68px;height:34px;line-height:34px;padding:0 12px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-align:center;font-weight:600;font-size:14px;text-decoration:none;color:inherit}
+  .ver:visited{color:inherit}
+
+  .list{display:grid;gap:10px}
+  .item{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+  .muted{color:var(--muted);font-size:12px}
+  footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
+</style>
+</head>
+<body>
+
+<!-- ───────── 상단 공통 네비(본진 포함) ───────── -->
+<header class="site-nav" style="padding:12px;text-align:center;position:relative;z-index:10;">
+  <nav>
+    <a href="https://noemisuh.github.io/faith-scripture/">믿음으로 쓰는 성경</a>
+    <span class="sep" aria-hidden="true">|</span>
+    <a href="https://noemisuh.github.io/faith-bible-copy/">필사 성경</a>
+    <span class="sep" aria-hidden="true">|</span>
+    <a href="https://noemisuh.github.io/streams-of-the-word/">말씀따라 흐르는 샘물</a>
+    <span class="sep" aria-hidden="true">|</span>
+    <a href="https://noemisuh.github.io/streams-of-the-word/poem-confession/">시와 고백</a>
+  </nav>
+</header>
+
+<!-- ───────── 히어로(믿음으로 쓰는 성경 중심) ───────── -->
+<section class="hero">
+  <div class="inner">
+    <h1>믿음으로 쓰는 성경 · Faith Scripture</h1>
+    <p class="sub">말씀을 읽고 · 쓰고 · 고백하는 본진 페이지</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="grid">
+    <!-- 좌측: 오늘의 본문/링크 허브 -->
+    <section class="card">
+      <h2>오늘의 본문 · 빠른 이동</h2>
+      <div class="list">
+        <!-- 필요에 따라 실제 경로로 교체 -->
+        <a class="item" href="../faith-bible-copy/matthew001.html">마태복음 1장 (중국어 CUV) <span class="muted">· 필사로 이동</span></a>
+        <a class="item" href="../faith-bible-copy/mateo001.html">Mateo 1 (Español NVI) <span class="muted">· Copia</span></a>
+        <a class="item" href="../faith-bible-copy/matthew001.html">Matthew 1 (English NIV) <span class="muted">· Copy</span></a>
+        <!-- 더 추가 가능 -->
+      </div>
+    </section>
+
+    <!-- 우측: 버전/언어 허브 -->
+    <aside class="card">
+      <h2>언어 · 버전</h2>
+      <div class="versions">
+        <a class="ver" href="../faith-bible-copy/">필사 허브</a>
+        <a class="ver" href="../streams-of-the-word/">샘물 허브</a>
+        <!-- 필요 시 언어별 인덱스로 연결 -->
+      </div>
+      <p class="muted" style="margin-top:10px">※ 이 페이지는 ‘믿음으로 쓰는 성경’의 중심 허브입니다.</p>
+    </aside>
+  </div>
+</main>
+
+<footer>© Faith Scripture</footer>
+</body>
+</html>
