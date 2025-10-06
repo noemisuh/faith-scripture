@@ -1,128 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>믿음으로 쓰는 성경 · Index</title>
-  <style>
-    :root{
-      --bg:#f5f7fb; --hero:#e9f1ff; --fg:#0f172a; --muted:#667085; --card:#ffffff; --line:#e5e7eb;
-      --pill:#f8fafc; --pillLine:#e2e8f0; --dotted:#cbd5e1; --shadow:0 10px 24px rgba(15,23,42,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,'Noto Sans KR',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>믿음으로 쓰는 성경 | 쉬운성경</title>
+<style>
+:root{
+  --bg:#f9fafb;
+  --line:#e5e7eb;
+  --card:#fff;
+  --shadow:0 4px 10px rgba(0,0,0,0.06);
+  --maxw:1100px;
+  --dotted:#cbd5e1;
+}
+body{margin:0;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:#111}
 
-    /* 상단 밝은 여백 */
-    .top-pad{background:var(--bg);height:72px}
-    @media (max-width:600px){.top-pad{height:48px}}
+/* Header */
+header{background:#64748b;color:#fff;padding:12px 0;text-align:center}
+header nav a{color:#fff;margin:0 12px;text-decoration:none;font-size:14px}
 
-    /* 상단 공통 네비 */
-    header.site-nav{background:#0f172a;color:#fff}
-    header.site-nav nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;padding:12px 16px}
-    header.site-nav a{color:#fff;text-decoration:none;opacity:.9}
-    header.site-nav a:hover,header.site-nav a:focus{opacity:1;text-decoration:underline}
-    header.site-nav .sep{opacity:.35}
+/* Hero */
+.hero{padding:40px 0;text-align:center}
+.hero h1{font-size:28px;margin:0;color:#111}
+.hero .subtitle{color:#555;margin-top:6px}
 
-    /* Hero */
-    .hero{background:var(--hero);padding:48px 16px 28px;border-bottom:1px solid var(--line)}
-    .hero .brand{max-width:1100px;margin:0 auto;text-align:center}
-    h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
-    .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
+/* Main */
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;
+box-shadow:var(--shadow);padding:24px}
+.grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
 
-    /* Main */
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
-    .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-
-.outer {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-    gap: 16px; /* ✅ 기존 32px → 16px : 본문에 더 가까이 붙임 */
-  padding-left: 0; /* ✅ 여백 없애서 벽에서 살짝 띄움 */
+/* 🔶 QR 전체 배치 */
+.outer{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;              /* ✅ 본문 쪽으로 더 가까이 */
+  padding-left:0;        /* 왼쪽 여백 제거 */
+}
+.qr-left{
+  flex:0 0 auto;
+  position:sticky;
+  top:48px;              /* Hero와 수평 */
+  margin-left:-4px;      /* ✅ 아주 살짝 본문쪽으로 끌어옴 */
+}
+.qr-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.qr-item{text-align:center;font-size:13px;color:#334155}
+.qr-item img{
+  width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;
+  background:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+.qr-item p{margin:6px 0 0;line-height:1.3}
+@media (max-width:900px){
+  .outer{display:block;}
+  .qr-left{position:static;margin:0 auto 20px;text-align:center;}
+  .qr-grid{grid-template-columns:repeat(4,1fr);gap:10px;}
+  .qr-item img{width:80px;height:80px;}
+  .qr-item p{font-size:11px;}
 }
 
-/* QR 왼쪽 블록 */
-.qr-left {
-  flex: 0 0 auto;
-  position: sticky;
-  top: 48px; /* 히어로 제목 높이에 맞춰 살짝 아래 */
-  margin-left: -8px; /* ✅ 아주 약간 본문쪽으로 끌어당김 */
-}
+/* 좌측 소개 */
+.left{min-height:300px;border:2px dashed var(--dotted);
+border-radius:16px;padding:24px;text-align:center;background:#fff}
+.left h2{margin-top:0;font-size:20px;font-weight:700}
 
-/* 2x2 정렬 */
-.qr-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.qr-item {
-  text-align: center;
-  font-size: 13px;
-  color: #334155;
-}
-
-.qr-item img {
-  width: 120px;
-  height: 120px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
-
-.qr-item p {
-  margin: 6px 0 0;
-  line-height: 1.3;
-}
-
-/* 모바일에서는 한 줄 정렬 */
-@media (max-width: 900px) {
-  .outer { display: block; }
-  .qr-left { position: static; margin-bottom: 20px; }
-  .qr-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .qr-item img { width: 80px; height: 80px; }
-  .qr-item p { font-size: 11px; }
-}
-    
-    /* 좌측 소개 */
-    .left{min-height:300px;border:2px dashed var(--dotted);border-radius:16px;padding:24px;text-align:center;background:#fff}
-    .left h2{margin-top:0;font-size:20px;font-weight:700}
-    .left p{color:var(--muted);line-height:1.7;font-size:14px}
-
-    /* 우측 언어/버전 */
-    .right{display:flex;flex-direction:column;gap:8px}
-    .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;display:grid;grid-template-columns:100px 1fr;align-items:center;gap:8px}
-    .lang-head{font-weight:800;white-space:nowrap;text-align:left}
-    .versions{display:flex;flex-wrap:wrap;gap:6px}
-    .ver{min-width:60px;height:32px;line-height:32px;padding:0 10px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-align:center;font-weight:600;cursor:pointer;font-size:14px;text-decoration:none;color:inherit}
-    .ver:visited{color:inherit}
-
-    /* Footer */
-    .free{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-height:120px}
-    footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
-    a.clean{color:inherit;text-decoration:none}
-  </style>
+/* 푸터 */
+footer{text-align:center;color:#777;padding:32px 0;font-size:13px}
+</style>
 </head>
+
 <body>
-
-  <!-- 밝은 여백 -->
-  <div class="top-pad"></div>
-
-  <!-- 상단 공통 네비 -->
-  <header class="site-nav">
+  <header>
     <nav>
-      <a href="/faith-scripture/">믿음으로 쓰는 성경</a>
-      <span class="sep" aria-hidden="true">|</span>
-      <a href="/faith-bible-copy/">필사 성경</a>
-      <span class="sep" aria-hidden="true">|</span>
-      <a href="/streams-of-the-word/">말씀따라 흐르는 샘물</a>
-      <span class="sep" aria-hidden="true">|</span>
-      <a href="/streams-of-the-word/poem-confession/">시와 고백</a>
+      <a href="#">믿음으로 쓰는 성경</a>
+      <a href="#">필사 성경</a>
+      <a href="#">필사 따라 흐르는 샘물</a>
+      <a href="#">사용 안내</a>
     </nav>
   </header>
 
@@ -134,82 +93,80 @@
     </div>
   </section>
 
-<div class="outer">
-  <div class="qr-left">
-    <div class="qr-grid">
-      <div class="qr-item">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/korean_easy/" alt="Korean Easy QR">
-        <p>한국어<br><small>쉬운성경</small></p>
+  <!-- QR + 본문 -->
+  <div class="outer">
+    <!-- QR 왼쪽 -->
+    <div class="qr-left">
+      <div class="qr-grid">
+        <div class="qr-item">
+          <a href="https://noemisuh.github.io/faith-scripture/korean_easy/" target="_blank">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/korean_easy/" alt="Korean Easy QR">
+          </a>
+          <p>한국어<br><small>쉬운성경</small></p>
+        </div>
+        <div class="qr-item">
+          <a href="https://noemisuh.github.io/faith-scripture/chinese_cuv/" target="_blank">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/chinese_cuv/" alt="Chinese CUV QR">
+          </a>
+          <p>中文<br><small>CUV</small></p>
+        </div>
+        <div class="qr-item">
+          <a href="https://noemisuh.github.io/faith-scripture/spanish_nvi/" target="_blank">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/spanish_nvi/" alt="Spanish NVI QR">
+          </a>
+          <p>Español<br><small>NVI</small></p>
+        </div>
+        <div class="qr-item">
+          <a href="https://noemisuh.github.io/faith-scripture/english_niv/" target="_blank">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/english_niv/" alt="English NIV QR">
+          </a>
+          <p>English<br><small>NIV</small></p>
+        </div>
       </div>
-      <div class="qr-item">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/chinese_cuv/" alt="Chinese CUV QR">
-        <p>中文<br><small>CUV</small></p>
-      </div>
-      <div class="qr-item">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/spanish_nvi/" alt="Spanish NVI QR">
-        <p>Español<br><small>NVI</small></p>
-      </div>
-      <div class="qr-item">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://noemisuh.github.io/faith-scripture/english_niv/" alt="English NIV QR">
-        <p>English<br><small>NIV</small></p>
+    </div>
+
+    <!-- 본문 카드 -->
+    <div class="wrap">
+      <div class="card">
+        <div class="grid">
+          <!-- 좌측 소개 -->
+          <section class="left" aria-label="소개">
+            <h2>사이트 소개</h2>
+            <p>언어와 버전을 선택하면 창세기 1장부터 바로 시작할 수 있습니다.</p>
+          </section>
+
+          <!-- 우측 언어/버전 -->
+          <section class="right" aria-label="언어별 버전">
+            <div class="lang-row" data-lang="ko">
+              <div class="lang-head">한국어</div>
+              <div class="versions">
+                <a class="ver" href="/faith-scripture/korean_easy/">쉬운성경</a>
+              </div>
+            </div>
+            <div class="lang-row" data-lang="zh">
+              <div class="lang-head">中文</div>
+              <div class="versions">
+                <a class="ver" href="/faith-scripture/chinese_cuv/">CUV</a>
+              </div>
+            </div>
+            <div class="lang-row" data-lang="es">
+              <div class="lang-head">Español</div>
+              <div class="versions">
+                <a class="ver" href="/faith-scripture/spanish_nvi/">NVI</a>
+              </div>
+            </div>
+            <div class="lang-row" data-lang="en">
+              <div class="lang-head">English</div>
+              <div class="versions">
+                <a class="ver" href="/faith-scripture/english_niv/">NIV</a>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <!-- 기존 목차 전체 내용 -->
-  </div>
-</div>
-
-  <!-- 본문 -->
-  <main class="wrap">
-    <div class="card">
-      <div class="grid">
-        <!-- 좌측 소개 -->
-        <section class="left" aria-label="소개">
-          <h2>사이트 소개</h2>
-          <p>언어와 버전을 선택하면 창세기 1장부터 바로 시작할 수 있습니다.</p>
-        </section>
-
-        <!-- 우측 언어/버전 -->
-        <section class="right" aria-label="언어별 버전">
-          <div class="lang-row" data-lang="ko">
-            <div class="lang-head">한국어</div>
-            <div class="versions">
-              <a class="ver" href="/faith-scripture/korean_easy/">쉬운성경</a>
-            </div>
-          </div>
-
-          <div class="lang-row" data-lang="zh">
-            <div class="lang-head">中文</div>
-            <div class="versions">
-              <a class="ver" href="/faith-scripture/chinese_cuv/">CUV</a>
-            </div>
-          </div>
-
-          <div class="lang-row" data-lang="es">
-            <div class="lang-head">Español</div>
-            <div class="versions">
-              <a class="ver" href="/faith-scripture/spanish_nvi/">NVI</a>
-            </div>
-          </div>
-
-          <div class="lang-row" data-lang="en">
-            <div class="lang-head">English</div>
-            <div class="versions">
-              <a class="ver" href="/faith-scripture/english_niv/">NIV</a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <section class="free" aria-label="하단 자유 영역"></section>
-
-    <footer>
-      <a class="clean" href="#">© 2025 Faith Scripture</a>
-    </footer>
-  </main>
+  <footer>© 2025 Faith Scripture</footer>
 </body>
 </html>
-
