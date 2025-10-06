@@ -137,25 +137,34 @@
   footer{text-align:center;font-size:12px;color:#94a3b8;margin:60px 0 20px}
 
   /* 이어쓰기 배너(마크업 유지, 전역 홈에서는 표시 안 함) */
-  .resume-banner{
-    position:sticky; top:0; z-index:99;
-    background:#111; color:#fff; padding:10px 14px;
-    display:none; gap:10px; align-items:center; justify-content:center;
-    font-size:14px; box-shadow:0 6px 14px rgba(0,0,0,.2); border-radius:0;
-  }
-  .resume-banner .btn{
-    background:#fff; color:#111; border:0; border-radius:999px; padding:6px 12px;
-    font-weight:700; cursor:pointer;
-  }
-  .resume-banner .ghost{
-    background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
-  }
+.resume-banner{
+  position:sticky; top:0; z-index:99;
+  background:#111; color:#fff; padding:10px 14px;
+  display:none; gap:10px; align-items:center; justify-content:center;
+  font-size:14px; box-shadow:0 6px 14px rgba(0,0,0,.2); border-radius:0;
+}
+.resume-banner .btn{
+  background:#fff; color:#111; border:0; border-radius:999px; padding:6px 12px;
+  font-weight:700; cursor:pointer;
+}
+.resume-banner .ghost{
+  background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
+}
 
-  <!-- 강제 오버라이드: </head> 바로 위에 추가 -->
-<style id="fixes">
-  /* 상단 여백(히어로) */
-  body .hero{ padding:96px 20px 44px !important; text-align:center !important; }
+/* 강제 오버라이드: </head> 바로 위에 추가했던 블록이라면, CSS 주석으로 표기하세요 */
+/* HOTFIX (선택): 3칸 레이아웃 등 레이아웃 강제 적용이 필요할 때만 유지 */
+#fixes{
+  /* 내용이 있다면 이 스타일 태그 안쪽에 CSS만 와야 합니다.
+     HTML 주석(<!-- -->)은 쓰지 마세요. */
+}
+/* 예: 아래처럼 실제 규칙을 두는 경우 */
+body .hero{
+  /* 지금은 상단 여백을 작게 쓰기로 했으니 이렇게 바꾸거나, 이 규칙 자체를 지우세요 */
+  padding:24px 20px 16px !important;
+  text-align:center !important;
+}
 
+/* 3칸 레이아웃 강제 규칙 예시가 여기에 계속 이어질 수 있음 */  
   /* 3칸 레이아웃: QR / 소개 / 언어  (가운데·오른쪽 촘촘) */
   .outer3{
     max-width:1200px !important;
@@ -380,6 +389,7 @@
 </style>
 </body>
 </html>
+
 
 
 
