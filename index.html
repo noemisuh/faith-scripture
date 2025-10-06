@@ -275,8 +275,30 @@
   // setTimeout(()=>location.href = last, 2000);
 })();
 </script>
+
+<script>
+(function rememberLast(){
+  try {
+    // 현재 경로 정규화 (끝에 / 보장)
+    let path = location.pathname;
+    if (!/\/$/.test(path)) path += '/';
+
+    const segs = path.split('/').filter(Boolean);
+    const versionDir = segs[segs.length - 2] || ''; // korean_easy / chinese_cuv / ...
+
+    // 장 폴더 패턴: fooNNN (genesis001 / changsegi023 / chuangshiji012 ...)
+    const lastSeg = segs[segs.length - 1] || '';
+    const isChapter = /^[a-z\-]+?\d{3}\/$/i.test(lastSeg + '/');
+
+    if (versionDir && isChapter) {
+      localStorage.setItem('fs:last:' + versionDir, path);
+    }
+  } catch (_) { /* no-op */ }
+})();
+</script>
 </body>
 </html>
+
 
 
 
