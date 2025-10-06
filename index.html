@@ -11,145 +11,105 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
-
-    /* Hero */
-    .hero{background:var(--hero);padding:48px 16px 28px}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,'Noto Sans KR',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    .top-pad{background:var(--bg);height:72px}
+    @media (max-width:600px){.top-pad{height:48px}}
+    header.site-nav{background:#0f172a;color:#fff;}
+    header.site-nav nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;padding:12px 16px}
+    header.site-nav a{color:#fff;text-decoration:none;opacity:.9}
+    header.site-nav a:hover, header.site-nav a:focus{opacity:1;text-decoration:underline}
+    header.site-nav .sep{opacity:.35}
+    .hero{background:var(--hero);padding:48px 16px 28px;border-bottom:1px solid var(--line)}
     .hero .brand{max-width:1100px;margin:0 auto;text-align:center}
     h1{margin:0;font-weight:900;letter-spacing:-.02em;font-size:clamp(28px,3.6vw,44px)}
     .subtitle{margin-top:10px;color:var(--muted);font-size:15px}
-
-    /* 상단 밝은 여백 */
-.top-pad{
-  background: var(--bg); /* 이미 정의된 밝은 배경색 */
-  height: 72px;          /* 필요하면 48~120px로 조절 */
-}
-@media (max-width:600px){ .top-pad{ height:48px } }
-
-    /* Main Card */
     .wrap{max-width:1100px;margin:0 auto;padding:24px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px}
     .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}
     @media (max-width:900px){.grid{grid-template-columns:1fr}}
-
-    /* Left dotted placeholder */
-    .left{min-height:300px;border:2px dashed var(--dotted);border-radius:16px;padding:24px;text-align:center}
+    .left{min-height:300px;border:2px dashed var(--dotted);border-radius:16px;padding:24px;text-align:center;background:#fff}
     .left h2{margin-top:0;font-size:20px;font-weight:700}
     .left p{color:var(--muted);line-height:1.7;font-size:14px}
-
-    /* Right: languages and versions inline with aligned labels */
     .right{display:flex;flex-direction:column;gap:8px}
     .lang-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;display:grid;grid-template-columns:100px 1fr;align-items:center;gap:8px}
     .lang-head{font-weight:800;white-space:nowrap;text-align:left}
     .versions{display:flex;flex-wrap:wrap;gap:6px}
-    .ver{min-width:60px;height:32px;line-height:32px;padding:0 10px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-align:center;font-weight:600;cursor:pointer;font-size:14px}
-
-    /* Bottom free area (empty) */
+    .ver{min-width:60px;height:32px;line-height:32px;padding:0 10px;border-radius:999px;background:var(--pill);border:1px solid var(--pillLine);display:inline-block;text-align:center;font-weight:600;cursor:pointer;font-size:14px;text-decoration:none;color:inherit}
+    .ver:visited{color:inherit}
     .free{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-height:120px}
-
     footer{opacity:.7;text-align:center;font-size:12px;margin:28px 0}
     a.clean{color:inherit;text-decoration:none}
-
-    /* 버전 버튼 링크 */
-    a.ver{display:inline-block; text-decoration:none; color:inherit;}
-    a.ver:visited{color:inherit;}
-    a.ver:hover, a.ver:focus{ text-decoration:none; outline:none; }
   </style>
 </head>
 <body>
-<!-- ───────────────── 공통 네비게이션(추가) ───────────────── -->
-<header style="background:#0f172a;color:white;padding:12px;text-align:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif;position:relative;z-index:10;">
-  <nav style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-    <a href="https://noemisuh.github.io/faith-scripture/" style="color:#fff;text-decoration:none;opacity:.9;">믿음으로 쓰는 성경</a>
-    <span aria-hidden="true" style="opacity:.35;">|</span>
-    <a href="https://noemisuh.github.io/faith-bible-copy/" style="color:#fff;text-decoration:none;opacity:.9;">필사 성경</a>
-    <span aria-hidden="true" style="opacity:.35;">|</span>
-    <a href="https://noemisuh.github.io/streams-of-the-word/" style="color:#fff;text-decoration:none;opacity:.9;">말씀따라 흐르는 샘물</a>
-    <!-- 🔹 여기 구분선 추가 -->
-    <span aria-hidden="true" style="opacity:.35;">|</span>
-    <!-- 🔹 새 항목: 기존 카테고리와 동일 스타일 -->
-    <a href="https://noemisuh.github.io/streams-of-the-word/poem-confession/" style="color:#fff;text-decoration:none;opacity:.9;">시와 고백</a>
-  </nav>
-</header>
-  
-  <!-- HERO -->
-  <div class="hero">
+
+  <div class="top-pad"></div>
+
+  <header class="site-nav">
+    <nav>
+      <a href="/faith-scripture/">믿음으로 쓰는 성경</a>
+      <span class="sep" aria-hidden="true">|</span>
+      <a href="/faith-bible-copy/">필사 성경</a>
+      <span class="sep" aria-hidden="true">|</span>
+      <a href="/streams-of-the-word/">말씀따라 흐르는 샘물</a>
+      <span class="sep" aria-hidden="true">|</span>
+      <a href="/streams-of-the-word/poem-confession/">시와 고백</a>
+    </nav>
+  </header>
+
+  <section class="hero">
     <div class="brand">
       <h1>믿음으로 쓰는 성경</h1>
       <div class="subtitle">말씀을 따라 읽고 쓰고 묵상하는 공간</div>
     </div>
-  </div>
-  
-  <div class="wrap">
+  </section>
+
+  <main class="wrap">
     <div class="card">
       <div class="grid">
-        <!-- LEFT dotted box with text -->
-        <section class="left" aria-label="소개/이미지 영역">
-          <div>
-            <h2>사이트 소개</h2>
-            <p>이곳은 성경 말씀을 필사하며 묵상할 수 있도록 돕는 웹페이지입니다.<br>
-            원하는 언어와 성경 버전을 선택하여 창세기부터 요한계시록까지 순서대로 읽고 쓸 수 있습니다.<br>
-            아래의 목록에서 언어를 선택하고 해당 버전을 클릭하면 바로 시작할 수 있습니다.</p>
+        <section class="left" aria-label="소개">
+          <h2>사이트 소개</h2>
+          <p>언어와 버전을 선택하면 창세기 1장부터 바로 시작할 수 있습니다.</p>
+        </section>
+
+        <section class="right" aria-label="언어별 버전">
+          <div class="lang-row" data-lang="ko">
+            <div class="lang-head">한국어</div>
+            <div class="versions">
+              <a class="ver" href="/faith-scripture/korean_easy/">쉬운성경</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="zh">
+            <div class="lang-head">中文</div>
+            <div class="versions">
+              <a class="ver" href="/faith-scripture/chinese_cuv/">CUV</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="es">
+            <div class="lang-head">Español</div>
+            <div class="versions">
+              <a class="ver" href="/faith-scripture/spanish_nvi/">NVI</a>
+            </div>
+          </div>
+
+          <div class="lang-row" data-lang="en">
+            <div class="lang-head">English</div>
+            <div class="versions">
+              <a class="ver" href="/faith-scripture/english_niv/">NIV</a>
+            </div>
           </div>
         </section>
-        
-        <!-- RIGHT: Language and version inline -->
-      <section class="right" aria-label="언어별 버전">
-  <div class="lang-row" data-lang="ko">
-    <div class="lang-head">한국어</div>
-    <div class="versions">
-      <a class="ver" href="korean_easy/">쉬운성경</a>
+      </div>
     </div>
-  </div>
 
-  <div class="lang-row" data-lang="zh">
-    <div class="lang-head">中文</div>
-    <div class="versions">
-      <a class="ver" href="chinese_cuv/">CUV</a>
-    </div>
-  </div>
-
-  <div class="lang-row" data-lang="es">
-    <div class="lang-head">Español</div>
-    <div class="versions">
-      <a class="ver" href="spanish_nvi/">NVI</a>
-    </div>
-  </div>
-
-  <div class="lang-row" data-lang="en">
-    <div class="lang-head">English</div>
-    <div class="versions">
-      <a class="ver" href="english_niv/">NIV</a>
-    </div>
-  </div>
-</section>
-
-<!-- ▼ 자동 목차/장 링크가 생성될 위치 -->
-<section id="auto-toc" style="margin-top:16px">
-  <h2 id="langTitle" style="margin:0 0 8px;font-weight:800;font-size:18px"></h2>
-  <div id="versions" class="versions" style="margin:0 0 10px"></div>
-  <div id="toc"></div>
-</section>
-<!-- ▲ 여기로 스크립트가 내용을 주입합니다 -->
-
-    <!-- Bottom free area left EMPTY as requested -->
     <section class="free" aria-label="하단 자유 영역"></section>
 
     <footer>
       <a class="clean" href="#">© 2025 Faith Scripture</a>
     </footer>
-  </div>
+  </main>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
