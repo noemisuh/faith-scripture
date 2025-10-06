@@ -341,5 +341,21 @@ if (nextEl){
   }
 })();
 </script>
+  
+<script>
+(function rememberLast(){
+  try{
+    let path = location.pathname;
+    if (!/\/$/.test(path)) path += '/';                // 끝에 / 보장
+    const segs = path.split('/').filter(Boolean);
+    const versionDir = segs[segs.length-2] || '';      // korean_easy / chinese_cuv / ...
+    const lastSeg = segs[segs.length-1] || '';         // changsegi001 / chuangshiji012 / genesis003 ...
+    const isChapter = /^[a-z\-]+?\d{3}\/$/i.test(lastSeg + '/');  // fooNNN 폴더만 인정
+    if (versionDir && isChapter) {
+      localStorage.setItem('fs:last:' + versionDir, path);
+    }
+  }catch(_){}
+})();
+</script>
 </body>
 </html>
