@@ -204,8 +204,63 @@
       </p>
     </div>
   </section>
-
+  
   <footer>© 2025 Faith Scripture</footer>
+
+  <!-- 이어쓰기 배너 -->
+<style>
+  .resume-banner{
+    position:sticky; top:0; z-index:99;
+    background:#111; color:#fff; padding:10px 14px;
+    display:flex; gap:10px; align-items:center; justify-content:center;
+    font-size:14px; box-shadow:0 6px 14px rgba(0,0,0,.2); display:none;
+  }
+  .resume-banner .btn{
+    background:#fff; color:#111; border:0; border-radius:999px; padding:6px 12px;
+    font-weight:700; cursor:pointer;
+  }
+  .resume-banner .ghost{
+    background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
+  }
+</style>
+
+<div id="resumeBar" class="resume-banner" role="region" aria-label="이어쓰기 안내">
+  마지막에 보던 장으로 이어서 쓰시겠어요?
+  <button id="resumeGo" class="btn">이어쓰기</button>
+  <button id="resumeStay" class="btn ghost">목록 보기</button>
+</div>
+
+<script>
+(function smartLanding(){
+  // 현재 버전 폴더 감지 (korean_easy / chinese_cuv / spanish_nvi / english_niv)
+  const parts = location.pathname.split('/').filter(Boolean);
+  const versionDir = parts[parts.length-1] || parts[parts.length-2] || 'korean_easy';
+
+  const last = localStorage.getItem(`fs:last:${versionDir}`);
+  const params = new URLSearchParams(location.search);
+
+  // 규칙:
+  //  - QR은 ?from=qr로 들어오게 해두면(선택) 친절 배너만 노출
+  //  - ?nolast가 있으면 강제로 목록 유지
+  if (!last || params.has('nolast')) return;
+
+  // 배너 표시
+  const bar = document.getElementById('resumeBar');
+  if (!bar) return;
+  bar.style.display = 'flex';
+
+  document.getElementById('resumeGo')?.addEventListener('click', ()=>{
+    location.href = last;   // 마지막 장으로 이동
+  });
+  document.getElementById('resumeStay')?.addEventListener('click', ()=>{
+    bar.style.display = 'none'; // 목록에 남기
+  });
+
+  // 원하면 자동 이동 타이머(예: 2초 후 자동 이동) — 필요 시 주석 해제
+  // setTimeout(()=>location.href = last, 2000);
+})();
+</script>
 </body>
 </html>
+
 
