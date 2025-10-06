@@ -4,33 +4,50 @@
   <meta charset="utf-8">
   <title>Faith Scripture</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
-    /* 위쪽 밝은 여백 */
+    /* 기본 */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+      background:#f5f7fb; color:#0f172a;
+    }
+
+    /* 상단 여백(밝게) */
     .top-pad{background:#f5f7fb;height:72px}
     @media (max-width:600px){.top-pad{height:48px}}
 
-    /* 상단 링크바(공통 5줄) */
+    /* 상단 링크바(검정) */
     header.site-nav{background:#0f172a;color:#fff}
-    header.site-nav nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+    header.site-nav nav{
+      display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;
+      padding:12px 16px;
+    }
     header.site-nav a{color:#fff;text-decoration:none;opacity:.9}
     header.site-nav a:hover,header.site-nav a:focus{opacity:1;text-decoration:underline}
     header.site-nav .sep{opacity:.35}
 
-    /* 인덱스 그리드 */
-    body{margin:0;font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;background:#f5f7fb;color:#0f172a}
-    .wrap{max-width:960px;margin:0 auto;padding:16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-    .item{display:block;padding:10px;border:1px solid #e5e7eb;border-radius:10px;text-decoration:none;color:inherit;background:#fff}
+    /* 본문 인덱스 */
+    .wrap{max-width:960px;margin:24px auto;padding:0 16px}
+    .grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px
+    }
+    .item{
+      display:block;text-align:center;background:#fff;color:inherit;text-decoration:none;
+      border:1px solid #e5e7eb;border-radius:12px;padding:14px;
+      box-shadow:0 1px 3px rgba(0,0,0,.05);transition:transform .15s ease,background .15s ease
+    }
+    .item:hover{background:#f3f4f6;transform:translateY(-2px)}
   </style>
 </head>
 <body>
 
-  <!-- 밝은 여백(헤더 위) -->
+  <!-- 밝은 여백 -->
   <div class="top-pad"></div>
 
   <!-- 상단 링크바 -->
-  <header class="site-nav" style="padding:12px;text-align:center;position:relative;z-index:10;">
+  <header class="site-nav">
     <nav>
       <a href="https://noemisuh.github.io/faith-scripture/">믿음으로 쓰는 성경</a>
       <span class="sep" aria-hidden="true">|</span>
@@ -43,14 +60,14 @@
   </header>
 
   <!-- 언어 인덱스 -->
-  <div class="wrap">
+  <main class="wrap">
     <nav class="grid">
       <a class="item" href="/faith-scripture/korean_easy/">한국어(쉬운)</a>
       <a class="item" href="/faith-scripture/chinese_cuv/">中文 CUV</a>
       <a class="item" href="/faith-scripture/spanish_nvi/">Español NVI</a>
       <a class="item" href="/faith-scripture/english_niv/">English NIV</a>
     </nav>
-  </div>
+  </main>
 
 </body>
 </html>
