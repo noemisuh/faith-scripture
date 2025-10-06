@@ -426,5 +426,19 @@
   }
 })();
 </script>
+
+<!-- 👇 추가: 마지막 위치 저장 (버전별로) -->
+<script>
+(function rememberLast(){
+  try {
+    // 예: /faith-scripture/korean_easy/changsegi001/
+    const segs = location.pathname.split('/').filter(Boolean);
+    const versionDir = segs[segs.length - 2] || ''; // korean_easy / chinese_cuv / ...
+    if (versionDir) {
+      localStorage.setItem('fs:last:' + versionDir, location.pathname);
+    }
+  } catch (e) { /* noop */ }
+})();
+</script>
 </body>
 </html>
