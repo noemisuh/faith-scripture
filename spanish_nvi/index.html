@@ -68,19 +68,26 @@
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1 id="pageTitle">Bible Index</h1>
+  <!-- 이어쓰기 배너 (언어 인덱스 전용) -->
+  <div id="resumeBar" style="display:none;align-items:center;justify-content:center;gap:8px;background:#111;color:#fff;padding:10px;border-radius:8px;margin:12px auto;max-width:800px">
+    마지막에 보던 장으로 이어서 쓰시겠어요?
+    <button id="resumeGo" style="background:#fff;color:#111;border:0;border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer">이어쓰기</button>
+    <button id="resumeStay" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 12px;cursor:pointer">목록 보기</button>
+  </div>
 
-  <section class="section" id="sec-ot">
-    <div class="sec-head"><h2 id="otLabel">Old Testament</h2><span class="tag">39</span></div>
-    <div id="ot" class="grid"></div>
-  </section>
+  <div class="wrap">
+    <h1 id="pageTitle">Bible Index</h1>
 
-  <section class="section" id="sec-nt">
-    <div class="sec-head"><h2 id="ntLabel">New Testament</h2><span class="tag">27</span></div>
-    <div id="nt" class="grid"></div>
-  </section>
-</div>
+    <section class="section" id="sec-ot">
+      <div class="sec-head"><h2 id="otLabel">Old Testament</h2><span class="tag">39</span></div>
+      <div id="ot" class="grid"></div>
+    </section>
+
+    <section class="section" id="sec-nt">
+      <div class="sec-head"><h2 id="ntLabel">New Testament</h2><span class="tag">27</span></div>
+      <div id="nt" class="grid"></div>
+    </section>
+  </div>
 
 <script>
 (function(){
@@ -205,6 +212,26 @@ function render(id,data,rows,cols){
 }
 render('ot',OT,parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ot-rows')),parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')));
 render('nt',NT,parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nt-rows')),parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')));
+})();
+</script>
+
+<!-- (여기까지 기존 스크립트) -->
+</script>
+<!-- 이어쓰기 배너 동작 스크립트: 새 블록으로 추가 -->
+<script>
+(function smartLandingForIndex(){
+  var segs = location.pathname.split('/').filter(Boolean);
+  var versionDir = segs[segs.length - 1] || segs[segs.length - 2] || '';
+  var last = localStorage.getItem('fs:last:' + versionDir);
+  var params = new URLSearchParams(location.search);
+  if (!last || params.has('nolast')) return;
+
+  var bar = document.getElementById('resumeBar');
+  if (!bar) return;
+  bar.style.display = 'flex';
+
+  document.getElementById('resumeGo')?.addEventListener('click', function(){ location.href = last; });
+  document.getElementById('resumeStay')?.addEventListener('click', function(){ bar.remove(); });
 })();
 </script>
 </body>
