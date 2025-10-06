@@ -20,51 +20,38 @@
   nav{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;justify-content:center;gap:36px;font-weight:600}
   nav a:hover{color:#1d4ed8}
 
-  /* Hero */
-  .hero{background:var(--hero);padding:72px 20px 48px;text-align:center}
+  /* Hero (상단 여백 풍성히) */
+  .hero{background:var(--hero);padding:96px 20px 44px;text-align:center}
   .brand{max-width:var(--maxw);margin:0 auto}
   .brand h1{margin:0;font-size:clamp(28px,3.8vw,44px);font-weight:900;letter-spacing:-.02em}
   .subtitle{margin-top:10px;color:var(--muted);font-size:16px}
 
-  /* 하단 안내 */
-  .guide{
-    margin:80px auto 60px;
-    max-width:900px;
-  }
-  .guide-inner{
-    background:#f8fafc;border:1px solid #e2e8f0;
-    border-radius:16px;padding:36px;text-align:center;
-    box-shadow:0 4px 14px rgba(0,0,0,0.04);
-  }
-  .guide-inner h2{margin:0 0 12px;font-size:20px;font-weight:800;color:#0f172a}
-  .guide-inner p{color:#334155;line-height:1.7;font-size:15px}
-
-  footer{text-align:center;font-size:12px;color:#94a3b8;margin:60px 0 20px}
-  /* 3칸 메인 구조 */
+  /* 3칸 메인 구조: QR / 소개 / 언어 (중앙·오른쪽을 가깝게) */
   .outer3{
     max-width:var(--maxw);
-    margin:60px auto;
+    margin:48px auto 0;
     display:grid;
-    grid-template-columns:0.8fr 1.2fr 1fr;
-    gap:32px;
+    grid-template-columns:220px minmax(0,1fr) minmax(0,1fr);
+    column-gap:16px;
     align-items:flex-start;
+    padding:0 12px;
   }
   @media (max-width:900px){
-    .outer3{display:block;margin:40px auto}
+    .outer3{grid-template-columns:1fr;row-gap:14px;margin:40px auto}
   }
 
   /* 왼쪽 QR */
   .qr-col{text-align:center}
-  .qr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;justify-items:center}
+  .qr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;justify-items:center}
   .qr-item img{
-    width:120px;height:120px;border-radius:12px;
+    width:148px;height:148px;border-radius:12px;
     border:1px solid #e2e8f0;background:#fff;
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
   }
-  .qr-item p{margin:6px 0 0;font-size:13px;color:#334155;line-height:1.3}
+  .qr-item p{margin:6px 0 0;font-size:13px;color:#334155;line-height:1.2;white-space:nowrap}
   @media (max-width:900px){
-    .qr-grid{grid-template-columns:repeat(4,1fr)}
-    .qr-item img{width:90px;height:90px}
+    .qr-grid{grid-template-columns:repeat(4,1fr);gap:10px}
+    .qr-item img{width:100px;height:100px}
     .qr-item p{font-size:11px}
   }
 
@@ -72,21 +59,25 @@
   .center-col .card{
     background:var(--card);
     border:1px solid var(--line);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    padding:40px 30px;
+    border-radius:16px;
+    box-shadow:0 8px 18px rgba(15,23,42,.06);
+    padding:28px;
     text-align:center;
   }
   .center-col h2{margin:0 0 12px;font-size:22px;font-weight:800}
   .center-col p{margin:0;font-size:15px;color:#334155;line-height:1.7}
 
-  /* 오른쪽 언어/버전 */
+  /* 오른쪽 언어/버전 + 가운데와 구분선 */
+  .right-col{position:relative}
+  .right-col::before{
+    content:"";position:absolute;left:-8px;top:0;bottom:0;width:1px;background:#e5e7eb;
+  }
   .right-col .card{
     background:var(--card);
     border:1px solid var(--line);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    padding:24px 20px;
+    border-radius:16px;
+    box-shadow:0 8px 18px rgba(15,23,42,.06);
+    padding:18px;
   }
   .lang-row{
     background:var(--card);
@@ -108,6 +99,37 @@
     display:inline-block;font-weight:700;font-size:13px;
   }
   a.ver:hover{background:#e9efff;border-color:#cbd5e1}
+  @media (max-width:900px){ .right-col::before{display:none} }
+
+  /* 하단 안내(사용 안내) — 페이지 하단 */
+  .guide{
+    margin:48px auto 40px;
+    max-width:900px;
+  }
+  .guide-inner{
+    background:#f8fafc;border:1px solid #e2e8f0;
+    border-radius:16px;padding:32px;text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.04);
+  }
+  .guide-inner h2{margin:0 0 12px;font-size:20px;font-weight:800;color:#0f172a}
+  .guide-inner p{color:#334155;line-height:1.7;font-size:15px}
+
+  footer{text-align:center;font-size:12px;color:#94a3b8;margin:60px 0 20px}
+
+  /* 이어쓰기 배너(마크업 유지, 전역 홈에서는 표시 안 함) */
+  .resume-banner{
+    position:sticky; top:0; z-index:99;
+    background:#111; color:#fff; padding:10px 14px;
+    display:none; gap:10px; align-items:center; justify-content:center;
+    font-size:14px; box-shadow:0 6px 14px rgba(0,0,0,.2); border-radius:0;
+  }
+  .resume-banner .btn{
+    background:#fff; color:#111; border:0; border-radius:999px; padding:6px 12px;
+    font-weight:700; cursor:pointer;
+  }
+  .resume-banner .ghost{
+    background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
+  }
 </style>
 </head>
 
@@ -128,52 +150,41 @@
     </div>
   </section>
 
-<div class="outer3">
-  <!-- 왼쪽 QR -->
-  <aside class="qr-col">
-    <div class="qr-grid">
-      <!-- 한국어 -->
-      <div class="qr-item">
-        <a href="/faith-scripture/korean_easy/?from=qr" target="_blank">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/korean_easy/?from=qr"
-            alt="Korean Easy QR">
-        </a>
-        <p>한국어 · 쉬운성경</p>
+  <div class="outer3">
+    <!-- 왼쪽 QR -->
+    <aside class="qr-col">
+      <div class="qr-grid">
+        <!-- 한국어 -->
+        <div class="qr-item">
+          <a href="/faith-scripture/korean_easy/?from=qr" target="_blank" aria-label="한국어 쉬운성경">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/korean_easy/?from=qr" alt="Korean Easy QR" loading="lazy">
+          </a>
+          <p>한국어 · 쉬운성경</p>
+        </div>
+        <!-- 中文 -->
+        <div class="qr-item">
+          <a href="/faith-scripture/chinese_cuv/?from=qr" target="_blank" aria-label="中文 CUV">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/chinese_cuv/?from=qr" alt="Chinese CUV QR" loading="lazy">
+          </a>
+          <p>中文 · CUV</p>
+        </div>
+        <!-- Español -->
+        <div class="qr-item">
+          <a href="/faith-scripture/spanish_nvi/?from=qr" target="_blank" aria-label="Español NVI">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/spanish_nvi/?from=qr" alt="Spanish NVI QR" loading="lazy">
+          </a>
+          <p>Español · NVI</p>
+        </div>
+        <!-- English -->
+        <div class="qr-item">
+          <a href="/faith-scripture/english_niv/?from=qr" target="_blank" aria-label="English NIV">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/english_niv/?from=qr" alt="English NIV QR" loading="lazy">
+          </a>
+          <p>English · NIV</p>
+        </div>
       </div>
+    </aside>
 
-      <!-- 中文 -->
-      <div class="qr-item">
-        <a href="/faith-scripture/chinese_cuv/?from=qr" target="_blank">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/chinese_cuv/?from=qr"
-            alt="Chinese CUV QR">
-        </a>
-        <p>中文 · CUV</p>
-      </div>
-
-      <!-- Español -->
-      <div class="qr-item">
-        <a href="/faith-scripture/spanish_nvi/?from=qr" target="_blank">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/spanish_nvi/?from=qr"
-            alt="Spanish NVI QR">
-        </a>
-        <p>Español · NVI</p>
-      </div>
-
-      <!-- English -->
-      <div class="qr-item">
-        <a href="/faith-scripture/english_niv/?from=qr" target="_blank">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=148x148&data=https://noemisuh.github.io/faith-scripture/english_niv/?from=qr"
-            alt="English NIV QR">
-        </a>
-        <p>English · NIV</p>
-      </div>
-    </div>
-  </aside>
-  
     <!-- 가운데 소개 -->
     <section class="center-col">
       <div class="card">
@@ -219,86 +230,34 @@
       </p>
     </div>
   </section>
-  
+
   <footer>© 2025 Faith Scripture</footer>
 
-  <!-- 이어쓰기 배너 -->
-<style>
-  .resume-banner{
-    position:sticky; top:0; z-index:99;
-    background:#111; color:#fff; padding:10px 14px;
-    display:flex; gap:10px; align-items:center; justify-content:center;
-    font-size:14px; box-shadow:0 6px 14px rgba(0,0,0,.2); display:none;
-  }
-  .resume-banner .btn{
-    background:#fff; color:#111; border:0; border-radius:999px; padding:6px 12px;
-    font-weight:700; cursor:pointer;
-  }
-  .resume-banner .ghost{
-    background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
-  }
-</style>
+  <!-- 이어쓰기 배너(전역 홈에서는 표시되지 않도록 스크립트에서 필터링) -->
+  <div id="resumeBar" class="resume-banner" role="region" aria-label="이어쓰기 안내">
+    마지막에 보던 장으로 이어서 쓰시겠어요?
+    <button id="resumeGo" class="btn">이어쓰기</button>
+    <button id="resumeStay" class="btn ghost">목록 보기</button>
+  </div>
 
-<div id="resumeBar" class="resume-banner" role="region" aria-label="이어쓰기 안내">
-  마지막에 보던 장으로 이어서 쓰시겠어요?
-  <button id="resumeGo" class="btn">이어쓰기</button>
-  <button id="resumeStay" class="btn ghost">목록 보기</button>
-</div>
+  <script>
+  (function smartLanding(){
+    // 언어 인덱스(예: /korean_easy/)에서만 배너 표시. 전역 홈(/faith-scripture/)에선 미표시.
+    const KNOWN = ['korean_easy','chinese_cuv','spanish_nvi','english_niv'];
+    const versionDir = KNOWN.find(k => location.pathname.includes('/' + k + '/'));
+    if (!versionDir) return;
 
-<script>
-(function smartLanding(){
-  // 현재 버전 폴더 감지 (korean_easy / chinese_cuv / spanish_nvi / english_niv)
-  const parts = location.pathname.split('/').filter(Boolean);
-  const versionDir = parts[parts.length-1] || parts[parts.length-2] || 'korean_easy';
+    const last = localStorage.getItem('fs:last:' + versionDir);
+    const params = new URLSearchParams(location.search);
+    if (!last || params.has('nolast')) return;
 
-  const last = localStorage.getItem(`fs:last:${versionDir}`);
-  const params = new URLSearchParams(location.search);
+    const bar = document.getElementById('resumeBar');
+    if (!bar) return;
+    bar.style.display = 'flex';
 
-  // 규칙:
-  //  - QR은 ?from=qr로 들어오게 해두면(선택) 친절 배너만 노출
-  //  - ?nolast가 있으면 강제로 목록 유지
-  if (!last || params.has('nolast')) return;
-
-  // 배너 표시
-  const bar = document.getElementById('resumeBar');
-  if (!bar) return;
-  bar.style.display = 'flex';
-
-  document.getElementById('resumeGo')?.addEventListener('click', ()=>{
-    location.href = last;   // 마지막 장으로 이동
-  });
-  document.getElementById('resumeStay')?.addEventListener('click', ()=>{
-    bar.style.display = 'none'; // 목록에 남기
-  });
-
-  // 원하면 자동 이동 타이머(예: 2초 후 자동 이동) — 필요 시 주석 해제
-  // setTimeout(()=>location.href = last, 2000);
-})();
-</script>
-
-<script>
-(function rememberLast(){
-  try {
-    // 현재 경로 정규화 (끝에 / 보장)
-    let path = location.pathname;
-    if (!/\/$/.test(path)) path += '/';
-
-    const segs = path.split('/').filter(Boolean);
-    const versionDir = segs[segs.length - 2] || ''; // korean_easy / chinese_cuv / ...
-
-    // 장 폴더 패턴: fooNNN (genesis001 / changsegi023 / chuangshiji012 ...)
-    const lastSeg = segs[segs.length - 1] || '';
-    const isChapter = /^[a-z\-]+?\d{3}\/$/i.test(lastSeg + '/');
-
-    if (versionDir && isChapter) {
-      localStorage.setItem('fs:last:' + versionDir, path);
-    }
-  } catch (_) { /* no-op */ }
-})();
-</script>
+    document.getElementById('resumeGo')?.addEventListener('click', ()=>{ location.href = last; });
+    document.getElementById('resumeStay')?.addEventListener('click', ()=>{ bar.style.display = 'none'; });
+  })();
+  </script>
 </body>
 </html>
-
-
-
-
