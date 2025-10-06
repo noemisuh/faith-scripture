@@ -3,30 +3,29 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>쉬운성경 목차</title>
+<title>Bible Index | Faith Scripture</title>
 <style>
   :root{
     --cols:8;
     --ot-rows:5;
     --nt-rows:4;
 
-    --book-h:42px;          /* 셀 높이 */
-    --gap-x:18px;           /* 좌우 간격 */
-    --gap-y:12px;           /* 상하 간격 */
+    --book-h:42px;
+    --gap-x:18px;
+    --gap-y:12px;
 
-    --maxw:1160px;          /* 전체 폭 */
-    --top-space:96px;       /* 상단 여백 크게 */
-    --mid-space:64px;       /* 구약–신약 사이 여백 */
+    --maxw:1160px;
+    --top-space:96px;
+    --mid-space:64px;
 
     --line:#e5e7eb; --bg:#f8fafc; --text:#0f172a;
     --muted:#64748b; --shadow:0 10px 24px rgba(15,23,42,.06);
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
-
   .wrap{max-width:var(--maxw);margin:0 auto;padding:var(--top-space) 20px 32px}
+  h1{margin:0 0 20px;font-size:24px;font-weight:900;letter-spacing:-.02em;text-align:center}
 
-  h1{margin:0 0 20px;font-size:24px;font-weight:900;letter-spacing:-.02em}
   .section{
     border:1px solid var(--line);
     border-radius:16px;
@@ -35,52 +34,33 @@
     padding:18px;
   }
   .section + .section{margin-top:var(--mid-space)}
-
   .sec-head{display:flex;align-items:center;gap:10px;margin:0 0 14px}
   .sec-head h2{margin:0;font-size:15px}
   .tag{font-size:12px;color:#334155;background:#eef2f7;border:1px solid var(--line);padding:2px 8px;border-radius:999px}
 
-  /* 그리드: 보이지 않는 칸으로 줄맞춤 */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(var(--cols), minmax(0,1fr));
-    grid-auto-rows:var(--book-h);
-    gap:var(--gap-y) var(--gap-x);
-  }
+  .grid{display:grid;grid-template-columns:repeat(var(--cols), minmax(0,1fr));grid-auto-rows:var(--book-h);gap:var(--gap-y) var(--gap-x)}
   .cell{display:flex;align-items:center;justify-content:center;position:relative}
-  .cell.empty{pointer-events:none}       /* 공칸: 클릭 없음 */
+  .cell.empty{pointer-events:none}
 
-  /* 책 버튼 - 타원형 제거하고 텍스트만 */
   .book-btn{
-    display:inline-block;
-    height:var(--book-h);
-    line-height:var(--book-h);
-    font-size:16px;           /* 글씨 크게 */
-    font-weight:700;
-    color:var(--text);
-    text-decoration:none;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    padding:0 6px;
-    border:none; background:transparent; cursor:pointer;
+    display:inline-block;height:var(--book-h);line-height:var(--book-h);
+    font-size:16px;font-weight:700;color:var(--text);
+    text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:0 6px;border:none;background:transparent;cursor:pointer;
   }
-  .book-btn:hover{ text-decoration:underline; }
+  .book-btn:hover{text-decoration:underline}
 
-  /* 장 팝업 */
   .chap-pop{
-    position:absolute; z-index:20; left:50%; transform:translateX(-50%);
-    top:calc(var(--book-h) + 8px);
-    display:none; max-width:640px; max-height:44vh; overflow:auto;
-    background:#fff; border:1px solid var(--line); border-radius:12px;
-    box-shadow:0 14px 28px rgba(15,23,42,.12);
-    padding:8px;
+    position:absolute;z-index:20;left:50%;transform:translateX(-50%);
+    top:calc(var(--book-h) + 8px);display:none;
+    max-width:640px;max-height:44vh;overflow:auto;
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 14px 28px rgba(15,23,42,.12);padding:8px;
   }
   .cell.open .chap-pop{display:block}
   .chap{display:inline-block;margin:4px 6px;padding:6px 10px;font-size:14px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--text)}
   .chap:hover{background:#f7fafc}
 
-  /* 모바일: 줄 수만 늘려서 깨짐 방지, 글씨는 약간만 축소 */
   @media (max-width:640px){
     :root{ --cols:4; --ot-rows:10; --nt-rows:8; --book-h:40px; --gap-x:12px; --gap-y:10px; --top-space:72px; }
     .book-btn{font-size:15px}
@@ -89,149 +69,142 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>쉬운성경 목차</h1>
+  <h1 id="pageTitle">Bible Index</h1>
 
   <section class="section" id="sec-ot">
-    <div class="sec-head"><h2>구약</h2><span class="tag">39</span></div>
-    <div id="ot" class="grid" style="--rows:var(--ot-rows)"></div>
+    <div class="sec-head"><h2 id="otLabel">Old Testament</h2><span class="tag">39</span></div>
+    <div id="ot" class="grid"></div>
   </section>
 
   <section class="section" id="sec-nt">
-    <div class="sec-head"><h2>신약</h2><span class="tag">27</span></div>
-    <div id="nt" class="grid" style="--rows:var(--nt-rows)"></div>
+    <div class="sec-head"><h2 id="ntLabel">New Testament</h2><span class="tag">27</span></div>
+    <div id="nt" class="grid"></div>
   </section>
 </div>
 
 <script>
 (function(){
-  'use strict';
+'use strict';
 
-  /* =========================
-     데이터: 장 수 & 이름(한국어)
-  ==========================*/
-  const OT = [
-    ["genesis",50],["exodus",40],["leviticus",27],["numbers",36],["deuteronomy",34],
-    ["joshua",24],["judges",21],["ruth",4],["1-samuel",31],["2-samuel",24],
-    ["1-kings",22],["2-kings",25],["1-chronicles",29],["2-chronicles",36],
-    ["ezra",10],["nehemiah",13],["esther",10],["job",42],["psalms",150],
-    ["proverbs",31],["ecclesiastes",12],["song-of-songs",8],["isaiah",66],
-    ["jeremiah",52],["lamentations",5],["ezekiel",48],["daniel",12],
-    ["hosea",14],["joel",3],["amos",9],["obadiah",1],["jonah",4],
-    ["micah",7],["nahum",3],["habakkuk",3],["zephaniah",3],["haggai",2],
-    ["zechariah",14],["malachi",4]
-  ];
-  const NT = [
-    ["matthew",28],["mark",16],["luke",24],["john",21],["acts",28],
-    ["romans",16],["1-corinthians",16],["2-corinthians",13],["galatians",6],
-    ["ephesians",6],["philippians",4],["colossians",4],["1-thessalonians",5],
-    ["2-thessalonians",3],["1-timothy",6],["2-timothy",4],["titus",3],
-    ["philemon",1],["hebrews",13],["james",5],["1-peter",5],["2-peter",3],
-    ["1-john",5],["2-john",1],["3-john",1],["jude",1],["revelation",22]
-  ];
-  const NAME_KO = {
-    "genesis":"창세기","exodus":"출애굽기","leviticus":"레위기","numbers":"민수기","deuteronomy":"신명기",
-    "joshua":"여호수아","judges":"사사기","ruth":"룻기","1-samuel":"사무엘상","2-samuel":"사무엘하",
-    "1-kings":"열왕기상","2-kings":"열왕기하","1-chronicles":"역대상","2-chronicles":"역대하",
-    "ezra":"에스라","nehemiah":"느헤미야","esther":"에스더","job":"욥기","psalms":"시편",
-    "proverbs":"잠언","ecclesiastes":"전도서","song-of-songs":"아가","isaiah":"이사야",
-    "jeremiah":"예레미야","lamentations":"예레미야애가","ezekiel":"에스겔","daniel":"다니엘",
-    "hosea":"호세아","joel":"요엘","amos":"아모스","obadiah":"오바댜","jonah":"요나",
-    "micah":"미가","nahum":"나훔","habakkuk":"하박국","zephaniah":"스바냐","haggai":"학개",
-    "zechariah":"스가랴","malachi":"말라기","matthew":"마태복음","mark":"마가복음",
-    "luke":"누가복음","john":"요한복음","acts":"사도행전","romans":"로마서",
-    "1-corinthians":"고린도전서","2-corinthians":"고린도후서","galatians":"갈라디아서",
-    "ephesians":"에베소서","philippians":"빌립보서","colossians":"골로새서",
-    "1-thessalonians":"데살로니가전서","2-thessalonians":"데살로니가후서",
-    "1-timothy":"디모데전서","2-timothy":"디모데후서","titus":"디도서",
-    "philemon":"빌레몬서","hebrews":"히브리서","james":"야고보서","1-peter":"베드로전서",
-    "2-peter":"베드로후서","1-john":"요한1서","2-john":"요한2서","3-john":"요한3서",
-    "jude":"유다서","revelation":"요한계시록"
-  };
+/* ===== 책 장수 데이터 ===== */
+const OT=[["genesis",50],["exodus",40],["leviticus",27],["numbers",36],["deuteronomy",34],
+["joshua",24],["judges",21],["ruth",4],["1-samuel",31],["2-samuel",24],
+["1-kings",22],["2-kings",25],["1-chronicles",29],["2-chronicles",36],
+["ezra",10],["nehemiah",13],["esther",10],["job",42],["psalms",150],
+["proverbs",31],["ecclesiastes",12],["song-of-songs",8],["isaiah",66],
+["jeremiah",52],["lamentations",5],["ezekiel",48],["daniel",12],
+["hosea",14],["joel",3],["amos",9],["obadiah",1],["jonah",4],
+["micah",7],["nahum",3],["habakkuk",3],["zephaniah",3],["haggai",2],
+["zechariah",14],["malachi",4]];
+const NT=[["matthew",28],["mark",16],["luke",24],["john",21],["acts",28],
+["romans",16],["1-corinthians",16],["2-corinthians",13],["galatians",6],
+["ephesians",6],["philippians",4],["colossians",4],["1-thessalonians",5],
+["2-thessalonians",3],["1-timothy",6],["2-timothy",4],["titus",3],
+["philemon",1],["hebrews",13],["james",5],["1-peter",5],["2-peter",3],
+["1-john",5],["2-john",1],["3-john",1],["jude",1],["revelation",22]];
 
-  /* 폴더 alias (약자 → 실제 폴더 접두어) */
-  const ALIAS = {
-    ko: { "genesis":"changsegi" },  // 창세기만 약자 사용 중이면 여기에 추가 확장
-    zh: { "genesis":"chuangshiji" },
-    es: {}, en: {}
-  };
+/* ===== 언어별 이름표 ===== */
+const NAME_KO={"genesis":"창세기","exodus":"출애굽기","leviticus":"레위기","numbers":"민수기","deuteronomy":"신명기",
+"joshua":"여호수아","judges":"사사기","ruth":"룻기","1-samuel":"사무엘상","2-samuel":"사무엘하",
+"1-kings":"열왕기상","2-kings":"열왕기하","1-chronicles":"역대상","2-chronicles":"역대하",
+"ezra":"에스라","nehemiah":"느헤미야","esther":"에스더","job":"욥기","psalms":"시편",
+"proverbs":"잠언","ecclesiastes":"전도서","song-of-songs":"아가","isaiah":"이사야","jeremiah":"예레미야",
+"lamentations":"예레미야애가","ezekiel":"에스겔","daniel":"다니엘","hosea":"호세아","joel":"요엘",
+"amos":"아모스","obadiah":"오바댜","jonah":"요나","micah":"미가","nahum":"나훔",
+"habakkuk":"하박국","zephaniah":"스바냐","haggai":"학개","zechariah":"스가랴","malachi":"말라기",
+"matthew":"마태복음","mark":"마가복음","luke":"누가복음","john":"요한복음","acts":"사도행전",
+"romans":"로마서","1-corinthians":"고린도전서","2-corinthians":"고린도후서","galatians":"갈라디아서",
+"ephesians":"에베소서","philippians":"빌립보서","colossians":"골로새서","1-thessalonians":"데살로니가전서",
+"2-thessalonians":"데살로니가후서","1-timothy":"디모데전서","2-timothy":"디모데후서","titus":"디도서",
+"philemon":"빌레몬서","hebrews":"히브리서","james":"야고보서","1-peter":"베드로전서","2-peter":"베드로후서",
+"1-john":"요한1서","2-john":"요한2서","3-john":"요한3서","jude":"유다서","revelation":"요한계시록"};
 
-  // 현재 경로로 언어 추정
-  const path = location.pathname.toLowerCase();
-  let LANG = 'ko';
-  if (path.includes('/chinese_cuv/')) LANG = 'zh';
-  else if (path.includes('/spanish_nvi/')) LANG = 'es';
-  else if (path.includes('/english_niv/')) LANG = 'en';
+const NAME_ZH={"genesis":"创世记","exodus":"出埃及记","leviticus":"利未记","numbers":"民数记","deuteronomy":"申命记",
+"joshua":"约书亚记","judges":"士师记","ruth":"路得记","1-samuel":"撒母耳记上","2-samuel":"撒母耳记下",
+"1-kings":"列王纪上","2-kings":"列王纪下","1-chronicles":"历代志上","2-chronicles":"历代志下",
+"ezra":"以斯拉记","nehemiah":"尼希米记","esther":"以斯帖记","job":"约伯记","psalms":"诗篇",
+"proverbs":"箴言","ecclesiastes":"传道书","song-of-songs":"雅歌","isaiah":"以赛亚书","jeremiah":"耶利米书",
+"lamentations":"耶利米哀歌","ezekiel":"以西结书","daniel":"但以理书","hosea":"何西阿书","joel":"约珥书",
+"amos":"阿摩司书","obadiah":"俄巴底亚书","jonah":"约拿书","micah":"弥迦书","nahum":"那鸿书",
+"habakkuk":"哈巴谷书","zephaniah":"西番雅书","haggai":"哈该书","zechariah":"撒迦利亚书","malachi":"玛拉基书",
+"matthew":"马太福音","mark":"马可福音","luke":"路加福音","john":"约翰福音","acts":"使徒行传",
+"romans":"罗马书","1-corinthians":"哥林多前书","2-corinthians":"哥林多后书","galatians":"加拉太书",
+"ephesians":"以弗所书","philippians":"腓立比书","colossians":"歌罗西书","1-thessalonians":"帖前",
+"2-thessalonians":"帖后","1-timothy":"提前","2-timothy":"提后","titus":"提多书",
+"philemon":"腓利门书","hebrews":"希伯来书","james":"雅各书","1-peter":"彼得前书","2-peter":"彼得后书",
+"1-john":"约翰一书","2-john":"约翰二书","3-john":"约翰三书","jude":"犹大书","revelation":"启示录"};
 
-  const NAME = NAME_KO; // 이 파일은 korean_easy 전용
-  const AL = ALIAS[LANG] || {};
+const NAME_ES={"genesis":"Génesis","exodus":"Éxodo","leviticus":"Levítico","numbers":"Números","deuteronomy":"Deuteronomio",
+"joshua":"Josué","judges":"Jueces","ruth":"Rut","1-samuel":"1 Samuel","2-samuel":"2 Samuel",
+"1-kings":"1 Reyes","2-kings":"2 Reyes","1-chronicles":"1 Crónicas","2-chronicles":"2 Crónicas",
+"ezra":"Esdras","nehemiah":"Nehemías","esther":"Ester","job":"Job","psalms":"Salmos",
+"proverbs":"Proverbios","ecclesiastes":"Eclesiastés","song-of-songs":"Cantares","isaiah":"Isaías","jeremiah":"Jeremías",
+"lamentations":"Lamentaciones","ezekiel":"Ezequiel","daniel":"Daniel","hosea":"Oseas","joel":"Joel",
+"amos":"Amós","obadiah":"Abdías","jonah":"Jonás","micah":"Miqueas","nahum":"Nahúm",
+"habakkuk":"Habacuc","zephaniah":"Sofonías","haggai":"Hageo","zechariah":"Zacarías","malachi":"Malaquías",
+"matthew":"Mateo","mark":"Marcos","luke":"Lucas","john":"Juan","acts":"Hechos","romans":"Romanos",
+"1-corinthians":"1 Corintios","2-corinthians":"2 Corintios","galatians":"Gálatas","ephesians":"Efesios",
+"philippians":"Filipenses","colossians":"Colosenses","1-thessalonians":"1 Tesalonicenses","2-thessalonians":"2 Tesalonicenses",
+"1-timothy":"1 Timoteo","2-timothy":"2 Timoteo","titus":"Tito","philemon":"Filemón","hebrews":"Hebreos",
+"james":"Santiago","1-peter":"1 Pedro","2-peter":"2 Pedro","1-john":"1 Juan","2-john":"2 Juan","3-john":"3 Juan",
+"jude":"Judas","revelation":"Apocalipsis"};
 
-  /* ============ 렌더링 ============ */
-  const COLS = getComputedStyle(document.documentElement).getPropertyValue('--cols').trim() || 8;
+const NAME_EN={"genesis":"Genesis","exodus":"Exodus","leviticus":"Leviticus","numbers":"Numbers","deuteronomy":"Deuteronomy",
+"joshua":"Joshua","judges":"Judges","ruth":"Ruth","1-samuel":"1 Samuel","2-samuel":"2 Samuel",
+"1-kings":"1 Kings","2-kings":"2 Kings","1-chronicles":"1 Chronicles","2-chronicles":"2 Chronicles",
+"ezra":"Ezra","nehemiah":"Nehemiah","esther":"Esther","job":"Job","psalms":"Psalms",
+"proverbs":"Proverbs","ecclesiastes":"Ecclesiastes","song-of-songs":"Song of Songs","isaiah":"Isaiah","jeremiah":"Jeremiah",
+"lamentations":"Lamentations","ezekiel":"Ezekiel","daniel":"Daniel","hosea":"Hosea","joel":"Joel",
+"amos":"Amos","obadiah":"Obadiah","jonah":"Jonah","micah":"Micah","nahum":"Nahum",
+"habakkuk":"Habakkuk","zephaniah":"Zephaniah","haggai":"Haggai","zechariah":"Zechariah","malachi":"Malachi",
+"matthew":"Matthew","mark":"Mark","luke":"Luke","john":"John","acts":"Acts","romans":"Romans",
+"1-corinthians":"1 Corinthians","2-corinthians":"2 Corinthians","galatians":"Galatians","ephesians":"Ephesians",
+"philippians":"Philippians","colossians":"Colossians","1-thessalonians":"1 Thessalonians","2-thessalonians":"2 Thessalonians",
+"1-timothy":"1 Timothy","2-timothy":"2 Timothy","titus":"Titus","philemon":"Philemon","hebrews":"Hebrews",
+"james":"James","1-peter":"1 Peter","2-peter":"2 Peter","1-john":"1 John","2-john":"2 John","3-john":"3 John",
+"jude":"Jude","revelation":"Revelation"};
 
-  function padToGrid(arr, rows, cols){
-    const need = rows*cols - arr.length;
-    if (need > 0) return arr.concat(Array(need).fill(null));
-    return arr.slice(0, rows*cols);
-  }
+/* ===== alias, 경로별 언어 감지 ===== */
+const ALIAS={ko:{"genesis":"changsegi"},zh:{"genesis":"chuangshiji"},es:{},en:{}};
+const path=location.pathname.toLowerCase();
+let LANG='ko';
+if(path.includes('/chinese_cuv/'))LANG='zh';
+else if(path.includes('/spanish_nvi/'))LANG='es';
+else if(path.includes('/english_niv/'))LANG='en';
+else if(path.includes('/korean_easy/'))LANG='ko';
 
-  function openChapters(cell, slug, chapters){
-    // 장 팝업을 동적으로 생성/토글
-    document.querySelectorAll('.cell.open').forEach(el=>el.classList.remove('open'));
-    cell.classList.add('open');
-  }
+const NAME=LANG==='zh'?NAME_ZH:LANG==='es'?NAME_ES:LANG==='en'?NAME_EN:NAME_KO;
+const AL=ALIAS[LANG]||{};
 
-  function makeCell(item){
-    const cell = document.createElement('div');
-    cell.className = 'cell';
-    if (!item){ cell.classList.add('empty'); return cell; }
+/* ===== 타이틀/라벨 언어화 ===== */
+const TITLES={ko:'쉬운성경 목차',zh:'圣经目录',es:'Índice de la Biblia',en:'Bible Index'};
+const OT_LABEL={ko:'구약',zh:'旧约',es:'Antiguo Testamento',en:'Old Testament'};
+const NT_LABEL={ko:'신약',zh:'新约',es:'Nuevo Testamento',en:'New Testament'};
 
-    const [slug, count] = item;
-    const title = NAME[slug] || slug;
+document.getElementById('pageTitle').textContent=TITLES[LANG];
+document.getElementById('otLabel').textContent=OT_LABEL[LANG];
+document.getElementById('ntLabel').textContent=NT_LABEL[LANG];
 
-    // 텍스트 버튼
-    const btn = document.createElement('button');
-    btn.type='button'; btn.className='book-btn';
-    btn.textContent = title;
+/* ===== 렌더링 ===== */
+function padToGrid(arr,rows,cols){const need=rows*cols-arr.length;if(need>0)return arr.concat(Array(need).fill(null));return arr;}
+function makeCell(item){
+ const cell=document.createElement('div');cell.className='cell';
+ if(!item){cell.classList.add('empty');return cell;}
+ const [book,chap]=item;const alias=AL[book]||book;const btn=document.createElement('button');
+ btn.className='book-btn';btn.textContent=NAME[book]||book;btn.onclick=()=>{cell.classList.toggle('open');};
+ const pop=document.createElement('div');pop.className='chap-pop';
+ for(let i=1;i<=chap;i++){const a=document.createElement('a');a.className='chap';a.textContent=i;
+   a.href=`./${alias}${String(i).padStart(3,'0')}/`;pop.appendChild(a);}
+ cell.append(btn,pop);return cell;
+}
 
-    // 팝업
-    const pop = document.createElement('div');
-    pop.className = 'chap-pop';
-
-    const folder = (AL[slug] || slug);
-    for (let i=1;i<=count;i++){
-      const n = String(i).padStart(3,'0');
-      const a = document.createElement('a');
-      a.className='chap'; a.textContent=i;
-      a.href = './' + folder + n + '/';
-      pop.appendChild(a);
-    }
-
-    btn.addEventListener('click', ()=>{
-      // 토글
-      const opened = cell.classList.contains('open');
-      document.querySelectorAll('.cell.open').forEach(el=>el.classList.remove('open'));
-      if (!opened) cell.classList.add('open');
-    });
-
-    cell.append(btn, pop);
-    return cell;
-  }
-
-  function render(list, mountId, rows){
-    const mount = document.getElementById(mountId);
-    if (!mount) return;
-    const cols = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')) || 8;
-    padToGrid(list, rows, cols).forEach(item=> mount.appendChild(makeCell(item)));
-  }
-
-  render(OT, 'ot', 5);
-  render(NT, 'nt', 4);
-
-  // 바깥 클릭 시 팝업 닫기
-  document.addEventListener('click', e=>{
-    if (e.target.closest('.cell')) return;
-    document.querySelectorAll('.cell.open').forEach(el=>el.classList.remove('open'));
-  });
+function render(id,data,rows,cols){
+ const grid=document.getElementById(id);
+ const filled=padToGrid(data,rows,cols);
+ filled.forEach(item=>grid.appendChild(makeCell(item)));
+}
+render('ot',OT,parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ot-rows')),parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')));
+render('nt',NT,parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nt-rows')),parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')));
 })();
 </script>
 </body>
