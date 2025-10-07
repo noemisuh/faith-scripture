@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- ✅ META BLOCK for Chapter pages (템플릿용) -->
+<meta name="description" content="Read, write, and meditate on the Word. Faith Scripture.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Faith Scripture">
+<meta property="og:title" content="Faith Scripture">
+<meta property="og:description" content="Read, write, and meditate on the Word.">
+<meta property="og:url" content="">
+<meta property="og:image" content="https://noemisuh.github.io/faith-scripture/og-image.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Faith Scripture">
+<meta name="twitter:description" content="Read, write, and meditate on the Word.">
+<meta name="twitter:image" content="https://noemisuh.github.io/faith-scripture/og-image.png">
+
+<!-- (optional) canonical -->
+<link rel="canonical" href="">
+
 <title>창세기 1장 | Stable Chapter v1.1</title>
 <style>
   :root{
@@ -481,5 +501,26 @@
   document.title = book + ' ' + chap + ' | Faith Scripture';
 })();
 </script>
+  
+  <script>
+(function syncHeadForChapter(){
+  try{
+    var t = document.title || 'Faith Scripture';
+    var url = location.origin + location.pathname;
+
+    function setMeta(name){
+      var el = document.querySelector('meta[property="'+name+'"]') || document.querySelector('meta[name="'+name+'"]');
+      if (el) el.setAttribute('content', name.indexOf('title')>-1 ? t : url);
+    }
+    setMeta('og:title');
+    setMeta('twitter:title');
+    setMeta('og:url');
+
+    var canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.setAttribute('href', url);
+  }catch(_){}
+})();
+</script>
+
 </body>
 </html>
