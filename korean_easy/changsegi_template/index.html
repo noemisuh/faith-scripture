@@ -440,5 +440,46 @@
   } catch (e) { /* noop */ }
 })();
 </script>
+
+  <!-- 장(본문) 템플릿: 동적 타이틀 설정 -->
+<script>
+(function setDynamicTitle(){
+  var path = location.pathname.replace(/\/+$/,'');
+  var parts = path.split('/').filter(Boolean);
+  var folder = parts[parts.length-1] || '';
+  var verDir = parts[parts.length-2] || '';
+
+  // changsegi001 / chuangshiji001 / genesis001
+  var m = folder.match(/^([a-z\-]+)(\d{3})$/i) || [];
+  var prefix = (m[1] || 'genesis').toLowerCase();
+  var num = m[2] ? parseInt(m[2],10) : 1;
+
+  // 언어 감지
+  var LANG = 'ko';
+  if (verDir === 'chinese_cuv') LANG = 'zh';
+  else if (verDir === 'spanish_nvi') LANG = 'es';
+  else if (verDir === 'english_niv') LANG = 'en';
+
+  // 접두어 → 정규 책 ID (필요 시 다른 권도 추가 확장 가능)
+  var ALIAS = { changsegi:'genesis', chuangshiji:'genesis', genesis:'genesis' };
+  var canon = ALIAS[prefix] || 'genesis';
+
+  // 언어별 책 이름
+  var TITLES = {
+    ko:{genesis:'창세기'},
+    zh:{genesis:'创世记'},
+    es:{genesis:'Génesis'},
+    en:{genesis:'Genesis'}
+  };
+  var book = (TITLES[LANG] && TITLES[LANG][canon]) || 'Genesis';
+
+  // 언어별 장 표기
+  var chap = (LANG==='ko') ? (num+'장')
+           : (LANG==='zh') ? ('第'+num+'章')
+           : String(num);
+
+  document.title = book + ' ' + chap + ' | Faith Scripture';
+})();
+</script>
 </body>
 </html>
