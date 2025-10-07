@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ko">
+<html lang="zh">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>쉬운성경 목차</title>
+<title>信心书写圣经 | Faith Scripture</title>
 <style>
   :root{
     --cols:8;
@@ -108,17 +108,17 @@
       <div id="nt" class="grid"></div>
     </section>
   </div>
- 
+
 <div class="wrap">
-  <h1>쉬운성경 목차</h1>
+  <h1 id="pageTitle">쉬운성경 목차</h1>
 
   <section class="section" id="sec-ot">
-    <div class="sec-head"><h2>구약</h2><span class="tag">39</span></div>
+    <div class="sec-head"><h2 id="otLabel">구약</h2><span class="tag">39</span></div>
     <div id="ot" class="grid" style="--rows:var(--ot-rows)"></div>
   </section>
 
   <section class="section" id="sec-nt">
-    <div class="sec-head"><h2>신약</h2><span class="tag">27</span></div>
+    <div class="sec-head"><h2 id="ntLabel">신약</h2><span class="tag">27</span></div>
     <div id="nt" class="grid" style="--rows:var(--nt-rows)"></div>
   </section>
 </div>
@@ -169,22 +169,31 @@
     "jude":"유다서","revelation":"요한계시록"
   };
 
-  /* 폴더 alias (약자 → 실제 폴더 접두어) */
-  const ALIAS = {
-    ko: { "genesis":"changsegi" },  // 창세기만 약자 사용 중이면 여기에 추가 확장
-    zh: { "genesis":"chuangshiji" },
-    es: {}, en: {}
-  };
+/* ===== ④ 언어 감지 + 이름/별칭 매핑 (교체용) ===== */
 
-  // 현재 경로로 언어 추정
-  const path = location.pathname.toLowerCase();
-  let LANG = 'ko';
-  if (path.includes('/chinese_cuv/')) LANG = 'zh';
-  else if (path.includes('/spanish_nvi/')) LANG = 'es';
-  else if (path.includes('/english_niv/')) LANG = 'en';
+// 현재 경로로 언어 추정
+const path = location.pathname.toLowerCase();
+let LANG = 'ko';
+if (path.includes('/chinese_cuv/'))      LANG = 'zh';
+else if (path.includes('/spanish_nvi/')) LANG = 'es';
+else if (path.includes('/english_niv/')) LANG = 'en';
+else if (path.includes('/korean_easy/')) LANG = 'ko';
 
-  const NAME = NAME_KO; // 이 파일은 korean_easy 전용
-  const AL = ALIAS[LANG] || {};
+// 언어별 책 이름 테이블 선택
+const NAME =
+  LANG === 'zh' ? NAME_ZH :
+  LANG === 'es' ? NAME_ES :
+  LANG === 'en' ? NAME_EN :
+  NAME_KO;
+
+// 언어별 폴더 alias (장 링크 폴더 접두어)
+const ALIAS = {
+  ko: { genesis: 'changsegi' },   // 예: /korean_easy/changsegi001/
+  zh: { genesis: 'chuangshiji' }, // 예: /chinese_cuv/chuangshiji001/
+  es: { },
+  en: { }
+};
+const AL = ALIAS[LANG] || {};
 
   /* ============ 렌더링 ============ */
   const COLS = getComputedStyle(document.documentElement).getPropertyValue('--cols').trim() || 8;
@@ -256,9 +265,6 @@
 })();
 </script>
 
-  <!-- (여기까지 기존 스크립트) -->
-</script>
-
 <!-- 이어쓰기 배너 동작 스크립트: 새 블록으로 추가 -->
 <script>
 (function smartLandingForIndex(){
@@ -276,5 +282,31 @@
   document.getElementById('resumeStay')?.addEventListener('click', function(){ bar.remove(); });
 })();
 </script>
+  
+<script>
+(function i18nIndexLabels(){
+  // 경로로 언어 감지
+  var path = (location.pathname || "").toLowerCase();
+  var LANG = 'ko';
+  if (path.indexOf('/chinese_cuv/')  !== -1) LANG = 'zh';
+  else if (path.indexOf('/spanish_nvi/') !== -1) LANG = 'es';
+  else if (path.indexOf('/english_niv/') !== -1) LANG = 'en';
+  else if (path.indexOf('/korean_easy/') !== -1) LANG = 'ko';
+
+  // 라벨 사전
+  var LABELS = {
+    ko: { page:'성경 목차',   ot:'구약',                 nt:'신약' },
+    zh: { page:'圣经目录',     ot:'旧约',                 nt:'新约' },
+    es: { page:'Índice Bíblico', ot:'Antiguo Testamento', nt:'Nuevo Testamento' },
+    en: { page:'Bible Index',  ot:'Old Testament',        nt:'New Testament' }
+  };
+  var L = LABELS[LANG] || LABELS.ko;
+
+  // 적용
+  var t = document.getElementById('pageTitle'); if (t) t.textContent = L.page;
+  var o = document.getElementById('otLabel');   if (o) o.textContent = L.ot;
+  var n = document.getElementById('ntLabel');   if (n) n.textContent = L.nt;
+})();
+</script> 
 </body>
 </html>
