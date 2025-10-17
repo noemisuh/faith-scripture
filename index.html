@@ -108,14 +108,16 @@
       .qr-item img{ width:100px; height:100px; }
       .qr-item p{ font-size:11px; }
     }
+    /* 홈에서는 빵부스러기 완전 숨김 + 위쪽 여백 제거 */
+     body.home .crumbs { display: none; }
   </style>
 </head>
 
-<body>
+<body class="home">  <!-- 홈 페이지 표시 플래그 -->
   <header>
     <nav aria-label="주요 메뉴">
       <ul>
-        <li><a href="https://noemisuh.github.io/bible-scripture/">믿음으로 쓰는 성경</a></li>
+        <li><a href="https://noemisuh.github.io/faith-scripture/">믿음으로 쓰는 성경</a></li>
         <li><a href="https://noemisuh.github.io/faith-bible-copy/">필사 성경</a></li>
         <li><a href="https://noemisuh.github.io/streams-of-the-word/">말씀따라 흐르는 샘물</a></li>
         <li><span class="disabled" title="준비중">시와 고백</span></li>
@@ -125,7 +127,7 @@
 
   <main>
     <p class="crumbs">
-      <a href="/bible-scripture/">홈</a>
+      <a href="/faith-scripture/">홈</a>
       · <a href="https://noemisuh.github.io/faith-bible-copy/">필사 성경</a>
       · <a href="https://noemisuh.github.io/streams-of-the-word/">말씀따라 흐르는 샘물</a>
     </p>
@@ -136,7 +138,7 @@
         <div class="subtitle">말씀을 따라 읽고 쓰고 묵상하는 공간</div>
       </div>
     </section>
-
+    
     <div class="outer3">
       <!-- 왼쪽 QR -->
       <aside class="qr-col">
@@ -249,3 +251,4 @@
   </script>
 </body>
 </html>
+
