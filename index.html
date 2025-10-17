@@ -19,6 +19,31 @@
   header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100}
   nav{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;justify-content:center;gap:36px;font-weight:600}
   nav a:hover{color:#1d4ed8}
+<style>
+  :root{
+    --bg:#f5f7fb;--hero:#e9f1ff;--fg:#0f172a;--muted:#667085;
+    --card:#fff;--line:#e5e7eb;--shadow:0 10px 24px rgba(15,23,42,.08);
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+  a{text-decoration:none;color:inherit}
+
+  /* 상단 네비 (기본) */
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100}
+  nav{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;justify-content:center;gap:36px;font-weight:600}
+  nav a:hover{color:#1d4ed8}
+
+  .topnav{display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center}
+  .topnav a,.topnav .disabled{
+    padding:6px 10px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;line-height:1.4
+  }
+  .topnav a:hover{background:#f5f7fb;color:#1d4ed8}
+  .topnav .disabled{color:#9ca3af;border-style:dashed;cursor:not-allowed}
+  @media (max-width:640px){
+    .topnav{gap:12px}
+  }
 
   /* Hero (상단 여백 풍성히) */
   .hero{background:var(--hero);padding:96px 20px 44px;text-align:center}
@@ -212,12 +237,12 @@ body .hero{
 
 <body>
   <header>
-    <nav>
-      <a href="#">믿음으로 쓰는 성경</a>
-      <a href="#">필사 성경</a>
-      <a href="#">시와 고백</a>
-      <a href="#">말씀따라 흐르는 샘물</a>
-    </nav>
+   <nav aria-label="주요 메뉴">
+  <a href="./streams-of-the-word/">믿음따라 흐르는 샘물</a>
+  <a href="./index.html#copy">필사 성경</a>
+  <a href="./index.html#water">말씀따라 흐르는 샘물</a>
+  <span title="준비중">시와 고백</span>
+</nav>
   </header>
 
   <section class="hero">
@@ -389,6 +414,7 @@ body .hero{
 </style>
 </body>
 </html>
+
 
 
 
